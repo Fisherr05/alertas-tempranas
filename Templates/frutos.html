@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-5">
+      {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+      <div class="card card-body">
+        <form action="{{url_for('add_fruto')}}" method="POST">
+          <div class="form-group">
+            <input type="text" class="form-control" name="nombreFruto" placeholder="NombreFruto">
+          </div>
+          <button class="btn btn-primary btn-block">
+            Guardar
+          </button>
+        </form>
+    </div>
+    </div>
+    <div class="col-md-7">
+      <table class="table table-striped table-hover table-bordered table-sm bg-white">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Nombre de fruto</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for fruto in frutos %}
+          <tr>
+            <td>{{fruto.0}}</td>
+            <td>{{fruto.1}}</td>
+            <td>
+              <a href="/edit_fruto/{{fruto.0}}" class="btn btn-secondary">edit</a>
+              <a href="/delete/{{fruto.0}}" class="btn btn-danger btn-delete">delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>  
+
+{% endblock %}
