@@ -1,0 +1,58 @@
+{% extends "layout.html" %} 
+{% block body %} 
+
+<div class="card">
+    <div class="card-header">
+        <h1>Nuevo Registro</h1>
+    </div>
+    <div class="card-body">
+      <form action="{{url_for('add_pf')}}" method="POST">
+        <div class="form-group">
+          <label>Seleccione Planta:</label>
+          <select class="form-control" name="idPlanta">
+            {% for planta in plantas %}
+            <option value="{{planta.0}}">{{planta.1}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Seleccione Fruto:</label>
+          <select class="form-control" name="idFruto">
+            {% for fruto in frutos %}
+            <option value="{{fruto.0}}">{{fruto.1}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="incidencia">Incidencia:</label>
+          <textarea
+            class="form-control"
+            id="incidencia"
+            rows="3"
+            name="incidencia"
+            placeholder="Agregue Incidencia"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="severidad">Severidad:</label>
+          <textarea
+            class="form-control"
+            id="severidad"
+            rows="3"
+            name="severidad"
+            placeholder="Agregue Severidad"
+          ></textarea>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <a href="/pf" class="btn btn-danger btn-block">Regresar</a>   
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-primary btn-block">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
+
+{% endblock %}

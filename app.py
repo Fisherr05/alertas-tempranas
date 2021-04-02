@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
+from datetime import date
 
 # initializations
 app = Flask(__name__)
@@ -111,6 +112,105 @@ def delete_fruto(id):
     mysql.connection.commit()
     flash('¡Eliminado con éxito!')
     return redirect(url_for('Frutos'))
+
+@app.route('/pf')
+def Pf():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM PF')
+    data = cur.fetchall()
+    cur.execute('SELECT * FROM PLANTA')
+    data1 = cur.fetchall()
+    cur.execute('SELECT * FROM FRUTO')
+    data2 = cur.fetchall()
+    cur.close()
+    print(data)
+    return render_template('pf.html', pfs = data, plantas = data1, frutos = data2)
+
+@app.route('/app_pf')
+def appPf():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM PLANTA')
+    data1 = cur.fetchall()
+    cur.execute('SELECT * FROM FRUTO')
+    data2 = cur.fetchall()
+    cur.close()
+    return render_template('addPf.html', plantas = data1, frutos = data2)
+
+@app.route('/add_pf', methods=['POST'])
+def add_pf():
+    if request.method == 'POST':
+        idPlanta = request.form['idPlanta']
+        idFruto = request.form['idFruto']
+        today = date.today()
+        dte =   today.strftime("%Y-%m-%d")
+        fecha = dte
+        incidencia = request.form['incidencia']
+        severidad = request.form['severidad']
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO PF (idPlanta,idFruto,fecha,incidencia,severidad) VALUES (%s,%s,%s,%s,%s)",(idPlanta,idFruto,fecha,incidencia,severidad))
+        mysql.connection.commit()
+        flash('¡Guardado con éxito!')
+        return redirect(url_for('Pf'))
+
+@app.route('/edit_pf/<id1>&<id2>', methods = ['POST','GET'])
+def edit_pf(id1,id2):
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM PF WHERE idPlanta =%s and idFruto=%s', (id1,id2))
+    data = cur.fetchall()
+    cur.execute('SELECT * FROM PLANTA WHERE idPlanta =%s',(id1))
+    data1 = cur.fetchall()
+    cur.execute('SELECT * FROM FRUTO WHERE idFruto=%s',(id2))
+    data2 = cur.fetchall()
+    cur.close()
+    print(data)
+    print(data1)
+    print(data2)
+    return render_template('editPf.html', pf = data[0], frutos=data2, plantas=data1)
+
+@app.route('/update_pf/<id1>&<id2>',methods=['POST'])
+def update_pf(id1,id2):
+    if request.method == 'POST':
+        idPlanta = request.form['idPlanta']
+        idFruto = request.form['idFruto']
+        incidencia = request.form['incidencia']
+        severidad = request.form['severidad']
+        today = date.today()
+        dte =   today.strftime("%Y-%m-%d")
+        fecha = dte
+        cur = mysql.connection.cursor()
+        cur.execute("""
+            UPDATE PF
+            SET idPlanta=%s,idFruto=%s, fecha=%s, incidencia = %s, severidad = %s
+            WHERE idPlanta = %s and idFruto= %s
+        """, (idPlanta,idFruto,fecha,incidencia,severidad,id1,id2))
+        flash('¡Modificado con éxito!')
+        mysql.connection.commit()
+        return redirect(url_for('Pf'))
+
+@app.context_processor
+def utility_processor():
+    def obtenerFruto(id):
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM FRUTO')
+        frutos = cur.fetchall()
+        cur.close()
+        for fruto in frutos:
+            if fruto[0] == id:
+                return fruto[1]
+    return dict(obtenerFruto=obtenerFruto)
+
+@app.context_processor
+def utility_processor():
+    def obtenerPlanta(id):
+        cur = mysql.connection.cursor()
+        cur.execute('SELECT * FROM PLANTA')
+        plantas = cur.fetchall()
+        cur.close()
+        for planta in plantas:
+            if planta[0]== id:
+                return planta[1]
+    return dict(obtenerPlanta=obtenerPlanta)
+
 
 if __name__ == '__main__':
     app.run(port=8090,debug =True)

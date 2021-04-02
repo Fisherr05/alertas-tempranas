@@ -1,0 +1,68 @@
+{% extends "layout.html" %} {% block body %} {% with messages =
+    get_flashed_messages() %} {% if messages %} {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
+    
+    <div class="card">
+        <div class="card-header">
+            <h1>Editar Registro</h1>
+        </div>
+        <div class="card-body">
+          <form action="/update_pf/{{pf.0}}&{{pf.1}}" method="POST">
+            <div class="form-group">
+              <label>Seleccione Planta:</label>
+              <select class="form-control" name="idPlanta">
+                {% for planta in plantas %}
+                <option value="{{planta.0}}">{{planta.1}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Seleccione Fruto:</label>
+              <select class="form-control" name="idFruto">
+                {% for fruto in frutos %}
+                <option value="{{fruto.0}}">{{fruto.1}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="incidencia">Incidencia:</label>
+              <textarea
+                class="form-control"
+                id="incidencia"
+                rows="3"
+                name="incidencia"
+                placeholder="Agregue Incidencia"
+                value="{{pf.3}}"
+              >{{pf.3}}</textarea>
+            </div>
+            <div class="form-group">
+              <label for="severidad">Severidad:</label>
+              <textarea
+                class="form-control"
+                id="severidad"
+                rows="3"
+                name="severidad"
+                placeholder="Agregue Severidad"
+                value="{{pf.4}}"
+              >{{pf.4}}</textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <a href="/pf" class="btn btn-danger btn-block">Regresar</a>   
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-primary btn-block">Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+    
+    {% endblock %}
+    
