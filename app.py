@@ -67,7 +67,7 @@ def update_planta(id):
 @app.route('/delete_planta/<string:id>', methods = ['POST','GET'])
 def delete_planta(id):  
     cur = mysql.connection.cursor()
-    cur.execute('DELETE FROM PLANTA WHERE id = {0}'.format(id))
+    cur.execute('DELETE FROM PLANTA WHERE idPlanta = {0}'.format(id))
     mysql.connection.commit()
     flash('¡Eliminado con éxito!')
     return redirect(url_for('Plantas'))
@@ -108,7 +108,7 @@ def update_fruto(id):
 @app.route('/delete_fruto/<string:id>', methods = ['POST','GET'])
 def delete_fruto(id):
     cur = mysql.connection.cursor()
-    cur.execute('DELETE FROM FRUTO WHERE id = {0}'.format(id))
+    cur.execute('DELETE FROM FRUTO WHERE idFruto = {0}'.format(id))
     mysql.connection.commit()
     flash('¡Eliminado con éxito!')
     return redirect(url_for('Frutos'))
@@ -186,6 +186,14 @@ def update_pf(id1,id2):
         flash('¡Modificado con éxito!')
         mysql.connection.commit()
         return redirect(url_for('Pf'))
+
+@app.route('/delete_pf/<id1>&<id2>', methods = ['POST','GET'])
+def delete_pf(id1,id2):
+    cur = mysql.connection.cursor()
+    cur.execute('DELETE FROM PF WHERE idPlanta = %s AND idFruto = %s', (id1,id2))
+    mysql.connection.commit()
+    flash('¡Eliminado con éxito!')
+    return redirect(url_for('Pf'))
 
 @app.context_processor
 def utility_processor():

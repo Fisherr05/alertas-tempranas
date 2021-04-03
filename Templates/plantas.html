@@ -28,11 +28,11 @@
     </div>
     </div>
     <div class="col-md-7">
-      <table class="table table-striped table-hover table-bordered table-sm bg-white">
+      <table class="table table-striped table-hover table-bordered table-sm bg-white" >
         <thead>
           <tr>
-            <td>ID</td>
-            <td>Nombre de la Planta</td>
+            <td data-sortable="true">ID</td>
+            <td data-sortable="true">Nombre de la Planta</td>
           </tr>
         </thead>
         <tbody>
@@ -41,8 +41,8 @@
             <td>{{planta.0}}</td>
             <td>{{planta.1}}</td>
             <td>
-              <a href="/edit_planta/{{planta.0}}" class="btn btn-secondary">edit</a>
-              <a href="/delete/{{planta.0}}" class="btn btn-danger btn-delete">delete</a>
+              <a href="/edit_planta/{{planta.0}}" class="btn btn-secondary">editar</a>
+              <a href="/delete_planta/{{planta.0}}" class="btn btn-danger btn-delete">eliminar</a>
             </td>
           </tr>
           {% endfor %}
