@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plantación</title>
+    <title>
+      {% if request.endpoint=='Frutos' %}Frutos{%endif %} {% if
+      request.endpoint=='Plantas' %}Plantas{%endif %} {% if
+      request.endpoint=='Pf' %}Alertas{%endif %}
+    </title>
     <!-- BOOSTRAP 4 -->
     <link
       rel="stylesheet"
@@ -14,7 +18,9 @@
     />
     <link
       rel="stylesheet"
-      href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css"
+      crossorigin="anonymous"
     />
     <link
       rel="stylesheet"
@@ -44,15 +50,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item {% if request.endpoint=='Plantas' %}active{%endif %}">
-              <a class="nav-link " href="{{url_for('Plantas')}}"
+            <li
+              class="nav-item {% if request.endpoint=='Plantas' %}active{%endif %}"
+            >
+              <a class="nav-link" href="{{url_for('Plantas')}}"
                 >Plantas <span class="sr-only">(current)</span></a
               >
             </li>
-            <li class="nav-item {% if request.endpoint=='Frutos' %}active{%endif %}">
+            <li
+              class="nav-item {% if request.endpoint=='Frutos' %}active{%endif %}"
+            >
               <a class="nav-link" href="{{url_for('Frutos')}}">Frutos</a>
             </li>
-            <li class="nav-item {% if request.endpoint=='Pf' %}active{%endif %}">
+            <li
+              class="nav-item {% if request.endpoint=='Pf' %}active{%endif %}"
+            >
               <a class="nav-link" href="{{url_for('Pf')}}">Observaciones</a>
             </li>
           </ul>
@@ -60,28 +72,25 @@
       </div>
     </nav>
     <div class="container pt-4">{% block body %} {% endblock %}</div>
-    <script>
-      $("li").on("click", function (e) {
-        $(this).parent().find("li.active").removeClass("active");
-        $(this).addClass("active");
-      });
-    </script>
     <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      type="text/javascript"
+      charset="utf8"
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
   </body>
 </html>

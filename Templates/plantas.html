@@ -15,42 +15,46 @@
       {% endfor %}
       {% endif %}
       {% endwith %}
-
-      <div class="card card-body">
-        <div class="col-md-10">
-          <h1>Agregar Planta</h1>
+      <div class="card">
+        <div class="card-header">
+          <h2>Agregar Planta:</h2>
         </div>
-        <form action="{{url_for('add_planta')}}" method="POST">
-          <div class="form-group">
-            <input type="text" class="form-control" name="nombrePlanta" placeholder="Nombre de la Planta">
-          </div>
-          <button class="btn btn-primary btn-block">
-            Guardar
-          </button>
-        </form>
-    </div>
+        <div class="card-body">
+          <form action="{{url_for('add_planta')}}" method="POST">
+            <div class="form-group">
+              <input type="text" class="form-control" name="nombrePlanta" placeholder="Nombre de la Planta">
+            </div>
+            <button class="btn btn-primary btn-block">
+              Guardar
+            </button>
+          </form>
+      </div>
+      </div>
     </div>
     <div class="col-md-7">
-      <table class="table table-striped table-hover table-bordered table-sm bg-white" >
-        <thead>
-          <tr>
-            <td data-sortable="true">ID</td>
-            <td data-sortable="true">Nombre de la Planta</td>
-          </tr>
-        </thead>
-        <tbody>
-          {% for planta in plantas %}
-          <tr>
-            <td>{{planta.0}}</td>
-            <td>{{planta.1}}</td>
-            <td>
-              <a href="/edit_planta/{{planta.0}}" class="btn btn-secondary">editar</a>
-              <a href="/delete_planta/{{planta.0}}" class="btn btn-danger btn-delete">eliminar</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="card card-body">
+        <table id="table" class="table table-striped table-hover table-bordered table-sm bg-white" >
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>Nombre de la Planta</td>
+              <td>Acciones</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for planta in plantas %}
+            <tr>
+              <td>{{planta.0}}</td>
+              <td>{{planta.1}}</td>
+              <td>
+                <a href="/edit_planta/{{planta.0}}" class="btn btn-secondary">editar</a>
+                <a href="/delete_planta/{{planta.0}}" class="btn btn-danger btn-delete">eliminar</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>  

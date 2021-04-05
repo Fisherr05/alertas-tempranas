@@ -33,26 +33,29 @@
 </div>
     </div>
     <div class="col-md-7">
-      <table class="table table-striped table-hover table-bordered table-sm bg-white">
-        <thead>
-          <tr>
-            <td>ID</td>
-            <td>Nombre de fruto</td>
-          </tr>
-        </thead>
-        <tbody>
-          {% for fruto in frutos %}
-          <tr>
-            <td>{{fruto.0}}</td>
-            <td>{{fruto.1}}</td>
-            <td>
-              <a href="/edit_fruto/{{fruto.0}}" class="btn btn-secondary">editar</a>
-              <a href="/delete_fruto/{{fruto.0}}" class="btn btn-danger btn-delete">eliminar</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="card card-body">
+        <table id="table"class="table table-striped table-hover table-bordered table-sm bg-white">
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>Nombre de fruto</td>
+              <td>Acciones</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for fruto in frutos %}
+            <tr>
+              <td>{{fruto.0}}</td>
+              <td>{{fruto.1}}</td>
+              <td>
+                <a href="/edit_fruto/{{fruto.0}}" class="btn btn-secondary">editar</a>
+                <a href="/delete_fruto/{{fruto.0}}" class="btn btn-danger btn-delete">eliminar</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div> 
