@@ -124,6 +124,8 @@ def Pf():
     data2 = cur.fetchall()
     cur.close()
     print(data)
+    print(data1)
+    print(data2)
     return render_template('pf.html', pfs = data, plantas = data1, frutos = data2)
 
 @app.route('/app_pf')
@@ -197,11 +199,7 @@ def delete_pf(id1,id2):
 
 @app.context_processor
 def utility_processor():
-    def obtenerFruto(id):
-        cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM FRUTO')
-        frutos = cur.fetchall()
-        cur.close()
+    def obtenerFruto(frutos,id):
         for fruto in frutos:
             if fruto[0] == id:
                 return fruto[1]
@@ -209,11 +207,7 @@ def utility_processor():
 
 @app.context_processor
 def utility_processor():
-    def obtenerPlanta(id):
-        cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM PLANTA')
-        plantas = cur.fetchall()
-        cur.close()
+    def obtenerPlanta(plantas,id):
         for planta in plantas:
             if planta[0]== id:
                 return planta[1]
