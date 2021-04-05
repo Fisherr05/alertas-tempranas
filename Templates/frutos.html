@@ -16,6 +16,9 @@
       {% endif %}
       {% endwith %}
       <div class="card card-body">
+        <div class="col-md-10">
+          <h1>Agregar Fruto</h1>
+        </div>
         <form action="{{url_for('add_fruto')}}" method="POST">
           <div class="form-group">
             <input type="text" class="form-control" name="nombreFruto" placeholder="NombreFruto">
