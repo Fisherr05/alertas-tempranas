@@ -44,6 +44,11 @@ class MonitoreoController extends Controller
     {
         //
        // $datosMonitoreo= request()->all();
+        $val=$this->validate($request,[
+            'fechaPlanificada'=>'required',
+            'fechaEjecucion'=>'required',
+            'observaciones'=>'required|string|max:255'
+        ]);
         $datosMonitoreo= request()->except('_token');
         Monitoreo::insert($datosMonitoreo);
         return redirect('/monitoreos')->with('monitoreoGuardado','Monitoreo guardado con éxito');

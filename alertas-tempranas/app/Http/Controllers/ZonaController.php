@@ -15,6 +15,8 @@ class ZonaController extends Controller
     public function index()
     {
         //
+        $datos['zonas'] = Zona::all();
+        return view('zona.index',$datos);
     }
 
     /**

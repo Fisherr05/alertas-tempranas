@@ -15,6 +15,8 @@ class FincaController extends Controller
     public function index()
     {
         //
+        $datos['fincas'] = Finca::all();
+        return view('finca.index',$datos);
     }
 
     /**
@@ -25,6 +27,8 @@ class FincaController extends Controller
     public function create()
     {
         //
+        $datos['fincas'] = Finca::all();
+        return view('finca.create',$datos);
     }
 
     /**
@@ -36,6 +40,9 @@ class FincaController extends Controller
     public function store(Request $request)
     {
         //
+        $datos= request()->except('_token');
+        Finca::insert($datos);
+        return redirect('/fincas')->with('fincaGuardado','Finca guardado con éxito');
     }
 
     /**
@@ -55,9 +62,12 @@ class FincaController extends Controller
      * @param  \App\Models\Finca  $finca
      * @return \Illuminate\Http\Response
      */
-    public function edit(Finca $finca)
+    public function edit($id)
     {
         //
+        $finca= Finca::findOrFail($id);
+
+        return view('finca.edit', compact('finca'));
     }
 
     /**
@@ -67,9 +77,12 @@ class FincaController extends Controller
      * @param  \App\Models\Finca  $finca
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Finca $finca)
+    public function update(Request $request, $id)
     {
         //
+        $datos= request()->except(['_token', '_method']);
+        Finca::where('id','=',$id)->update($datos);
+        return redirect('/fincas')->with('fincaModificado','Finca modificado con éxito');
     }
 
     /**
@@ -78,8 +91,10 @@ class FincaController extends Controller
      * @param  \App\Models\Finca  $finca
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Finca $finca)
+    public function destroy($id)
     {
         //
+        Finca::destroy($id);
+        return back()->with('fincaEliminado','Finca eliminado con éxito');
     }
 }

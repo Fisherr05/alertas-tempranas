@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Monitoreo;
 use App\Models\Estudio;
+use App\Models\Finca;
+use App\Models\Zona;
 use App\Http\Controllers\MonitoreoController;
 use App\Http\Controllers\EstudioController;
-
+use App\Http\Controllers\FincaController;
+use App\Http\Controllers\ZonaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +21,11 @@ use App\Http\Controllers\EstudioController;
 */
 
 Route::resource('monitoreos','App\Http\Controllers\MonitoreoController');
-Route::get('/inicio',[MonitoreoController::class,'index']);
-Route::get('/crear',[MonitoreoController::class,'create']);
-Route::post('/guardar',[MonitoreoController::class,'store']);
-Route::get('editar/{id}',[MonitoreoController::class,'edit'])->name('editar');
-Route::patch('edit/{id}',[MonitoreoController::class,'update'])->name('edit');
-Route::delete('borrar/{id}',[MonitoreoController::class,'delete'])->name('borrar');
+
+Route::resource('fincas', 'App\Http\Controllers\FincaController');
+
+Route::resource('zonas', 'App\Http\Controllers\ZonaController');
+
+Route::resource('estudios', 'App\Http\Controllers\EstudioController');
+
+
