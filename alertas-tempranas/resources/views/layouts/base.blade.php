@@ -43,7 +43,10 @@
                     <a class="nav-link" href="{{ route('fincas.index') }}">Finca</a>
                 </li>
                 <li class="nav-item {% if request.endpoint=='Pf' %}active{%endif %}">
-                    <a class="nav-link" href="{{ route('monitoreos.index') }}">Observaciones</a>
+                    <a class="nav-link" href="{{ route('zonas.index') }}">Zona</a>
+                </li>
+                <li class="nav-item {% if request.endpoint=='Pf' %}active{%endif %}">
+                    <a class="nav-link" href="{{ route('estudios.index') }}">Estudio</a>
                 </li>
             </ul>
         </div>

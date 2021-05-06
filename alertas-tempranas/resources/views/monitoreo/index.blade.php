@@ -6,27 +6,27 @@
 
 @section('contenido')
     <!--Mensaje Creado -->
-    @if (session('monitoreoGuardado'))
+    @if (session('fincaGuardado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('monitoreoGuardado') }}
+            {{ session('fincaGuardado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Modificado-->
-    @if (session('monitoreoModificado'))
+    @if (session('fincaModificado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('monitoreoModificado') }}
+            {{ session('fincaModificado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Eliminado -->
-    @if (session('monitoreoEliminado'))
+    @if (session('fincaEliminado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('monitoreoEliminado') }}
+            {{ session('fincaEliminado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

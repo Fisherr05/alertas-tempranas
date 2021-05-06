@@ -1,8 +1,11 @@
 <div class="form-group">
-    <label for="nombreFinca">Nombre de la finca:</label>
-    <input type="text" class="form-control" id="nombreFinca" name="nombreFinca"
-        placeholder="Ingrese el nombre de la finca"
-        value="{{ isset($finca->nombreFinca) ? $finca->nombreFinca : '' }}" required>
+    <label>Seleccione Finca:</label>
+    <input id="finca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" required>
+    <datalist id="fincas">
+        @foreach ($fincas as $finca)
+            <option value="{{ $finca->id }}">{{ $finca->id }} - {{ $finca->nombreFinca }}</option>
+        @endforeach
+    </datalist>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -12,10 +15,9 @@
 </div>
 <br>
 <div class="form-group">
-    <label for="propietarioFinca">Nombre del propietario:</label>
-    <input type="text" class="form-control" id="propietarioFinca" name="propietarioFinca"
-        placeholder="Ingrese el nombre del propietario"
-        value="{{ isset($finca->propietarioFinca) ? $finca->propietarioFinca : '' }}" required>
+    <label for="fenologia">Fenologia:</label>
+    <input type="text" class="form-control" id="fenologia" name="fenologia" placeholder="Ingrese la fenologia"
+        value="{{ isset($estudio->fenologia) ? $estudio->fenologia : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -25,22 +27,45 @@
 </div>
 <br>
 <div class="form-group">
-    <label>Coordenadas:</label>
-    <input type="text" class="form-control" id="coFinca" name="coFinca" placeholder="Ingrese las coordenadas"
-        value="{{ isset($finca->coFinca) ? $finca->coFinca : '' }}" required>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<br>
-<br>
-<div class="form-group">
-    <label>Densidad:</label>
+    <label for="densidad">Densidad:</label>
     <input type="text" class="form-control" id="densidad" name="densidad" placeholder="Ingrese la densidad"
-        value="{{ isset($finca->densidad) ? $finca->densidad : '' }}" required>
+        value="{{ isset($estudio->densidad) ? $estudio->densidad : '' }}" required>
+    <div class="valid-feedback">
+        ¡Bien!
+    </div>
+    <div class="invalid-feedback">
+        ¡Rellene este campo!
+    </div>
+</div>
+<br>
+<div class="form-group">
+    <label>Ingrese fecha inicio:</label>
+    <input type="date" class="sm-form-control" id="fechaInicio" name="fechaInicio"
+        value="{{ isset($estudio->fechaInicio) ? $estudio->fechaInicio : '' }}" required>
+    <div class="valid-feedback">
+        ¡Bien!
+    </div>
+    <div class="invalid-feedback">
+        ¡Rellene este campo!
+    </div>
+</div>
+<br>
+<div class="form-group">
+    <label>Ingrese fecha fin:</label>
+    <input type="date" class="sm-form-control" id="fechaFin" name="fechaFin"
+        value="{{ isset($estudio->fechaFin) ? $estudio->fechaFin : '' }}" required>
+    <div class="valid-feedback">
+        ¡Bien!
+    </div>
+    <div class="invalid-feedback">
+        ¡Rellene este campo!
+    </div>
+</div>
+<br>
+<div class="form-group">
+    <label>Activo:</label>
+    <input type="text" class="form-control" id="activo" name="activo" placeholder="Ingrese activo"
+        value="{{ isset($estudio->activo) ? $estudio->activo : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -62,7 +87,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/fincas" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/estudios" class="btn btn-danger btn-block">Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>

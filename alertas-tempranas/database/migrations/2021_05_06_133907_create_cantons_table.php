@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use League\CommonMark\Extension\Table\Table;
 
-class CreateArchivosTable extends Migration
+class CreateCantonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +13,9 @@ class CreateArchivosTable extends Migration
      */
     public function up()
     {
-        Schema::create('archivos', function (Blueprint $table) {
+        Schema::create('cantons', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idMonitoreo');
-            $table->string('descripcion');
-            $table->foreign('idMonitoreo')->references('id')->on('monitoreos')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateArchivosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('archivos');
+        Schema::dropIfExists('cantons');
     }
 }

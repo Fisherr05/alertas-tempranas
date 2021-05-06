@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estudio;
+use App\Models\Finca;
 use Illuminate\Http\Request;
 
 class EstudioController extends Controller
@@ -15,6 +16,9 @@ class EstudioController extends Controller
     public function index()
     {
         //
+        $datos['estudios'] = Estudio::all();
+        $datos['fincas'] = Finca::all();
+        return view('estudio.index',$datos);
     }
 
     /**
@@ -25,6 +29,10 @@ class EstudioController extends Controller
     public function create()
     {
         //
+        $datos['estudios'] = Estudio::all();
+        $datos['fincas'] = Finca::all();
+        return view('estudio.create',$datos);
+
     }
 
     /**
@@ -36,6 +44,9 @@ class EstudioController extends Controller
     public function store(Request $request)
     {
         //
+        $datos= request()->except('_token');
+        Finca::insert($datos);
+        return redirect('/estudios')->with('estudioGuardado','Estudio guardado con éxito');
     }
 
     /**
@@ -55,9 +66,14 @@ class EstudioController extends Controller
      * @param  \App\Models\Estudio  $estudio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Estudio $estudio)
+    public function edit($id)
     {
         //
+
+        $estudio = Estudio::findOrfail($id);
+        $fincas = Finca::all();
+
+        return view('estudio.edit', compact('estudio','fincas'));
     }
 
     /**
@@ -67,9 +83,12 @@ class EstudioController extends Controller
      * @param  \App\Models\Estudio  $estudio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Estudio $estudio)
+    public function update(Request $request, $id)
     {
         //
+        $datos= request()->except(['_token', '_method']);
+        Estudio::where('id','=',$id)->update($datos);
+        return redirect('/estudios')->with('estudioModificado','Estudio modificado con éxito');
     }
 
     /**
@@ -78,8 +97,10 @@ class EstudioController extends Controller
      * @param  \App\Models\Estudio  $estudio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estudio $estudio)
+    public function destroy($id)
     {
         //
+        Estudio::destroy($id);
+        return back()->with('estudioEliminado','Estudio eliminado con éxito');
     }
 }

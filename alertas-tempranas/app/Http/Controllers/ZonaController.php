@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Zona;
+use App\Models\Finca;
+use App\Models\Parroquia;
+use App\Models\Canton;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ZonaController extends Controller
 {
@@ -16,6 +20,10 @@ class ZonaController extends Controller
     {
         //
         $datos['zonas'] = Zona::all();
+        $datos['fincas'] = Finca::all();
+        $datos['parroquias'] = Parroquia::all();
+        $datos['cantones'] = Canton::all();
+
         return view('zona.index',$datos);
     }
 
@@ -27,6 +35,11 @@ class ZonaController extends Controller
     public function create()
     {
         //
+        $datos1['zonas'] = Zona::all();
+        $datos['fincas'] = Finca::all();
+        $datos['parroquias'] = Parroquia::all();
+        $datos['cantones'] = Canton::all();
+        return view('zona.create',$datos,$datos1);
     }
 
     /**
@@ -38,6 +51,9 @@ class ZonaController extends Controller
     public function store(Request $request)
     {
         //
+        $datos= request()->except('_token');
+        Zona::insert($datos);
+        return redirect('/zonas')->with('zonaGuardado','Zona guardado con éxito');
     }
 
     /**
@@ -57,9 +73,13 @@ class ZonaController extends Controller
      * @param  \App\Models\Zona  $zona
      * @return \Illuminate\Http\Response
      */
-    public function edit(Zona $zona)
+    public function edit($id)
     {
         //
+        $zona= Zona::findOrFail($id);
+        $parroquias = Parroquia::all();
+        $cantones = Canton::all();
+        return view('zona.edit', compact('zona','cantones','parroquias'));
     }
 
     /**
@@ -69,9 +89,12 @@ class ZonaController extends Controller
      * @param  \App\Models\Zona  $zona
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Zona $zona)
+    public function update(Request $request, $id)
     {
         //
+        $datos= request()->except(['_token', '_method']);
+        Zona::where('id','=',$id)->update($datos);
+        return redirect('/zonas')->with('zonaModificado','Zona modificado con éxito');
     }
 
     /**
@@ -80,8 +103,10 @@ class ZonaController extends Controller
      * @param  \App\Models\Zona  $zona
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Zona $zona)
+    public function destroy($id)
     {
         //
+        Zona::destroy($id);
+        return back()->with('zonaEliminado','Zona eliminado con éxito');
     }
 }

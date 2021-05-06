@@ -134,18 +134,8 @@ return [
     */
 
     'custom' => [
-        'fechaPlanificada' => [
-            'required' => 'La fecha planificada es requerida',
-        ],
-
-        'fechaEjecucion' => [
-            'required' => 'La fecha ejecución es requerida',
-        ],
-
-        'observaciones' => [
-            'required' => 'La observación es requerida',
-            'string' => 'Tiene que ser un texto',
-            'max:255' => 'El texto es demasiado largo'
+        'attribute-name' => [
+            'rule-name' => 'custom-message',
         ],
     ],
 

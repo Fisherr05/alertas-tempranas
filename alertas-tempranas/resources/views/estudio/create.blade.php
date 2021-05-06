@@ -6,9 +6,9 @@
         <h1>Nuevo Registro</h1>
     </div>
     <div class="card-body">
-      <form class="needs-validation" action="/zonas" method="POST" novalidate>
+      <form class="needs-validation" action="/estudios" method="POST" novalidate>
       @csrf
-        @include('zona.form')
+        @include('estudio.form')
       </form>
     </div>
 </div>

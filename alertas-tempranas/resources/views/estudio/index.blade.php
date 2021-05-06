@@ -1,32 +1,31 @@
 @extends('layouts.base')
-
 @section('css')
     <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endsection
 
 @section('contenido')
     <!--Mensaje Creado -->
-    @if (session('zonaGuardado'))
+    @if (session('estudioGuardado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('zonaGuardado') }}
+            {{ session('estudioGuardado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Modificado-->
-    @if (session('zonaModificado'))
+    @if (session('estudioModificado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('zonaModificado') }}
+            {{ session('estudioModificado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Eliminado -->
-    @if (session('zonaEliminado'))
+    @if (session('estudioEliminado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('zonaEliminado') }}
+            {{ session('estudioEliminado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -37,11 +36,11 @@
             <div class="card-header align-items-center">
                 <div class="row align-items-center">
                     <div class="col-md-10">
-                        <h1>Zona</h1>
+                        <h1>Estudio</h1>
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="zonas/create" class="btn btn-success">Nuevo Registro</a>
+                            <a href="estudios/create" class="btn btn-success">Nuevo Registro</a>
                         </div>
                     </div>
                 </div>
@@ -50,36 +49,33 @@
                 <table id="table" class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg">
                     <thead>
                         <tr>
-                            <th>ID ZONA</th>
+                            <th>ID ESTUDIO</th>
                             <th>ID FINCA</th>
-                            <th>NOMBRE</th>
-                            <th>CANTON</th>
-                            <th>PARROQUIA</th> <!--Hola-->
-                            <th>LOCALIDAD</th>
-                            <th>COORDENADAS</th>
+                            <th>FENOLOGIA</th>
+                            <th>DENSIDAD</th>
+                            <th>FECHA INICIO</th>
+                            <th>FECHA FIN</th>
+                            <th>ACTIVO</th>
                             <th>ACCIONES</th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($zonas as $zona)
+                        @foreach ($estudios as $estudio)
                             <tr>
-                                <td>{{ $zona->id }}</td>
-                                <td>{{ $zona->idFinca }}</td>
-                                <td>{{ $zona->nombreZona}}</td>
-                                <td>CANTON </th>
-                                <td>{{ $zona->idParroquia }}</td>
-                                <td>{{ $zona->localidad }}</td>
-                                <td>{{ $zona->coZona }}</td>
+                                <td>{{ $estudio->id }}</td>
+                                <td>{{ $estudio->idFinca }}</td>
+                                <td>{{ $estudio->fenologia}}</td>
+                                <td>{{ $estudio->densidad }}</td>
+                                <td>{{ $estudio->fechaInicio }}</td>
+                                <td>{{ $estudio->fechaFin }}</td>
+                                <td>{{ $estudio->activo }}</td>
                                 <td>
-                                    <form action="{{ route('zonas.destroy', $zona->id) }}" method="POST">
-                                        <a href="/zonas/{{ $zona->id }}/edit" class="btn btn-secondary"><i
-                                                class="fas fa-pencil-alt"></i></a>
+                                    <form action="{{ route('estudios.destroy', $estudio->id) }}" method="POST">
+                                        <a href="/estudios/{{ $estudio->id }}/edit" class="btn btn-secondary"><i class="fas fa-pencil-alt"></i></a>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Desea eliminar esto?')"><i
-                                                class="fas fa-trash-alt"></i></button>
+                                            onclick="return confirm('¿Desea eliminar esto?')"><i class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -89,7 +85,7 @@
             </div>
         </div>
     </div>
-@section('js')
+    @section('js')
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous">
     </script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"

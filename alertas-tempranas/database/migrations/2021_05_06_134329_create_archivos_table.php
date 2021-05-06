@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFincasTable extends Migration
+class CreateArchivosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateFincasTable extends Migration
      */
     public function up()
     {
-        Schema::create('fincas', function (Blueprint $table) {
+        Schema::create('archivos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombreFinca');
-            $table->string('propietarioFinca');
-            $table->string('coFinca');
+            $table->unsignedBigInteger('idMonitoreo');
+            $table->string('descripcion');
+            $table->foreign('idMonitoreo')->references('id')->on('monitoreos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateFincasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fincas');
+        Schema::dropIfExists('archivos');
     }
 }

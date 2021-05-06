@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Datos;
+use App\Models\Parroquia;
 use Illuminate\Http\Request;
 
-class DatosController extends Controller
+class ParroquiaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class DatosController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Datos  $datos
+     * @param  \App\Models\Parroquia  $parroquia
      * @return \Illuminate\Http\Response
      */
-    public function show(Datos $datos)
+    public function show(Parroquia $parroquia)
     {
         //
     }
@@ -52,10 +52,10 @@ class DatosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Datos  $datos
+     * @param  \App\Models\Parroquia  $parroquia
      * @return \Illuminate\Http\Response
      */
-    public function edit(Datos $datos)
+    public function edit(Parroquia $parroquia)
     {
         //
     }
@@ -64,10 +64,10 @@ class DatosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Datos  $datos
+     * @param  \App\Models\Parroquia  $parroquia
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Datos $datos)
+    public function update(Request $request, Parroquia $parroquia)
     {
         //
     }
@@ -75,10 +75,10 @@ class DatosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Datos  $datos
+     * @param  \App\Models\Parroquia  $parroquia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Datos $datos)
+    public function destroy(Parroquia $parroquia)
     {
         //
     }

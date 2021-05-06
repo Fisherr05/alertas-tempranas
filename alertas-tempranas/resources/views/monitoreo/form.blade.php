@@ -1,15 +1,21 @@
         <div class="form-group">
             <label>Seleccione Estudio:</label>
-            <select class="form-control" name="idEstudio">
+            <input id="estudio" list="estudios" placeholder="Escriba para buscar..." required name="idEstudio">
+            <datalist id="estudios">
                 @foreach ($estudios as $estudio)
-                    <option value="{{ $estudio->id }}">{{ $estudio->id }}</option>
+                    <option value="{{ $estudio->id }}">
                 @endforeach
-            </select>
+            </datalist>
+            <div class="valid-feedback">
+                ¡Bien!
+            </div>
+            <div class="invalid-feedback">
+                ¡Rellene este campo!
+            </div>
         </div>
-        <br>
         <div class="form-group">
             <label>Ingrese fecha planificada:</label>
-            <input type="date" id="fechaPlanificada" name="fechaPlanificada"
+            <input type="date" class="sm-form-control" id="fechaPlanificada" name="fechaPlanificada"
                 value="{{ isset($monitoreo->fechaPlanificada) ? $monitoreo->fechaPlanificada : '' }}" required>
                 <div class="valid-feedback">
                     ¡Bien!
@@ -21,7 +27,7 @@
         <br>
         <div class="form-group">
             <label>Ingrese fecha de ejecución:</label>
-            <input type="date" id="fechaEjecucion" name="fechaEjecucion"
+            <input type="date" class="sm-form-control" id="fechaEjecucion" name="fechaEjecucion"
                 value="{{ isset($monitoreo->fechaEjecucion) ? $monitoreo->fechaEjecucion : '' }}" required>
                 <div class="valid-feedback">
                     ¡Bien!

@@ -18,5 +18,4 @@ class Estudio extends Model
     public function finca(){
         return $this->belongsTo('App\Models\Finca');
     }
-
 }
