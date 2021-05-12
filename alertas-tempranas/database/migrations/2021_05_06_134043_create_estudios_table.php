@@ -16,6 +16,7 @@ class CreateEstudiosTable extends Migration
         Schema::create('estudios', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idFinca');
+            $table->string('nombreEstudio');
             $table->string('fenologia');
             $table->string('densidad');
             $table->date('fechaInicio');

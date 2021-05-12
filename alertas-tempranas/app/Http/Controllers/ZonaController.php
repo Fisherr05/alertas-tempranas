@@ -19,13 +19,14 @@ class ZonaController extends Controller
     public function index()
     {
         //
-        $datos['zonas'] = Zona::all();
-        $datos['fincas'] = Finca::all();
-        $datos['parroquias'] = Parroquia::all();
-        $datos['cantones'] = Canton::all();
+        $zonas = Zona::all();
+        $fincas = Finca::all();
+        $parroquias = Parroquia::all();
+        $cantones = Canton::all();
 
-        return view('zona.index',$datos);
+        return view('zona.index', compact('zonas','fincas','parroquias','cantones'));
     }
+
 
     /**
      * Show the form for creating a new resource.

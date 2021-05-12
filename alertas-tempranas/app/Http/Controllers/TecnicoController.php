@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tecnico;
+use App\Models\Estudio;
+use App\Models\Monitoreo;
 use Illuminate\Http\Request;
 
 class TecnicoController extends Controller
@@ -15,6 +17,9 @@ class TecnicoController extends Controller
     public function index()
     {
         //
+        $datos['tecnicos'] = Tecnico::all();
+        $datos['monitoreos'] = Monitoreo::all();
+        return view('tecnico.index',$datos);
     }
 
     /**
@@ -25,6 +30,9 @@ class TecnicoController extends Controller
     public function create()
     {
         //
+        $datos['tecnicos'] = Tecnico::all();
+        $datos['monitoreos'] = Monitoreo::all();
+        return view('tecnico.create',$datos);
     }
 
     /**
@@ -36,6 +44,9 @@ class TecnicoController extends Controller
     public function store(Request $request)
     {
         //
+        $datos =request()-> except('_token');
+        Tecnico::insert($datos);
+        return redirect('/tecnicos')->with('tecnicoGuardado','Técnico guardado con éxito');
     }
 
     /**
@@ -55,9 +66,13 @@ class TecnicoController extends Controller
      * @param  \App\Models\Tecnico  $tecnico
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tecnico $tecnico)
+    public function edit($id)
     {
         //
+        $monitoreos = Monitoreo::all();
+        $tecnico = Tecnico::findOrfail($id);
+
+        return view('tecnico.edit', compact('tecnico','monitoreos'));
     }
 
     /**
@@ -67,9 +82,12 @@ class TecnicoController extends Controller
      * @param  \App\Models\Tecnico  $tecnico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tecnico $tecnico)
+    public function update(Request $request, $id)
     {
         //
+        $datos= request()->except(['_token', '_method']);
+        Tecnico::where('id','=',$id)->update($datos);
+        return redirect('/tecnicos')->with('tecnicoModificado','Técnico modificado con éxito');
     }
 
     /**
@@ -78,8 +96,10 @@ class TecnicoController extends Controller
      * @param  \App\Models\Tecnico  $tecnico
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tecnico $tecnico)
+    public function destroy($id)
     {
         //
+        Tecnico::destroy($id);
+        return back()->with('tecnicoEliminado','Técnico  eliminado con éxito');
     }
 }

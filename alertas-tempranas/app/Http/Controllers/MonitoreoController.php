@@ -16,9 +16,9 @@ class MonitoreoController extends Controller
      */
     public function index()
     {
-        $datos['monitoreos'] = Monitoreo::all();
-        $datos1['estudios'] = Estudio::all();
-        return view('monitoreo.index',$datos,$datos1);
+        $monitoreos = Monitoreo::all();
+        $estudios= Estudio::all();
+        return view('monitoreo.index',compact('monitoreos','estudios'));
     }
 
     /**

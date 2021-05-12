@@ -16,9 +16,9 @@ class EstudioController extends Controller
     public function index()
     {
         //
-        $datos['estudios'] = Estudio::all();
-        $datos['fincas'] = Finca::all();
-        return view('estudio.index',$datos);
+        $estudios= Estudio::all();
+        $fincas= Finca::all();
+        return view('estudio.index',compact('estudios','fincas'));
     }
 
     /**
@@ -45,7 +45,7 @@ class EstudioController extends Controller
     {
         //
         $datos= request()->except('_token');
-        Finca::insert($datos);
+        Estudio::insert($datos);
         return redirect('/estudios')->with('estudioGuardado','Estudio guardado con éxito');
     }
 

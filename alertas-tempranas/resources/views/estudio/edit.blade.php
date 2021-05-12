@@ -1,6 +1,40 @@
 @extends('layouts.base')
 
 @section('contenido-centrado')
+<script>
+    function soloLetras(e){
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú";
+
+        especiales=[8,13];
+        tecla_especial= false;
+        for(var i in especiales){
+            if(key == especiales[i]){
+            tecla_especial=true;
+            break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            alert("Ingresar solo letras");
+            return false;
+        }
+    }
+
+    function soloNum(ev){
+        if(window.event){
+            keynum = ev.keyCode;
+        }else{
+            keynum = ev.which;
+        }
+        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
+            return true;
+        }else{
+            alert("Ingresar solo números");
+            return false;
+        }
+    }
+</script>
 <div class="card">
     <div class="card-header">
         <h1>Editar Registro</h1>
@@ -9,11 +43,22 @@
       <form class="needs-validation" action="/estudios/{{ $estudio->id }}" method="POST" novalidate>
       @csrf @method('PATCH')
       <div class="form-group">
+        <label for="fenologia">Nombre de Estudio:</label>
+        <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="fenologia" name="nombreEstudio" placeholder="Ingrese el nombre de estudio"
+            value="{{ isset($estudio->nombreEstudio) ? $estudio->nombreEstudio : '' }}" required>
+        <div class="valid-feedback">
+            ¡Bien!
+        </div>
+        <div class="invalid-feedback">
+            ¡Rellene este campo!
+        </div>
+    </div>
+      <div class="form-group">
     <label>Seleccione Finca:</label>
-    <input id="finca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" required>
+    <input id="finca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" value="{{ isset($finca->id) ? $finca->id : '' }}" required>
     <datalist id="fincas">
         @foreach ($fincas as $finca)
-            <option value="{{ $finca->id }}">{{ $finca->id }} - {{ $finca->nombreFinca }}</option>
+            <option value="{{ isset($finca->id) ? $finca->id : '' }}">{{ $finca->nombreFinca }}</option>
         @endforeach
     </datalist>
     <div class="valid-feedback">
@@ -26,7 +71,7 @@
 <br>
 <div class="form-group">
     <label for="fenologia">Fenologia:</label>
-    <input type="text" class="form-control" id="fenologia" name="fenologia" placeholder="Ingrese la fenologia"
+    <input type="text" onkeypress="return soloNum(event);" minlength="1" maxlength="3" class="form-control" id="fenologia" name="fenologia" placeholder="Ingrese la fenologia"
         value="{{ isset($estudio->fenologia) ? $estudio->fenologia : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!

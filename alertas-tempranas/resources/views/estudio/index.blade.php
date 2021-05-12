@@ -1,6 +1,8 @@
 @extends('layouts.base')
 @section('css')
     <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
+        type="text/css">
 @endsection
 
 @section('contenido')
@@ -46,11 +48,13 @@
                 </div>
             </div>
             <div class="card-body table-responsive">
-                <table id="table" class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg">
+                <table id="table"
+                    class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
+                    cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>ID ESTUDIO</th>
-                            <th>ID FINCA</th>
+                            <th>ESTUDIO</th>
+                            <th>FINCA</th>
                             <th>FENOLOGIA</th>
                             <th>DENSIDAD</th>
                             <th>FECHA INICIO</th>
@@ -62,20 +66,26 @@
                     <tbody>
                         @foreach ($estudios as $estudio)
                             <tr>
-                                <td>{{ $estudio->id }}</td>
-                                <td>{{ $estudio->idFinca }}</td>
-                                <td>{{ $estudio->fenologia}}</td>
+                                <td>{{ $estudio->nombreEstudio }}</td>
+                                @foreach ($fincas as $finca)
+                                    @if ($estudio->idFinca == $finca->id)
+                                        <td>{{ $finca->nombreFinca }}</td>
+                                    @endif
+                                @endforeach
+                                <td>{{ $estudio->fenologia }}</td>
                                 <td>{{ $estudio->densidad }}</td>
                                 <td>{{ $estudio->fechaInicio }}</td>
                                 <td>{{ $estudio->fechaFin }}</td>
                                 <td>{{ $estudio->activo }}</td>
                                 <td>
                                     <form action="{{ route('estudios.destroy', $estudio->id) }}" method="POST">
-                                        <a href="/estudios/{{ $estudio->id }}/edit" class="btn btn-secondary"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="/estudios/{{ $estudio->id }}/edit" class="btn btn-secondary"><i
+                                                class="fas fa-pencil-alt"></i></a>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Desea eliminar esto?')"><i class="fas fa-trash-alt"></i></button>
+                                            onclick="return confirm('¿Desea eliminar esto?')"><i
+                                                class="fas fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -85,13 +95,15 @@
             </div>
         </div>
     </div>
-    @section('js')
+@section('js')
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous">
     </script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
         crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             $("#table").DataTable({
@@ -274,9 +286,14 @@
                     },
                     "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
                 },
-                "lengthMenu":[[5,10,50,100,-1], [5,10,50,100,"Todos"]]
+                "lengthMenu": [
+                    [5, 10, 50, 100, -1],
+                    [5, 10, 50, 100, "Todos"]
+                ],
+                responsive: true
             });
         });
+
     </script>
 @endsection
 @endsection

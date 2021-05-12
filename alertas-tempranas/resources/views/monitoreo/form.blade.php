@@ -3,7 +3,7 @@
             <input id="estudio" list="estudios" placeholder="Escriba para buscar..." required name="idEstudio">
             <datalist id="estudios">
                 @foreach ($estudios as $estudio)
-                    <option value="{{ $estudio->id }}">
+                    <option value="{{ $estudio->id }}">{{ $estudio->nombreEstudio}}</option>
                 @endforeach
             </datalist>
             <div class="valid-feedback">

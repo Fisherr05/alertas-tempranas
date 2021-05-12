@@ -32,12 +32,50 @@
         }
     }
 </script>
+<div class="form-group">
+    <div class="form-group">
+        <label for="fenologia">Nombre de Técnico:</label>
+        <input type="text"  onkeypress="return soloLetras(event);" class="form-control" id="nombreTecnico" name="nombreTecnico" placeholder="Ingrese el nombre del técnico"
+            value="{{ isset($tecnico->nombreTecnico) ? $tecnico->nombreTecnico : '' }}" required>
+        <div class="valid-feedback">
+            ¡Bien!
+        </div>
+        <div class="invalid-feedback">
+            ¡Rellene este campo!
+        </div>
+    </div>
+    <label>Seleccione Monitoreo:</label>
+    <input id="monitoreo" list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
+    <datalist id="monitoreos">
+        @foreach ($monitoreos as $monitoreo)
+            <option value="{{ $monitoreo->id }}">{{ $monitoreo->id }}</option>
+        @endforeach
+    </datalist>
+    <div class="valid-feedback">
+        ¡Bien!
+    </div>
+    <div class="invalid-feedback">
+        ¡Rellene este campo!
+    </div>
+</div>
+<br>
+<div class="form-group">
+    <label>Institución:</label>
+    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="institucion" name="institucion" placeholder="Ingrese la institución"
+        value="{{ isset($tecnico->institucion) ? $tecnico->institucion : '' }}" required>
+    <div class="valid-feedback">
+        ¡Bien!
+    </div>
+    <div class="invalid-feedback">
+        ¡Rellene este campo!
+    </div>
+</div>
+<br>
 
 <div class="form-group">
-    <label for="nombreFinca">Nombre de la finca:</label>
-    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="nombreFinca" name="nombreFinca"
-        placeholder="Ingrese el nombre de la finca"
-        value="{{ isset($finca->nombreFinca) ? $finca->nombreFinca : '' }}" required>
+    <label>Teléfono:</label>
+    <input type="text" onkeypress="return soloNum(event);" minlength="7" maxlength="10" class="form-control" id="telefono" name="telefono" placeholder="Ingrese número de teléfono"
+        value="{{ isset($tecnico->telefeno) ? $tecnico->telefeno : '' }}" required="">
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -47,10 +85,9 @@
 </div>
 <br>
 <div class="form-group">
-    <label for="propietarioFinca">Nombre del propietario:</label>
-    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="propietarioFinca" name="propietarioFinca"
-        placeholder="Ingrese el nombre del propietario"
-        value="{{ isset($finca->propietarioFinca) ? $finca->propietarioFinca : '' }}" required>
+    <label>Email:</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese email"
+        value="{{ isset($tecnico->email) ? $tecnico->email : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -60,22 +97,9 @@
 </div>
 <br>
 <div class="form-group">
-    <label>Coordenadas:</label>
-    <input type="text" class="form-control" id="coFinca" name="coFinca" placeholder="Ingrese las coordenadas"
-        value="{{ isset($finca->coFinca) ? $finca->coFinca : '' }}" required>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<br>
-<br>
-<div class="form-group">
-    <label>Densidad:</label>
-    <input type="text"  class="form-control" id="densidad" name="densidad" placeholder="Ingrese la densidad"
-        value="{{ isset($finca->densidad) ? $finca->densidad : '' }}" required>
+    <label>Activo:</label>
+    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="activo" name="activo" placeholder="Ingrese activo"
+        value="{{ isset($tecnico->activo) ? $tecnico->activo : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -97,7 +121,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/fincas" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/tecnicos" class="btn btn-danger btn-block">Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>

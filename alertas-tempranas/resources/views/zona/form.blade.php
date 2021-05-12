@@ -43,7 +43,7 @@
                         <label>Ingrese Parroquia:</label>
                         <select class="form-control" name="idParroquia">
                             @foreach ($parroquias as $parroquia)
-                                @if ($parroquia->id != $idParroquia)
+                                @if ($parroquia->id = $idParroquia)
                                     <option value="{{ $parroquia->id }}">{{ $parroquia->nombre }}</option>
                                 @endif
                             @endforeach

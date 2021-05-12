@@ -39,6 +39,9 @@
                     <a class="nav-link" href="{{ route('monitoreos.index') }}">Monitoreo<span
                             class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item {% if request.endpoint=='Pf' %}active{%endif %}">
+                    <a class="nav-link" href="{{ route('tecnicos.index') }}">Técnico</a>
+                </li>
                 <li class="nav-item {% if request.endpoint=='Frutos' %}active{%endif %}">
                     <a class="nav-link" href="{{ route('fincas.index') }}">Finca</a>
                 </li>

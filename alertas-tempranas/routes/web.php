@@ -7,10 +7,12 @@ use App\Models\Finca;
 use App\Models\Zona;
 use App\Models\Canton;
 use App\Models\Parroquia;
+use App\Controllers\TecnicoController;
 use App\Http\Controllers\MonitoreoController;
 use App\Http\Controllers\EstudioController;
 use App\Http\Controllers\FincaController;
 use App\Http\Controllers\ZonaController;
+use App\Http\Controllers\DatoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +33,5 @@ Route::resource('monitoreos','App\Http\Controllers\MonitoreoController');
 Route::resource('fincas', 'App\Http\Controllers\FincaController');
 Route::resource('zonas', 'App\Http\Controllers\ZonaController');
 Route::resource('estudios', 'App\Http\Controllers\EstudioController');
+Route::resource('tecnicos', 'App\Http\Controllers\TecnicoController');
+Route::resource('datos', 'App\Http\Controllers\DatoController');

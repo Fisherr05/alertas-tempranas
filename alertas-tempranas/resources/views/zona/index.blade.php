@@ -2,6 +2,8 @@
 
 @section('css')
     <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
+        type="text/css">
 @endsection
 
 @section('contenido')
@@ -47,14 +49,17 @@
                 </div>
             </div>
             <div class="card-body table-responsive">
-                <table id="table" class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg">
+                <table id="table"
+                    class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
+                    cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>ID ZONA</th>
-                            <th>ID FINCA</th>
-                            <th>NOMBRE</th>
+                            <th> ID ZONA</th>
+                            <th>NOMBRE ZONA</th>
+                            <th>FINCA</th>
                             <th>CANTON</th>
-                            <th>PARROQUIA</th> <!--Hola-->
+                            <th>PARROQUIA</th>
+                            <!--Hola-->
                             <th>LOCALIDAD</th>
                             <th>COORDENADAS</th>
                             <th>ACCIONES</th>
@@ -65,10 +70,27 @@
                         @foreach ($zonas as $zona)
                             <tr>
                                 <td>{{ $zona->id }}</td>
-                                <td>{{ $zona->idFinca }}</td>
-                                <td>{{ $zona->nombreZona}}</td>
-                                <td>CANTON </th>
-                                <td>{{ $zona->idParroquia }}</td>
+                                <td>{{ $zona->nombreZona }}</td>
+                                @foreach ($fincas as $finca)
+                                    @if ($zona->idFinca == $finca->id)
+                                        <td>{{ $finca->nombreFinca }}</td>
+                                    @endif
+                                @endforeach
+                                @foreach ($cantones as $canton)
+                                    @foreach ($parroquias as $parroquia)
+                                        @if ($zona->idParroquia == $parroquia->id)
+                                            @if ($parroquia->idCanton == $canton->id)
+                                                <td>{{ $canton->nombre}}</td>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                                @foreach ($parroquias as $parroquia)
+                                    @if ($zona->idParroquia == $parroquia->id)
+                                        <td>{{ $parroquia->nombre}}</td>
+                                    @endif
+                                @endforeach
+
                                 <td>{{ $zona->localidad }}</td>
                                 <td>{{ $zona->coZona }}</td>
                                 <td>
@@ -96,6 +118,8 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             $("#table").DataTable({
@@ -278,9 +302,14 @@
                     },
                     "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
                 },
-                "lengthMenu":[[5,10,50,100,-1], [5,10,50,100,"Todos"]]
+                "lengthMenu": [
+                    [5, 10, 50, 100, -1],
+                    [5, 10, 50, 100, "Todos"]
+                ],
+                responsive: true
             });
         });
+
     </script>
 @endsection
 @endsection
