@@ -1,34 +1,34 @@
 @extends('layouts.base')
-
 @section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
         type="text/css">
 @endsection
 
 @section('contenido')
     <!--Mensaje Creado -->
-    @if (session('fincaGuardado'))
+    @if (session('datoGuardado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('fincaGuardado') }}
+            {{ session('datoGuardado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Modificado-->
-    @if (session('fincaModificado'))
+    @if (session('datoModificado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('fincaModificado') }}
+            {{ session('datoModificado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Eliminado -->
-    @if (session('fincaEliminado'))
+    @if (session('datoEliminado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('fincaEliminado') }}
+            {{ session('datoEliminado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -39,11 +39,11 @@
             <div class="card-header align-items-center">
                 <div class="row align-items-center">
                     <div class="col-md-10">
-                        <h1>Monitoreo</h1>
+                        <h1>Datos</h1>
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="monitoreos/create" class="btn btn-success">Nuevo Registro</a>
+                            <a href="datos/create" class="btn btn-success">Nuevo Registro</a>
                         </div>
                     </div>
                 </div>
@@ -54,30 +54,27 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>CODIGO</th>
-                            <th>ESTUDIO</th>
-                            <th>FECHA PLANIFICADA</th>
-                            <th>FECHA DE EJECUCION</th>
-                            <th>OBSERVACIONES</th>
+                            <th>ID</th>
+                            <th>MONITOREO</th>
+                            <th>PLANTA</th>
+                            <th>FRUTO</th>
+                            <th>INCIDENCIA (%)</th>
+                            <th>SEVERIDAD (%)</th>
                             <th>ACCIONES</th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($monitoreos as $monitoreo)
+                        @foreach ($datos as $dato)
                             <tr>
-                                <td>{{ $monitoreo->codigo }}</td>
-                                @foreach ($estudios as $estudio)
-                                    @if ($monitoreo->idEstudio == $estudio->id)
-                                        <td>{{ $estudio->codigo }}</td>
-                                    @endif
-                                @endforeach
-                                <td>{{ $monitoreo->fechaPlanificada }}</td>
-                                <td>{{ $monitoreo->fechaEjecucion }}</td>
-                                <td>{{ $monitoreo->observaciones }}</td>
+                                <td>{{ $dato->id }}</td>
+                                <td>{{ $dato->idMonitoreo }}</td>
+                                <td>{{ $dato->planta }}</td>
+                                <td>{{ $dato->fruto }}</td>
+                                <td>{{ $dato->incidencia }}</td>
+                                <td>{{ $dato->severidad }}</td>
                                 <td>
-                                    <form action="{{ route('monitoreos.destroy', $monitoreo->id) }}" method="POST">
-                                        <a href="/monitoreos/{{ $monitoreo->id }}/edit" class="btn btn-secondary"><i
+                                    <form action="{{ route('datos.destroy', $dato->id) }}" method="POST">
+                                        <a href="/datos/{{ $dato->id }}/edit" class="btn btn-secondary"><i
                                                 class="fas fa-pencil-alt"></i></a>
                                         @csrf
                                         @method('DELETE')

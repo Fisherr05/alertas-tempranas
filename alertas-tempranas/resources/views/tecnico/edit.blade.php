@@ -7,7 +7,7 @@
         tecla = String.fromCharCode(key).toString();
         letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú";
 
-        especiales=[8,13];
+        especiales=[8,32];
         tecla_especial= false;
         for(var i in especiales){
             if(key == especiales[i]){
@@ -58,7 +58,7 @@
             <input id="monitoreo" list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
             <datalist id="monitoreos">
                 @foreach ($monitoreos as $monitoreo)
-                    <option value="{{ $monitoreo->id }}">{{ $monitoreo->id }}</option>
+                    <option value="{{ $monitoreo->id }}">{{ $monitoreo->codigo }}</option>
                 @endforeach
             </datalist>
             <div class="valid-feedback">

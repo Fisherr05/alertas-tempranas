@@ -8,6 +8,17 @@
         <div class="card-body">
             <form action="/monitoreos/{{ $monitoreo->id }}" class="needs-validation" method="POST" novalidate>
                 @csrf @method('PATCH')
+                <div class="form-group">
+                <label>Código de Monitoreo:</label>
+                <input type="text" disabled maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de monitoreo"
+                    value="{{ isset($monitoreo->codigo) ? $monitoreo->codigo : '' }}" required>
+                <div class="valid-feedback">
+                    ¡Bien!
+                </div>
+                <div class="invalid-feedback">
+                    ¡Rellene este campo!
+                </div>
+            </div>
                 <div class="form-goup">
                     <label>Seleccione Estudio:</label>
                     <select class="form-control" name="idEstudio">

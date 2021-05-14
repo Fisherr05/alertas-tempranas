@@ -54,7 +54,7 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th> ID ZONA</th>
+                            <th> ID</th>
                             <th>NOMBRE ZONA</th>
                             <th>FINCA</th>
                             <th>CANTON</th>

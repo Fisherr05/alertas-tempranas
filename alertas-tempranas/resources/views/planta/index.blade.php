@@ -1,7 +1,7 @@
 @extends('layouts.base')
-
 @section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
         type="text/css">
 @endsection
@@ -39,11 +39,11 @@
             <div class="card-header align-items-center">
                 <div class="row align-items-center">
                     <div class="col-md-10">
-                        <h1>Monitoreo</h1>
+                        <h1>Planta</h1>
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="monitoreos/create" class="btn btn-success">Nuevo Registro</a>
+                            <a href="plantas/create" class="btn btn-success">Nuevo Registro</a>
                         </div>
                     </div>
                 </div>
@@ -54,30 +54,21 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>CODIGO</th>
-                            <th>ESTUDIO</th>
-                            <th>FECHA PLANIFICADA</th>
-                            <th>FECHA DE EJECUCION</th>
-                            <th>OBSERVACIONES</th>
+                            <th>CÓDIGO</th>
+                            <th>MONITOREO</>
+                            <th>COORDENADAS</th>
                             <th>ACCIONES</th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($monitoreos as $monitoreo)
+                        @foreach ($plantas as $planta)
                             <tr>
-                                <td>{{ $monitoreo->codigo }}</td>
-                                @foreach ($estudios as $estudio)
-                                    @if ($monitoreo->idEstudio == $estudio->id)
-                                        <td>{{ $estudio->codigo }}</td>
-                                    @endif
-                                @endforeach
-                                <td>{{ $monitoreo->fechaPlanificada }}</td>
-                                <td>{{ $monitoreo->fechaEjecucion }}</td>
-                                <td>{{ $monitoreo->observaciones }}</td>
+                                <td>{{ $planta->codigo }}</td>
+                                <td>{{ $planta->idMonitoreo }}</td>
+                                <td>{{ $planta->coFinca }}</td>
                                 <td>
-                                    <form action="{{ route('monitoreos.destroy', $monitoreo->id) }}" method="POST">
-                                        <a href="/monitoreos/{{ $monitoreo->id }}/edit" class="btn btn-secondary"><i
+                                    <form action="{{ route('plantas.destroy', $planta->id) }}" method="POST">
+                                        <a href="/plantas/{{ $planta->id }}/edit" class="btn btn-secondary"><i
                                                 class="fas fa-pencil-alt"></i></a>
                                         @csrf
                                         @method('DELETE')

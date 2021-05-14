@@ -16,6 +16,7 @@ class CreateZonasTable extends Migration
         Schema::create('zonas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idFinca');
+            $table->unsignedBigInteger('idCanton');
             $table->unsignedBigInteger('idParroquia');
             $table->string('nombreZona');
             $table->string('localidad');
@@ -24,10 +25,14 @@ class CreateZonasTable extends Migration
                 ->references('id')->on('fincas')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->foreign('idCanton')
+                ->references('id')->on('cantons')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->foreign('idParroquia')
-            ->references('id')->on('parroquias')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+                ->references('id')->on('parroquias')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }

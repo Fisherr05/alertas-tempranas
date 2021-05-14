@@ -35,22 +35,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item {% if request.endpoint=='Plantas' %}active{%endif %}">
+                <li class="nav-item {{ (request()->is('datos*')) ? 'active' : '' }}">
+                    <a class="nav-link " href="{{ route('datos.index') }}">Datos</a>
+                </li>
+                <li class="nav-item {{ (request()->is('monitoreos*')) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('monitoreos.index') }}">Monitoreo<span
                             class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item {% if request.endpoint=='Pf' %}active{%endif %}">
-                    <a class="nav-link" href="{{ route('tecnicos.index') }}">Técnico</a>
-                </li>
-                <li class="nav-item {% if request.endpoint=='Frutos' %}active{%endif %}">
-                    <a class="nav-link" href="{{ route('fincas.index') }}">Finca</a>
-                </li>
-                <li class="nav-item {% if request.endpoint=='Pf' %}active{%endif %}">
-                    <a class="nav-link" href="{{ route('zonas.index') }}">Zona</a>
-                </li>
-                <li class="nav-item {% if request.endpoint=='Pf' %}active{%endif %}">
+                <li class="nav-item {{ (request()->is('estudios*')) ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('estudios.index') }}">Estudio</a>
                 </li>
+                <li class="nav-item {{ (request()->is('tecnicos*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('tecnicos.index') }}">Técnico</a>
+                </li>
+                <li class="nav-item {{ (request()->is('fincas*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('fincas.index') }}">Finca</a>
+                </li>
+                <li class="nav-item {{ (request()->is('zonas*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('zonas.index') }}">Zona</a>
+                </li>
+                <li class="nav-item {{ (request()->is('plantas*')) ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('plantas.index') }}">Planta</a>
+                </li>
+
             </ul>
         </div>
     </nav>

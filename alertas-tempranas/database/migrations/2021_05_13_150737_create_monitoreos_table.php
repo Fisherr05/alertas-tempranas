@@ -16,6 +16,7 @@ class CreateMonitoreosTable extends Migration
         Schema::create('monitoreos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idEstudio');
+            $table->string('codigo');
             $table->date('fechaPlanificada');
             $table->date('fechaEjecucion');
             $table->string('observaciones');

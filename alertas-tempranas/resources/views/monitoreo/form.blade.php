@@ -1,9 +1,54 @@
+<script>
+    function soloLetras(e){
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú0123456789";
+
+        especiales=[8,13];
+        tecla_especial= false;
+        for(var i in especiales){
+            if(key == especiales[i]){
+            tecla_especial=true;
+            break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            alert("Ingresar solo letras");
+            return false;
+        }
+    }
+
+    function soloNum(ev){
+        if(window.event){
+            keynum = ev.keyCode;
+        }else{
+            keynum = ev.which;
+        }
+        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
+            return true;
+        }else{
+            alert("Ingresar solo números");
+            return false;
+        }
+    }
+</script>
         <div class="form-group">
+            <div class="form-group">
+                <label>Código de Monitoreo:</label>
+                <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de monitoreo"
+                    value="{{ isset($monitoreo->codigo) ? $monitoreo->codigo : '' }}" required>
+                <div class="valid-feedback">
+                    ¡Bien!
+                </div>
+                <div class="invalid-feedback">
+                    ¡Rellene este campo!
+                </div>
+            </div>
             <label>Seleccione Estudio:</label>
             <input id="estudio" list="estudios" placeholder="Escriba para buscar..." required name="idEstudio">
             <datalist id="estudios">
                 @foreach ($estudios as $estudio)
-                    <option value="{{ $estudio->id }}">{{ $estudio->nombreEstudio}}</option>
+                    <option value="{{ $estudio->id }}">{{ $estudio->codigo}}</option>
                 @endforeach
             </datalist>
             <div class="valid-feedback">
@@ -89,4 +134,4 @@
                 });
               }, false);
             })();
-            </script>
+        </script>

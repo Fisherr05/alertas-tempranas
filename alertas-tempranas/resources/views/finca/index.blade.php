@@ -54,7 +54,7 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>ID FINCA</th>
+                            <th>ID</th>
                             <th>NOMBRE FINCA</th>
                             <th>PROPIETARIO</th>
                             <th>COORDENADAS</th>

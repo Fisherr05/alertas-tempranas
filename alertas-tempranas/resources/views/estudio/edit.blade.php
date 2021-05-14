@@ -43,6 +43,17 @@
       <form class="needs-validation" action="/estudios/{{ $estudio->id }}" method="POST" novalidate>
       @csrf @method('PATCH')
       <div class="form-group">
+        <label>Código de Estudio:</label>
+        <input type="text" disabled maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de estudio"
+            value="{{ isset($estudio->codigo) ? $estudio->codigo : '' }}" required>
+        <div class="valid-feedback">
+            ¡Bien!
+        </div>
+        <div class="invalid-feedback">
+            ¡Rellene este campo!
+        </div>
+    </div>
+      <div class="form-group">
         <label for="fenologia">Nombre de Estudio:</label>
         <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="fenologia" name="nombreEstudio" placeholder="Ingrese el nombre de estudio"
             value="{{ isset($estudio->nombreEstudio) ? $estudio->nombreEstudio : '' }}" required>

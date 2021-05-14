@@ -22,6 +22,10 @@ class Monitoreo extends Model
         return $this->hasMany('App\Models\Archivo');
     }
 
+    public function plantas(){
+        return $this->hasMany('App\Models\Planta');
+    }
+
     //Relacion uno a muchos (inversa)
     public function estudio(){
         return $this->belongsTo('App\Models\Estudio');

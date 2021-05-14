@@ -53,6 +53,7 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
+                            <th>CODIGO</th>
                             <th>ESTUDIO</th>
                             <th>FINCA</th>
                             <th>FENOLOGIA</th>
@@ -66,6 +67,7 @@
                     <tbody>
                         @foreach ($estudios as $estudio)
                             <tr>
+                                <td>{{ $estudio->codigo }}</td>
                                 <td>{{ $estudio->nombreEstudio }}</td>
                                 @foreach ($fincas as $finca)
                                     @if ($estudio->idFinca == $finca->id)

@@ -13,6 +13,8 @@ use App\Http\Controllers\EstudioController;
 use App\Http\Controllers\FincaController;
 use App\Http\Controllers\ZonaController;
 use App\Http\Controllers\DatoController;
+use App\Htpp\Controllers\PlantaController;
+use App\Htpp\Controllers\ParroquiaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +37,6 @@ Route::resource('zonas', 'App\Http\Controllers\ZonaController');
 Route::resource('estudios', 'App\Http\Controllers\EstudioController');
 Route::resource('tecnicos', 'App\Http\Controllers\TecnicoController');
 Route::resource('datos', 'App\Http\Controllers\DatoController');
+Route::resource('plantas', 'App\Http\Controllers\PlantaController');
+Route::get('parroquias/bycanton', 'App\Http\Controllers\ParroquiaController@getParroquias')->name('admin.parroquias.bycanton');
+

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dato;
-use App\Models\Monitoreo;
 use App\Models\Planta;
+use App\Models\Monitoreo;
 use Illuminate\Http\Request;
 
-class DatoController extends Controller
+class PlantaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,9 @@ class DatoController extends Controller
     public function index()
     {
         //
-        $dato['datos'] = Dato::all();
-        //$datos ['monitoreos'] = Monitoreo::all();
-        return view('dato.index',$dato);
+        $datos['plantas'] = Planta::all();
+        $datos['monitoreos'] =Monitoreo::all();
+        return view('planta.index',$datos);
     }
 
     /**
@@ -30,10 +29,9 @@ class DatoController extends Controller
     public function create()
     {
         //
-        $datos['datos'] = Dato::all();
-        $datos['monitoreos'] = Monitoreo::all();
-        $datos['plantas'] =Planta::all();
-        return view('dato.create',$datos);
+        $datos['plantas'] = Planta::all();
+        $datos['monitoreos'] =Monitoreo::all();
+        return view('planta.create',$datos);
     }
 
     /**
@@ -45,18 +43,18 @@ class DatoController extends Controller
     public function store(Request $request)
     {
         //
-        $datos = request()->except('_token');
-        Dato::insert($datos);
-        return redirect('/datos')->with('datoGuardado','Dato guardado con éxito');
+        $datos= request()->except('_token');
+        Planta::insert($datos);
+        return redirect('/plantas')->with('plantaGuardado','Planta guardado con éxito');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dato  $dato
+     * @param  \App\Models\Planta  $planta
      * @return \Illuminate\Http\Response
      */
-    public function show(Dato $dato)
+    public function show(Planta $planta)
     {
         //
     }
@@ -64,43 +62,42 @@ class DatoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dato  $dato
+     * @param  \App\Models\Planta  $planta
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
-        $dato = Dato::findorFail($id);
-        $monitoreos = Monitoreo::all();
-        $plantas = Planta::all();
-        return view('dato.edit', compact('dato', 'monitoreos','plantas'));
+        $planta= Planta::findOrFail($id);
+        $monitoreos=Monitoreo::all();
+        return view('planta.edit', compact('planta','monitoreos'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dato  $dato
+     * @param  \App\Models\Planta  $planta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,  $id)
     {
         //
         $datos= request()->except(['_token', '_method']);
-        Dato::where('id','=',$id)->update($datos);
-        return redirect('/datos')->with('datoModificado','Dato modificado con éxito');
+        Planta::where('id','=',$id)->update($datos);
+        return redirect('/plantas')->with('plantaModificado','Planta modificado con éxito');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dato  $dato
+     * @param  \App\Models\Planta  $planta
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-        Dato::destroy($id);
-        return back()->with('datoEliminado','Dato eliminado con éxito');
+        Planta::destroy($id);
+        return back()->with('plantaEliminado','Planta eliminado con éxito');
     }
 }

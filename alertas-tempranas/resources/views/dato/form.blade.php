@@ -4,7 +4,7 @@
         tecla = String.fromCharCode(key).toString();
         letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú";
 
-        especiales=[8,32];
+        especiales=[8,13];
         tecla_especial= false;
         for(var i in especiales){
             if(key == especiales[i]){
@@ -34,10 +34,13 @@
 </script>
 
 <div class="form-group">
-    <label for="nombreFinca">Nombre de la finca:</label>
-    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="nombreFinca" name="nombreFinca"
-        placeholder="Ingrese el nombre de la finca" pattern="[A-Za-z0-9]+"
-        value="{{ isset($finca->nombreFinca) ? $finca->nombreFinca : '' }}" required>
+    <label>Seleccione Monitoreo:</label>
+    <input id="monitoreo" list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
+    <datalist id="monitoreos">
+        @foreach ($monitoreos as $monitoreo)
+            <option value="{{ $monitoreo->id }}">{{ $monitoreo->codigo }}</option>
+        @endforeach
+    </datalist>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -47,10 +50,10 @@
 </div>
 <br>
 <div class="form-group">
-    <label for="propietarioFinca">Nombre del propietario:</label>
-    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="propietarioFinca" name="propietarioFinca"
-        placeholder="Ingrese el nombre del propietario"
-        value="{{ isset($finca->propietarioFinca) ? $finca->propietarioFinca : '' }}" required>
+    <label>Incidencia:</label>
+    <input type="text" min="0" max="100" onkeypress="return soloNum(event);" maxlength="3" class="form-control" id="incidencia" name="incidencia"
+        placeholder="Ingrese la incidencia"
+        value="{{ isset($dato->incidencia) ? $dato->incidencia : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -60,9 +63,9 @@
 </div>
 <br>
 <div class="form-group">
-    <label>Coordenadas:</label>
-    <input type="text" class="form-control" id="coFinca" name="coFinca" placeholder="Ingrese las coordenadas"
-        value="{{ isset($finca->coFinca) ? $finca->coFinca : '' }}" required>
+    <label>Severidad:</label>
+    <input type="text" min="0" max="100" onkeypress="return soloNum(event);" maxlength="3"  class="form-control" id="severidad" name="severidad" placeholder="Ingrese la severidad"
+        value="{{ isset($dato->severidad) ? $dato->severidad : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -71,11 +74,34 @@
     </div>
 </div>
 <br>
+<div class="form-row">
+    <div class="form-group col">
+        <label>Planta:</label>
+        <input id="planta"  list="plantas" placeholder="Escriba para buscar..." name="" value="{{ isset($planta->id) ? $planta->id : '' }}" required>
+        <datalist id="plantas">
+            @foreach ($plantas as $planta)
+                <option value="{{ $planta->id }}">{{ $planta->codigo }}</option>
+            @endforeach
+        </datalist>
+        <div class="valid-feedback">
+            ¡Bien!
+        </div>
+        <div class="invalid-feedback">
+            ¡Rellene este campo!
+        </div>
+    </div>
+    <div class="container col-md-2">
+        <div class="text-center justify-content-center">
+            <a href="" class="btn btn-success">Nuevo Registro</a>
+        </div>
+    </div>
+</div>
+
 <br>
 <div class="form-group">
-    <label>Densidad:</label>
-    <input type="text"  class="form-control" id="densidad" name="densidad" placeholder="Ingrese la densidad"
-        value="{{ isset($finca->densidad) ? $finca->densidad : '' }}" required>
+    <label>Fruto:</label>
+    <input type="number" min="1" max="10" onkeypress="return soloNum(event);"  class="form-control" id="fruto" name="fruto" placeholder="Ingrese el número del fruto"
+        value="{{ isset($dato->fruto) ? $dato->fruto : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -97,7 +123,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/fincas" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/datos" class="btn btn-danger btn-block">Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>

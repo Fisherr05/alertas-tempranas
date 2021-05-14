@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDatosTable extends Migration
+class CreatePlantasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateDatosTable extends Migration
      */
     public function up()
     {
-        Schema::create('datos', function (Blueprint $table) {
+        Schema::create('plantas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idMonitoreo');
-            $table->string('incidencia');
-            $table->string('severidad');
-            $table->unsignedBigInteger('planta');
-            $table->unsignedBigInteger('fruto');
+            $table->string('codigo');
+            $table->string('coPlanta');
             $table->foreign('idMonitoreo')->references('id')->on('monitoreos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+
         });
     }
 
@@ -32,6 +31,6 @@ class CreateDatosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('datos');
+        Schema::dropIfExists('plantas');
     }
 }
