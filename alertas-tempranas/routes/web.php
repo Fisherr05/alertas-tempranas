@@ -37,6 +37,7 @@ Route::resource('zonas', 'App\Http\Controllers\ZonaController');
 Route::resource('estudios', 'App\Http\Controllers\EstudioController');
 Route::resource('tecnicos', 'App\Http\Controllers\TecnicoController');
 Route::resource('datos', 'App\Http\Controllers\DatoController');
+Route::get('plantas/bymonitoreo', 'App\Http\Controllers\PlantaController@getPlantas')->name('admin.plantas.bymonitoreo');
 Route::resource('plantas', 'App\Http\Controllers\PlantaController');
 Route::get('parroquias/bycanton', 'App\Http\Controllers\ParroquiaController@getParroquias')->name('admin.parroquias.bycanton');
 

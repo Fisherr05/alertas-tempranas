@@ -17,9 +17,10 @@ class DatoController extends Controller
     public function index()
     {
         //
-        $dato['datos'] = Dato::all();
-        //$datos ['monitoreos'] = Monitoreo::all();
-        return view('dato.index',$dato);
+        $datos['datos'] = Dato::all();
+        $datos ['monitoreos'] = Monitoreo::all();
+        $datos ['plantas'] = Planta::all();
+        return view('dato.index',$datos);
     }
 
     /**

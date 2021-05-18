@@ -35,7 +35,7 @@
 
 <div class="form-group">
     <label>Seleccione Monitoreo:</label>
-    <input id="monitoreo" list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
+    <input id="idMonitoreo" list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
     <datalist id="monitoreos">
         @foreach ($monitoreos as $monitoreo)
             <option value="{{ $monitoreo->id }}">{{ $monitoreo->codigo }}</option>
@@ -77,11 +77,9 @@
 <div class="form-row">
     <div class="form-group col">
         <label>Planta:</label>
-        <input id="planta"  list="plantas" placeholder="Escriba para buscar..." name="" value="{{ isset($planta->id) ? $planta->id : '' }}" required>
+        <input id="idPlanta"  list="plantas" placeholder="Escriba para buscar..." name="idPlanta" value="{{ isset($planta->id) ? $planta->id : '' }}" required>
         <datalist id="plantas">
-            @foreach ($plantas as $planta)
-                <option value="{{ $planta->id }}">{{ $planta->codigo }}</option>
-            @endforeach
+            <option></option>
         </datalist>
         <div class="valid-feedback">
             ¡Bien!

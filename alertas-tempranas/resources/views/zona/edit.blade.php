@@ -30,38 +30,33 @@
                 <div class="form-row">
                     <div class="form-group col">
                         <label>Ingrese Canton:</label>
-                        <select class="form-control">
-                            @php($idParroquia = 0)
-                                <option value="0">Selecione un cantón</option>
-                                @foreach ($cantones as $canton)
-                                    <option value="{{ $canton->id }}">{{ $canton->nombre }}</option>
-                                    @php($idParroquia = $canton->id)
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label>Ingrese Parroquia:</label>
-                                <select class="form-control" name="idParroquia">
-                                    @foreach ($parroquias as $parroquia)
-                                        @if ($parroquia->id != $idParroquia)
-                                            <option value="{{ $parroquia->id }}">{{ $parroquia->nombre }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col">
-                                <label>Localidad:</label>
-                                <input type="text" class="form-control" id="localidad" name="localidad"
-                                    placeholder="Ingrese la localidad de la zona" value="{{ isset($zona->localidad) ? $zona->localidad : '' }}" required>
+                        <select class="form-control" name="idCanton" id="idCanton">
+                            <option value="">Selecione un cantón</option>
+                            @foreach ($cantones as $canton)
+                                <option value="{{ isset($canton->id) ? $canton->id : ''  }}">{{ $canton->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col">
+                        <label>Ingrese Parroquia:</label>
+                        <select class="form-control" name="idParroquia" id="idParroquia">
+                            <option value="{{ isset($zona->idParroquia) ? $zona->idParroquia : '' }}"></option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                        <label>Localidad:</label>
+                        <input type="text" class="form-control" id="localidad" name="localidad"
+                            placeholder="Ingrese la localidad de la zona" value="{{ isset($zona->localidad) ? $zona->localidad : ''  }}" required>
 
-                                <div class="valid-feedback">
-                                    ¡Bien!
-                                </div>
-                                <div class="invalid-feedback">
-                                    ¡Rellene este campo!
-                                </div>
-                            </div>
+                        <div class="valid-feedback">
+                            ¡Bien!
                         </div>
+                        <div class="invalid-feedback">
+                            ¡Rellene este campo!
+                        </div>
+                    </div>
                 <br>
                 <div class="form-group">
                     <label>Coordenadas:</label>
@@ -104,42 +99,21 @@
             </form>
         </div>
     </div>
-    <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function() {
-            'use strict';
-            window.addEventListener('load', function() {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
 
-    </script>
 @section('js')
-< script type = "text/javascript" >
-    $(document).ready(function() {
-        $('#idCanton').on('change', function() {
-            $.ajax({
-                url: "{{ route('admin.parroquias.bycanton') }}?idCanton=" + $(this).val(),
-                method: 'GET',
-                success: function(data) {
-                    $('#idParroquia').html(data.html);
-                }
+<script type = "text/javascript" >
+            $(document).ready(function() {
+                $('#idCanton').on('change', function() {
+                    $.ajax({
+                        url: "{{ route('admin.parroquias.bycanton') }}?idCanton=" + $(this).val(),
+                        method: 'GET',
+                        success: function(data) {
+                            $('#idParroquia').html(data.html);
+                        }
+                    });
+                });
             });
-        });
-    });
-
-</script>
+    </script>
 <script>
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function() {

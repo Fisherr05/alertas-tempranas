@@ -12,4 +12,19 @@
       </form>
     </div>
 </div>
+@section('js')
+        <script type = "text/javascript" >
+            $(document).ready(function() {
+                $('#idMonitoreo').on('change', function() {
+                    $.ajax({
+                        url: "{{ route('admin.plantas.bymonitoreo') }}?idMonitoreo=" + $(this).val(),
+                        method: 'GET',
+                        success: function(data) {
+                            $('#plantas').html(data.html);
+                        }
+                    });
+                });
+            });
+    </script>
+@endsection
 @endsection

@@ -98,6 +98,20 @@ class PlantaController extends Controller
     {
         //
         Planta::destroy($id);
-        return back()->with('plantaEliminado','Planta eliminado con éxito');
+        return back()->with('plantaEliminado','Planta eliminada con éxito');
+    }
+
+    public function getPlantas(Request $request)
+    {
+        if (!$request->idMonitoreo) {
+            $html = '<option value="">'.'Seleccione una planta'.'</option>';
+        } else {
+            $html = '';
+            $plantas = Planta::where('idMonitoreo', $request->idMonitoreo)->get();
+            foreach ($plantas as $planta) {
+                $html .= '<option value="'.$planta->id.'">'.$planta->codigo.'</option>';
+            }
+        }
+        return response()->json(['html' => $html]);
     }
 }

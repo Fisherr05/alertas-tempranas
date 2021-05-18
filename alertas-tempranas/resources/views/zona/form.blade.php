@@ -66,7 +66,7 @@
 <div class="form-row">
     <div class="form-group col">
         <label>Ingrese Canton:</label>
-        <select class="form-control" name="idCanton" id="idCanton">
+        <select class="form-control" name="idCanton" id="idCanton" required>
             <option value="">Selecione un cantón</option>
             @foreach ($cantones as $canton)
                 <option value="{{ $canton->id }}">{{ $canton->nombre }}</option>
@@ -75,11 +75,12 @@
     </div>
     <div class="form-group col">
         <label>Ingrese Parroquia:</label>
-        <select class="form-control" name="idParroquia" id="idParroquia">
+        <select class="form-control" name="idParroquia" id="idParroquia" required>
             <option value="">Seleccione una parroquia</option>
         </select>
     </div>
-    <div class="form-group col">
+</div>
+<div class="form-group">
         <label>Localidad:</label>
         <input type="text" class="form-control" id="localidad" name="localidad"
             placeholder="Ingrese la localidad de la zona" value="" required>
@@ -91,7 +92,6 @@
             ¡Rellene este campo!
         </div>
     </div>
-</div>
 <br>
 <div class="form-group">
     <label>Coordenadas:</label>

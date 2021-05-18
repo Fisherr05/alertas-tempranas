@@ -67,8 +67,16 @@
                         @foreach ($datos as $dato)
                             <tr>
                                 <td>{{ $dato->id }}</td>
-                                <td>{{ $dato->idMonitoreo }}</td>
-                                <td>{{ $dato->planta }}</td>
+                                @foreach ($monitoreos as $monitoreo)
+                                    @if ($dato->idMonitoreo== $monitoreo->id)
+                                        <td>{{ $monitoreo->codigo }}</td>
+                                    @endif
+                                @endforeach
+                                @foreach ($plantas as $planta)
+                                    @if ($dato->idPlanta== $planta->id)
+                                        <td>{{ $planta->codigo }}</td>
+                                    @endif
+                                @endforeach
                                 <td>{{ $dato->fruto }}</td>
                                 <td>{{ $dato->incidencia }}</td>
                                 <td>{{ $dato->severidad }}</td>
@@ -91,8 +99,6 @@
         </div>
     </div>
 @section('js')
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous">
-    </script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
         crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"

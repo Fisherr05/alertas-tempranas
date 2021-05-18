@@ -90,11 +90,11 @@ class ParroquiaController extends Controller
         } else {
             $html = '';
             $parroquias = Parroquia::where('idCanton', $request->idCanton)->get();
+            $html = '<option value="">'.'Seleccione una parroquia'.'</option>';
             foreach ($parroquias as $parroquia) {
                 $html .= '<option value="'.$parroquia->id.'">'.$parroquia->nombre.'</option>';
             }
         }
-
         return response()->json(['html' => $html]);
     }
 }
