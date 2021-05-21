@@ -64,8 +64,12 @@
                         @foreach ($plantas as $planta)
                             <tr>
                                 <td>{{ $planta->codigo }}</td>
-                                <td>{{ $planta->idMonitoreo }}</td>
-                                <td>{{ $planta->coFinca }}</td>
+                                @foreach ($monitoreos as $monitoreo)
+                                    @if($planta->idMonitoreo==$monitoreo->id)
+                                        <td>{{ $monitoreo->codigo }}</td>
+                                    @endif
+                                @endforeach
+                                <td>{{ $planta->coPlanta }}</td>
                                 <td>
                                     <form action="{{ route('plantas.destroy', $planta->id) }}" method="POST">
                                         <a href="/plantas/{{ $planta->id }}/edit" class="btn btn-secondary"><i

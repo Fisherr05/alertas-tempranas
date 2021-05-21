@@ -2,7 +2,7 @@
     function soloLetras(e){
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú";
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú";
 
         especiales=[8,32];
         tecla_especial= false;
@@ -14,6 +14,24 @@
         }
         if(letras.indexOf(tecla)==-1 && !tecla_especial){
             alert("Ingresar solo letras");
+            return false;
+        }
+    }
+     function soloLetrayNumero(e){
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú1234567890-_";
+
+        especiales=[8,32];
+        tecla_especial= false;
+        for(var i in especiales){
+            if(key == especiales[i]){
+            tecla_especial=true;
+            break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            alert("Ingresar datos correspondientes");
             return false;
         }
     }
@@ -33,6 +51,19 @@
     }
 </script>
 <div class="form-group">
+    <label>Seleccione Monitoreo:</label>
+        <input id="monitoreo" list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
+        <datalist id="monitoreos">
+            @foreach ($monitoreos as $monitoreo)
+                <option value="{{ $monitoreo->id }}">{{ $monitoreo->codigo }}</option>
+            @endforeach
+        </datalist>
+        <div class="valid-feedback">
+            ¡Bien!
+        </div>
+        <div class="invalid-feedback">
+            ¡Rellene este campo!
+        </div>
     <div class="form-group">
         <label for="fenologia">Nombre de Técnico:</label>
         <input type="text"  onkeypress="return soloLetras(event);" class="form-control" id="nombreTecnico" name="nombreTecnico" placeholder="Ingrese el nombre del técnico"
@@ -44,24 +75,11 @@
             ¡Rellene este campo!
         </div>
     </div>
-    <label>Seleccione Monitoreo:</label>
-    <input id="monitoreo" list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
-    <datalist id="monitoreos">
-        @foreach ($monitoreos as $monitoreo)
-            <option value="{{ $monitoreo->id }}">{{ $monitoreo->codigo }}</option>
-        @endforeach
-    </datalist>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
 </div>
 <br>
 <div class="form-group">
     <label>Institución:</label>
-    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="institucion" name="institucion" placeholder="Ingrese la institución"
+    <input type="text" onkeypress="return soloLetrayNumero(event);" class="form-control" id="institucion" name="institucion" placeholder="Ingrese la institución"
         value="{{ isset($tecnico->institucion) ? $tecnico->institucion : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!

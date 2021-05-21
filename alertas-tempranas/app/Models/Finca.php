@@ -8,17 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Finca extends Model
 {
     use HasFactory;
+    public $timestamps = true;
 
     //Reacion de uno a muchos
-    public function zonas(){
-        return $this->hasMany('App\Models\Zona');
-    }
+
     public function estudios(){
-        return $this->hasMany('App\Models\Estudio');
+        return $this->hasMany('App\Models\Estudio')->withtimestamps();
     }
 
     //Relacion de muchos a muchos
     public function variedades(){
-        return $this->belongsToMany('App\Models\Variedad');
+        return $this->belongsToMany('App\Models\Variedad')->withtimestamps();
+    }
+    public function zona(){
+        return $this->belongsToMany('App\Models\Zona')->withtimestamps();
     }
 }

@@ -20,11 +20,10 @@ class ZonaController extends Controller
     {
         //
         $zonas = Zona::all();
-        $fincas = Finca::all();
         $parroquias = Parroquia::all();
         $cantones = Canton::all();
 
-        return view('zona.index', compact('zonas','fincas','parroquias','cantones'));
+        return view('zona.index', compact('zonas','parroquias','cantones'));
     }
 
 
@@ -37,7 +36,6 @@ class ZonaController extends Controller
     {
         //
         $datos1['zonas'] = Zona::all();
-        $datos['fincas'] = Finca::all();
         $datos['parroquias'] = Parroquia::all();
         $datos['cantones'] = Canton::all();
         return view('zona.create',$datos,$datos1);

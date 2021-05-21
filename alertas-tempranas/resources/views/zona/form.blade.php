@@ -2,7 +2,7 @@
     function soloLetras(e) {
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú";
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú";
 
         especiales = [8, 32];
         tecla_especial = false;
@@ -34,22 +34,6 @@
 
 </script>
 
-<div class="form-group">
-    <label>Seleccione Finca:</label>
-    <input id="finca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" required>
-    <datalist id="fincas">
-        @foreach ($fincas as $finca)
-            <option value="{{ $finca->id }}">{{ $finca->id }} - {{ $finca->nombreFinca }}</option>
-        @endforeach
-    </datalist>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<br>
 <div class="form-group">
     <label>Ingrese nombre de zona:</label>
     <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="nombreZona" name="nombreZona"

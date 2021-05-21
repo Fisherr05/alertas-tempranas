@@ -75,8 +75,9 @@ class MonitoreoController extends Controller
     {
         //
         $monitoreo = Monitoreo::findOrFail($id);
+        $estudios = Estudio::all();
 
-        return view('monitoreo.edit', compact('monitoreo'));
+        return view('monitoreo.edit', compact('monitoreo','estudios'));
     }
 
     /**

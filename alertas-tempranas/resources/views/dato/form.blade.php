@@ -2,7 +2,7 @@
     function soloLetras(e){
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú";
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú";
 
         especiales=[8,13];
         tecla_especial= false;
@@ -49,6 +49,34 @@
     </div>
 </div>
 <br>
+<div class="form-row">
+    <div class="form-group col">
+        <label>Planta:</label>
+        <input id="idPlanta"  list="plantas" placeholder="Escriba para buscar..." name="idPlanta" value="{{ isset($planta->id) ? $planta->id : '' }}" required>
+        <datalist id="plantas">
+            <option></option>
+        </datalist>
+        <div class="valid-feedback">
+            ¡Bien!
+        </div>
+        <div class="invalid-feedback">
+            ¡Rellene este campo!
+        </div>
+    </div>
+</div>
+<br>
+<div class="form-group">
+    <label>Fruto:</label>
+    <input type="number" min="1" max="10" onkeypress="return soloNum(event);"  class="form-control" id="fruto" name="fruto" placeholder="Ingrese el número del fruto"
+        value="{{ isset($dato->fruto) ? $dato->fruto : '' }}" required>
+    <div class="valid-feedback">
+        ¡Bien!
+    </div>
+    <div class="invalid-feedback">
+        ¡Rellene este campo!
+    </div>
+</div>
+<br>
 <div class="form-group">
     <label>Incidencia:</label>
     <input type="text" min="0" max="100" onkeypress="return soloNum(event);" maxlength="3" class="form-control" id="incidencia" name="incidencia"
@@ -66,40 +94,6 @@
     <label>Severidad:</label>
     <input type="text" min="0" max="100" onkeypress="return soloNum(event);" maxlength="3"  class="form-control" id="severidad" name="severidad" placeholder="Ingrese la severidad"
         value="{{ isset($dato->severidad) ? $dato->severidad : '' }}" required>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<br>
-<div class="form-row">
-    <div class="form-group col">
-        <label>Planta:</label>
-        <input id="idPlanta"  list="plantas" placeholder="Escriba para buscar..." name="idPlanta" value="{{ isset($planta->id) ? $planta->id : '' }}" required>
-        <datalist id="plantas">
-            <option></option>
-        </datalist>
-        <div class="valid-feedback">
-            ¡Bien!
-        </div>
-        <div class="invalid-feedback">
-            ¡Rellene este campo!
-        </div>
-    </div>
-    <div class="container col-md-2">
-        <div class="text-center justify-content-center">
-            <a href="" class="btn btn-success">Nuevo Registro</a>
-        </div>
-    </div>
-</div>
-
-<br>
-<div class="form-group">
-    <label>Fruto:</label>
-    <input type="number" min="1" max="10" onkeypress="return soloNum(event);"  class="form-control" id="fruto" name="fruto" placeholder="Ingrese el número del fruto"
-        value="{{ isset($dato->fruto) ? $dato->fruto : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>

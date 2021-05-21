@@ -5,7 +5,7 @@
     function soloLetras(e){
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú";
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú";
 
         especiales=[8,13];
         tecla_especial= false;
@@ -43,17 +43,33 @@
       <form class="needs-validation" action="/estudios/{{ $estudio->id }}" method="POST" novalidate>
       @csrf @method('PATCH')
       <div class="form-group">
-        <label>Código de Estudio:</label>
-        <input type="text" disabled maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de estudio"
-            value="{{ isset($estudio->codigo) ? $estudio->codigo : '' }}" required>
-        <div class="valid-feedback">
-            ¡Bien!
+        <label>Seleccione Finca:</label>
+            <input id="finca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" value="{{ isset($finca->id) ? $finca->id : '' }}" required>
+            <datalist id="fincas">
+                @foreach ($fincas as $finca)
+                    <option value="{{ isset($finca->id) ? $finca->id : '' }}">{{ $finca->nombreFinca }}</option>
+                @endforeach
+            </datalist>
+            <div class="valid-feedback">
+                ¡Bien!
+            </div>
+            <div class="invalid-feedback">
+                ¡Rellene este campo!
+            </div>
+      </div>
+        <div class="form-group">
+            <label>Código de Estudio:</label>
+            <input type="text" disabled maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de estudio"
+                value="{{ isset($estudio->codigo) ? $estudio->codigo : '' }}" required>
+            <div class="valid-feedback">
+                ¡Bien!
+            </div>
+            <div class="invalid-feedback">
+                ¡Rellene este campo!
+            </div>
         </div>
-        <div class="invalid-feedback">
-            ¡Rellene este campo!
-        </div>
-    </div>
-      <div class="form-group">
+
+    <div class="form-group">
         <label for="fenologia">Nombre de Estudio:</label>
         <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="fenologia" name="nombreEstudio" placeholder="Ingrese el nombre de estudio"
             value="{{ isset($estudio->nombreEstudio) ? $estudio->nombreEstudio : '' }}" required>
@@ -64,22 +80,7 @@
             ¡Rellene este campo!
         </div>
     </div>
-      <div class="form-group">
-    <label>Seleccione Finca:</label>
-    <input id="finca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" value="{{ isset($finca->id) ? $finca->id : '' }}" required>
-    <datalist id="fincas">
-        @foreach ($fincas as $finca)
-            <option value="{{ isset($finca->id) ? $finca->id : '' }}">{{ $finca->nombreFinca }}</option>
-        @endforeach
-    </datalist>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<br>
+    <br>
 <div class="form-group">
     <label for="fenologia">Fenologia:</label>
     <input type="text" onkeypress="return soloNum(event);" minlength="1" maxlength="3" class="form-control" id="fenologia" name="fenologia" placeholder="Ingrese la fenologia"
@@ -139,6 +140,8 @@
         ¡Rellene este campo!
     </div>
 </div>
+</div>
+
 <br>
 <!-- Validacion errores-->
 @if ($errors->any())

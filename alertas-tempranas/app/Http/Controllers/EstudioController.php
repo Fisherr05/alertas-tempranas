@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Estudio;
 use App\Models\Finca;
+use App\Models\Variedad;
 use Illuminate\Http\Request;
 
 class EstudioController extends Controller
@@ -18,7 +19,8 @@ class EstudioController extends Controller
         //
         $estudios= Estudio::all();
         $fincas= Finca::all();
-        return view('estudio.index',compact('estudios','fincas'));
+        $variedades=Variedad::all();
+        return view('estudio.index',compact('estudios','fincas','variedades'));
     }
 
     /**
@@ -31,6 +33,7 @@ class EstudioController extends Controller
         //
         $datos['estudios'] = Estudio::all();
         $datos['fincas'] = Finca::all();
+        $datos['variedades']=Variedad::all();
         return view('estudio.create',$datos);
 
     }
@@ -72,8 +75,8 @@ class EstudioController extends Controller
 
         $estudio = Estudio::findOrfail($id);
         $fincas = Finca::all();
-
-        return view('estudio.edit', compact('estudio','fincas'));
+        $variedades =Variedad::all();
+        return view('estudio.edit', compact('estudio','fincas','variedades'));
     }
 
     /**

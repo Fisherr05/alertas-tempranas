@@ -8,26 +8,27 @@ use Illuminate\Database\Eloquent\Model;
 class Monitoreo extends Model
 {
     use HasFactory;
+    public $timestamps = true;
 
     //Relacion uno a muchos
     public function datos(){
-        return $this->hasMany('App\Models\Datos');
+        return $this->hasMany('App\Models\Datos')->withtimestamps();
     }
 
     public function tecnicos(){
-        return $this->hasMany('App\Models\Tecnico');
+        return $this->hasMany('App\Models\Tecnico')->withtimestamps();
     }
 
     public function archivos(){
-        return $this->hasMany('App\Models\Archivo');
+        return $this->hasMany('App\Models\Archivo')->withtimestamps();
     }
 
     public function plantas(){
-        return $this->hasMany('App\Models\Planta');
+        return $this->hasMany('App\Models\Planta')->withtimestamps();
     }
 
     //Relacion uno a muchos (inversa)
     public function estudio(){
-        return $this->belongsTo('App\Models\Estudio');
+        return $this->belongsTo('App\Models\Estudio')->withtimestamps();
     }
 }

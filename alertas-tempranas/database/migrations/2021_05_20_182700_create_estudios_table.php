@@ -16,6 +16,7 @@ class CreateEstudiosTable extends Migration
         Schema::create('estudios', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idFinca');
+            $table->unsignedBigInteger('idVariedad');
             $table->string('codigo');
             $table->string('nombreEstudio');
             $table->string('fenologia');
@@ -24,6 +25,7 @@ class CreateEstudiosTable extends Migration
             $table->date('fechaFin');
             $table->string('activo');
             $table->foreign('idFinca')->references('id')->on('fincas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idVariedad')->references('id')->on('variedads')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

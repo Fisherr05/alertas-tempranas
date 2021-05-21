@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Archivo extends Model
 {
     use HasFactory;
+    public $timestamps = true;
 
     //Relacion uno a muchos (inversa)
     public function monitoreo(){
-        return $this->belongsTo('App\Models\Monitoreo');
+        return $this->belongsTo('App\Models\Monitoreo')->withtimestamps();
     }
 }

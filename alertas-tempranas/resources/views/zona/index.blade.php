@@ -56,7 +56,6 @@
                         <tr>
                             <th> ID</th>
                             <th>NOMBRE ZONA</th>
-                            <th>FINCA</th>
                             <th>CANTON</th>
                             <th>PARROQUIA</th>
                             <!--Hola-->
@@ -71,11 +70,6 @@
                             <tr>
                                 <td>{{ $zona->id }}</td>
                                 <td>{{ $zona->nombreZona }}</td>
-                                @foreach ($fincas as $finca)
-                                    @if ($zona->idFinca == $finca->id)
-                                        <td>{{ $finca->nombreFinca }}</td>
-                                    @endif
-                                @endforeach
                                 @foreach ($cantones as $canton)
                                     @foreach ($parroquias as $parroquia)
                                         @if ($zona->idParroquia == $parroquia->id)

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Finca;
+use App\Models\Zona;
+use App\Models\Variedad;
 use Illuminate\Http\Request;
 
 class FincaController extends Controller
@@ -15,8 +17,10 @@ class FincaController extends Controller
     public function index()
     {
         //
-        $datos['fincas'] = Finca::all();
-        return view('finca.index',$datos);
+        $zonas = Zona::all();
+        $fincas = Finca::all();
+        $variedades = Variedad::all();
+        return view('finca.index',compact('fincas','zonas','variedades'));
     }
 
     /**
@@ -27,7 +31,9 @@ class FincaController extends Controller
     public function create()
     {
         //
+        $datos['zonas'] = Zona::all();
         $datos['fincas'] = Finca::all();
+        $datos['variedades'] = Variedad::all();
         return view('finca.create',$datos);
     }
 
@@ -66,8 +72,9 @@ class FincaController extends Controller
     {
         //
         $finca= Finca::findOrFail($id);
-
-        return view('finca.edit', compact('finca'));
+        $zonas = Zona::all();
+        $variedades = Variedad::all();
+        return view('finca.edit', compact('finca','zonas','variedades'));
     }
 
     /**

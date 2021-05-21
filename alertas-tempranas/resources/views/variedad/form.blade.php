@@ -33,25 +33,10 @@
     }
 </script>
 <div class="form-group">
-    <label>Seleccione Monitoreo:</label>
-    <input id="monitoreo"  list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
-    <datalist id="monitoreos">
-        @foreach ($monitoreos as $monitoreo)
-            <option value="{{ $monitoreo->id }}">{{ $monitoreo->codigo }}</option>
-        @endforeach
-    </datalist>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<div class="form-group">
-    <label>Código Planta:</label>
+    <label>Código Variedad:</label>
     <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo"
-        placeholder="Ingrese código de la planta"
-        value="{{ isset($planta->codigo) ? $planta->codigo : '' }}" required>
+        placeholder="Ingrese código Ej(VA0001)"
+        value="{{ isset($variedad->codigo) ? $variedad->codigo : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -61,10 +46,10 @@
 </div>
 <br>
 <div class="form-group">
-    <label>Coordenadas:</label>
-    <input type="text"  class="form-control" id="" name="coPlanta"
-        placeholder="Ingrese las coordenadas de la planta"
-        value="{{ isset($planta->coPlanta) ? $planta->coPlanta : '' }}" required>
+    <label>Descripción:</label>
+    <input type="text"  class="form-control" id="" name="descripcion"
+        placeholder="Ingrese descripción"
+        value="{{ isset($variedad->descripcion) ? $variedad->descripcion : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -75,7 +60,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/plantas" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/variedades" class="btn btn-danger btn-block">Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>

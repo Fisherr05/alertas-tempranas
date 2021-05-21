@@ -1,33 +1,34 @@
 @extends('layouts.base')
 @section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
         type="text/css">
 @endsection
 
 @section('contenido')
     <!--Mensaje Creado -->
-    @if (session('tecnicoGuardado'))
+    @if (session('variedadGuardado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('tecnicoGuardado') }}
+            {{ session('variedadGuardado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Modificado-->
-    @if (session('tecnicoModificado'))
+    @if (session('variedadModificado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('tecnicoModificado') }}
+            {{ session('variedadModificado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Eliminado -->
-    @if (session('tecnicoEliminado'))
+    @if (session('variedadEliminado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('tecnicoEliminado') }}
+            {{ session('variedadEliminado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -38,11 +39,11 @@
             <div class="card-header align-items-center">
                 <div class="row align-items-center">
                     <div class="col-md-10">
-                        <h1>Técnico</h1>
+                        <h1>Variedad</h1>
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="tecnicos/create" class="btn btn-success">Nuevo Registro</a>
+                            <a href="variedades/create" class="btn btn-success">Nuevo Registro</a>
                         </div>
                     </div>
                 </div>
@@ -53,31 +54,19 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>MONITOREO</th>
-                            <th>NOMBRE TÉCNICO</th>
-                            <th>INSTITUCIÓN</th>
-                            <th>TELÉFONO</th>
-                            <th>EMAIL</th>
-                            <th>ACTIVO</th>
+                            <th>CÓDIGO</th>
+                            <th>DESCRIPCIÓN</>
                             <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tecnicos as $tecnico)
+                        @foreach ($variedades as $variedad)
                             <tr>
-                                @foreach ($monitoreos as $monitoreo)
-                                    @if ($monitoreo->id == $tecnico->idMonitoreo)
-                                        <td>{{ $monitoreo->codigo }}</td>
-                                    @endif
-                                @endforeach
-                                <td>{{ $tecnico->nombreTecnico }}</td>
-                                <td>{{ $tecnico->institucion }}</td>
-                                <td>{{ $tecnico->telefono }}</td>
-                                <td>{{ $tecnico->email }}</td>
-                                <td>{{ $tecnico->activo }}</td>
+                                <td>{{ $variedad->codigo }}</td>
+                                <td>{{ $variedad->descripcion }}</td>
                                 <td>
-                                    <form action="{{ route('tecnicos.destroy', $tecnico->id) }}" method="POST">
-                                        <a href="/tecnicos/{{ $tecnico->id }}/edit" class="btn btn-secondary"><i
+                                    <form action="{{ route('variedades.destroy', $variedad->id) }}" method="POST">
+                                        <a href="/variedades/{{ $variedad->id }}/edit" class="btn btn-secondary"><i
                                                 class="fas fa-pencil-alt"></i></a>
                                         @csrf
                                         @method('DELETE')

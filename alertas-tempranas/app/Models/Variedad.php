@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Variedad extends Model
 {
     use HasFactory;
+    public $timestamps = true;
 
     //Relacion de muchos a muchos
     public function fincas(){
-        return $this->belongsToMany('App\Models\Finca');
+        return $this->belongsToMany('App\Models\Finca')->withtimestamps();
     }
 }

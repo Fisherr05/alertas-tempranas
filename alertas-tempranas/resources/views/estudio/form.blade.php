@@ -2,7 +2,7 @@
     function soloLetras(e){
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú0123456789";
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú0123456789";
 
         especiales=[8,13];
         tecla_especial= false;
@@ -13,14 +13,14 @@
             }
         }
         if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            alert("Ingresar solo letras");
+            alert("Ingresar datos correspondientes");
             return false;
         }
     }
-     function soloLetrasN(e){
+     function soloNombre(e){
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú";
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú";
 
         especiales=[8,32];
         tecla_especial= false;
@@ -53,8 +53,38 @@
 
 <div class="form-group">
     <div class="form-group">
+        <label>Seleccione Finca:</label>
+            <input id="idFinca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" value="{{ isset($finca->id) ? $finca->id : '' }}" required>
+            <datalist id="fincas">
+                @foreach ($fincas as $finca)
+                    <option value="{{ $finca->id }}">{{ $finca->nombreFinca }}</option>
+                @endforeach
+            </datalist>
+            <div class="valid-feedback">
+                ¡Bien!
+            </div>
+            <div class="invalid-feedback">
+                ¡Rellene este campo!
+            </div>
+    </div>
+    <div class="form-group">
+        <label>Seleccione Variedad:</label>
+            <input id="variedad" list="variedades" placeholder="Escriba para buscar..." name="idVariedad" value="{{ isset($variedad->id) ? $variedad->id : '' }}" required>
+            <datalist id="variedades">
+                @foreach ($variedades as $variedad)
+                    <option value="{{ $variedad->id }}">{{ $variedad->descripcion}}</option>
+                @endforeach
+            </datalist>
+            <div class="valid-feedback">
+                ¡Bien!
+            </div>
+            <div class="invalid-feedback">
+                ¡Rellene este campo!
+            </div>
+    </div>
+    <div class="form-group">
         <label>Código de Estudio:</label>
-        <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de estudio"
+        <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código Ej (EST001)"
             value="{{ isset($estudio->codigo) ? $estudio->codigo : '' }}" required>
         <div class="valid-feedback">
             ¡Bien!
@@ -65,7 +95,7 @@
     </div>
     <div class="form-group">
         <label>Nombre de Estudio:</label>
-        <input type="text" onkeypress="return soloLetrasN(event);" class="form-control" name="nombreEstudio" placeholder="Ingrese el nombre de estudio"
+        <input type="text" onkeypress="return soloNombre(event);" class="form-control" name="nombreEstudio" placeholder="Ingrese el nombre de estudio"
             value="{{ isset($estudio->nombreEstudio) ? $estudio->nombreEstudio : '' }}" required>
         <div class="valid-feedback">
             ¡Bien!
@@ -73,19 +103,6 @@
         <div class="invalid-feedback">
             ¡Rellene este campo!
         </div>
-    </div>
-    <label>Seleccione Finca:</label>
-    <input id="finca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" value="{{ isset($finca->id) ? $finca->id : '' }}" required>
-    <datalist id="fincas">
-        @foreach ($fincas as $finca)
-            <option value="{{ $finca->id }}">{{ $finca->nombreFinca }}</option>
-        @endforeach
-    </datalist>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
     </div>
 </div>
 <br>

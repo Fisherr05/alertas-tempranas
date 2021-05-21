@@ -1,6 +1,41 @@
 @extends('layouts.base ')
 
 @section('contenido-centrado')
+<script>
+    function soloLetras(e){
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú0123456789";
+
+        especiales=[8,13];
+        tecla_especial= false;
+        for(var i in especiales){
+            if(key == especiales[i]){
+            tecla_especial=true;
+            break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            alert("Ingresar datos correspondientes");
+            return false;
+        }
+    }
+
+    function soloNum(ev){
+        if(window.event){
+            keynum = ev.keyCode;
+        }else{
+            keynum = ev.which;
+        }
+        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
+            return true;
+        }else{
+            alert("Ingresar solo números");
+            return false;
+        }
+    }
+</script>
+
     <div class="card">
         <div class="card-header">
             <h1>Editar Registro</h1>
@@ -19,12 +54,21 @@
                     ¡Rellene este campo!
                 </div>
             </div>
-                <div class="form-goup">
-                    <label>Seleccione Estudio:</label>
-                    <select class="form-control" name="idEstudio">
-                        <option value="{{ $monitoreo->idEstudio }}">{{ $monitoreo->idEstudio }}</option>
-                    </select>
+                <div class="form-group">
+                <label>Seleccione Estudio:</label>
+                <input id="estudio" list="estudios" placeholder="Escriba para buscar..." required name="idEstudio">
+                <datalist id="estudios">
+                    @foreach ($estudios as $estudio)
+                        <option value="{{ $estudio->id }}">{{ $estudio->codigo}}</option>
+                    @endforeach
+                </datalist>
+                <div class="valid-feedback">
+                    ¡Bien!
                 </div>
+                <div class="invalid-feedback">
+                    ¡Rellene este campo!
+                </div>
+            </div>
                 <br>
                 <div class="form-group">
                     <label>Ingrese fecha planificada:</label>

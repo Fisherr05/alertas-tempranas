@@ -55,8 +55,11 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>NOMBRE ZONA</th>
                             <th>NOMBRE FINCA</th>
+                            <th>CÉDULA</th>
                             <th>PROPIETARIO</th>
+                            <th>TELÉFONO</th>
                             <th>COORDENADAS</th>
                             <th>ACCIONES</th>
                         </tr>
@@ -65,8 +68,15 @@
                         @foreach ($fincas as $finca)
                             <tr>
                                 <td>{{ $finca->id }}</td>
+                                @foreach ($zonas as $zona)
+                                    @if ($finca->idZona == $zona->id)
+                                        <td>{{ $zona->nombreZona }}</td>
+                                    @endif
+                                @endforeach
                                 <td>{{ $finca->nombreFinca }}</td>
+                                <td>{{ $finca->cedula }}</td>
                                 <td>{{ $finca->propietarioFinca }}</td>
+                                <td>{{ $finca->telefono}}</td>
                                 <td>{{ $finca->coFinca }}</td>
                                 <td>
                                     <form action="{{ route('fincas.destroy', $finca->id) }}" method="POST">

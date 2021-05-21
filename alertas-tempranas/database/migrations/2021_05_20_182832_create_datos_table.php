@@ -20,6 +20,7 @@ class CreateDatosTable extends Migration
             $table->string('severidad');
             $table->unsignedBigInteger('idPlanta');
             $table->unsignedBigInteger('fruto');
+            $table->foreign('idMonitoreo')->references('id')->on('monitoreos')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('idPlanta')->references('id')->on('plantas')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

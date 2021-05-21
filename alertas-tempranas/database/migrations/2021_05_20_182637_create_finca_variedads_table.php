@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFincaVariedadTable extends Migration
+class CreateFincaVariedadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateFincaVariedadTable extends Migration
      */
     public function up()
     {
-        Schema::create('finca_variedad', function (Blueprint $table) {
+        Schema::create('finca_variedads', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idFinca');
             $table->unsignedBigInteger('idVariedad');
-            $table->string('codigo');
             $table->foreign('idFinca')->references('id')->on('fincas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('idVariedad')->references('id')->on('variedads')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
@@ -31,6 +30,6 @@ class CreateFincaVariedadTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('finca_variedad');
+        Schema::dropIfExists('finca_variedads');
     }
 }

@@ -15,6 +15,7 @@ class CreateVariedadsTable extends Migration
     {
         Schema::create('variedads', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo');
             $table->string('descripcion');
             $table->timestamps();
         });

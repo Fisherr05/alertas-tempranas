@@ -15,10 +15,17 @@ class CreateFincasTable extends Migration
     {
         Schema::create('fincas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('idZona');
             $table->string('nombreFinca');
             $table->string('propietarioFinca');
+            $table->string('cedula');
+            $table->string('telefono');
             $table->string('densidad');
             $table->string('coFinca');
+            $table->foreign('idZona')
+                ->references('id')->on('zonas')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }

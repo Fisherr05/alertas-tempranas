@@ -12,4 +12,19 @@
       </form>
     </div>
 </div>
+@section('js')
+        <script type = "text/javascript" >
+            $(document).ready(function() {
+                $('#idFinca').on('change', function() {
+                    $.ajax({
+                        url: "{{ route('admin.variedades.byfinca') }}?idFinca=" + $(this).val(),
+                        method: 'GET',
+                        success: function(data) {
+                            $('#variedades').html(data.html);
+                        }
+                    });
+                });
+            });
+    </script>
+@endsection
 @endsection

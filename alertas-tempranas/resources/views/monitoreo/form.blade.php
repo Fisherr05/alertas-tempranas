@@ -2,7 +2,7 @@
     function soloLetras(e){
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmñopqrstuvwxyzáéíóú0123456789";
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú0123456789";
 
         especiales=[8,13];
         tecla_especial= false;
@@ -34,9 +34,13 @@
 </script>
         <div class="form-group">
             <div class="form-group">
-                <label>Código de Monitoreo:</label>
-                <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de monitoreo"
-                    value="{{ isset($monitoreo->codigo) ? $monitoreo->codigo : '' }}" required>
+                <label>Seleccione Estudio:</label>
+                <input id="estudio" list="estudios" placeholder="Escriba para buscar..." required name="idEstudio">
+                <datalist id="estudios">
+                    @foreach ($estudios as $estudio)
+                        <option value="{{ $estudio->id }}">{{ $estudio->codigo}}</option>
+                    @endforeach
+                </datalist>
                 <div class="valid-feedback">
                     ¡Bien!
                 </div>
@@ -44,18 +48,16 @@
                     ¡Rellene este campo!
                 </div>
             </div>
-            <label>Seleccione Estudio:</label>
-            <input id="estudio" list="estudios" placeholder="Escriba para buscar..." required name="idEstudio">
-            <datalist id="estudios">
-                @foreach ($estudios as $estudio)
-                    <option value="{{ $estudio->id }}">{{ $estudio->codigo}}</option>
-                @endforeach
-            </datalist>
-            <div class="valid-feedback">
-                ¡Bien!
-            </div>
-            <div class="invalid-feedback">
-                ¡Rellene este campo!
+            <div class="form-group">
+                <label>Código de Monitoreo:</label>
+                <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código Ej (MT0001) "
+                    value="{{ isset($monitoreo->codigo) ? $monitoreo->codigo : '' }}" required>
+                <div class="valid-feedback">
+                    ¡Bien!
+                </div>
+                <div class="invalid-feedback">
+                    ¡Rellene este campo!
+                </div>
             </div>
         </div>
         <div class="form-group">

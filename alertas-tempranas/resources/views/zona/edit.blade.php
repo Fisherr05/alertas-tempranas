@@ -1,6 +1,40 @@
 @extends('layouts.base ')
 
 @section('contenido-centrado')
+<script>
+    function soloLetras(e){
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú1234567890-_";
+
+        especiales=[8,32];
+        tecla_especial= false;
+        for(var i in especiales){
+            if(key == especiales[i]){
+            tecla_especial=true;
+            break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            alert("Ingresar datos correspondientes");
+            return false;
+        }
+    }
+
+    function soloNum(ev){
+        if(window.event){
+            keynum = ev.keyCode;
+        }else{
+            keynum = ev.which;
+        }
+        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
+            return true;
+        }else{
+            alert("Ingresar solo números");
+            return false;
+        }
+    }
+</script>
     <div class="card">
         <div class="card-header">
             <h1>Editar Registro</h1>
@@ -8,16 +42,10 @@
         <div class="card-body">
             <form action="/zonas/{{ $zona->id }}" class="needs-validation" method="POST" novalidate>
                 @csrf @method('PATCH')
-                <div class="form-goup">
-                    <label>Seleccione Finca:</label>
-                    <select class="form-control" name="idFinca">
-                        <option value="{{ $zona->idFinca }}">{{ $zona->idFinca }}</option>
-                    </select>
-                </div>
-                <br>
+
                 <div class="form-group">
                     <label>Ingrese nombre de zona:</label>
-                    <input type="text" class="form-control" id="nombreZona" name="nombreZona" placeholder="Ingrese el nombre de la zona"
+                    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="nombreZona" name="nombreZona" placeholder="Ingrese el nombre de la zona"
                         value="{{ isset($zona->nombreZona) ? $zona->nombreZona : '' }}" required>
                         <div class="valid-feedback">
                             ¡Bien!
@@ -47,7 +75,7 @@
                 <br>
                 <div class="form-group">
                         <label>Localidad:</label>
-                        <input type="text" class="form-control" id="localidad" name="localidad"
+                        <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="localidad" name="localidad"
                             placeholder="Ingrese la localidad de la zona" value="{{ isset($zona->localidad) ? $zona->localidad : ''  }}" required>
 
                         <div class="valid-feedback">
