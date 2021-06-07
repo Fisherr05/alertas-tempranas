@@ -1,90 +1,170 @@
+@section('css')
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
+        type="text/css">
+    <link href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
+@endsection
 <script>
-    function soloLetras(e){
+    function soloLetras(e) {
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
         letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú0123456789";
 
-        especiales=[8,13];
-        tecla_especial= false;
-        for(var i in especiales){
-            if(key == especiales[i]){
-            tecla_especial=true;
-            break;
+        especiales = [8, 13];
+        tecla_especial = false;
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
             }
         }
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
             alert("Ingresar datos correspondientes");
             return false;
         }
     }
-     function soloNombre(e){
+
+    function soloNombre(e) {
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
         letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú";
 
-        especiales=[8,32];
-        tecla_especial= false;
-        for(var i in especiales){
-            if(key == especiales[i]){
-            tecla_especial=true;
-            break;
+        especiales = [8, 32];
+        tecla_especial = false;
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
             }
         }
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
             alert("Ingresar solo letras");
             return false;
         }
     }
 
-    function soloNum(ev){
-        if(window.event){
+    function soloNum(ev) {
+        if (window.event) {
             keynum = ev.keyCode;
-        }else{
+        } else {
             keynum = ev.which;
         }
-        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
+        if ((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13) {
             return true;
-        }else{
+        } else {
             alert("Ingresar solo números");
             return false;
         }
     }
+
 </script>
 
 <div class="form-group">
     <div class="form-group">
         <label>Seleccione Finca:</label>
-            <input id="idFinca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" value="{{ isset($finca->id) ? $finca->id : '' }}" required>
-            <datalist id="fincas">
-                @foreach ($fincas as $finca)
-                    <option value="{{ $finca->id }}">{{ $finca->nombreFinca }}</option>
-                @endforeach
-            </datalist>
-            <div class="valid-feedback">
-                ¡Bien!
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <i class="fas fa-search"></i>
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccione Finca</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="table"
+                            class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
+                            cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NOMBRE ZONA</th>
+                                    <th>NOMBRE FINCA</th>
+                                    <th>CÉDULA</th>
+                                    <th>PROPIETARIO</th>
+                                    <th>TELÉFONO</th>
+                                    <th>COORDENADAS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($fincas as $finca)
+                                    <tr>
+                                        <td>{{ $finca->id }}</td>
+                                        @foreach ($zonas as $zona)
+                                            @if ($finca->idZona == $zona->id)
+                                                <td>{{ $zona->nombreZona }}</td>
+                                            @endif
+                                        @endforeach
+                                        <td>{{ $finca->nombreFinca }}</td>
+                                        <td>{{ $finca->cedula }}</td>
+                                        <td>{{ $finca->propietarioFinca }}</td>
+                                        <td>{{ $finca->telefono }}</td>
+                                        <td>{{ $finca->coFinca }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Seleccionar</button>
+                    </div>
+                </div>
             </div>
-            <div class="invalid-feedback">
-                ¡Rellene este campo!
-            </div>
+        </div>
     </div>
     <div class="form-group">
         <label>Seleccione Variedad:</label>
-            <input id="variedad" list="variedades" placeholder="Escriba para buscar..." name="idVariedad" value="{{ isset($variedad->id) ? $variedad->id : '' }}" required>
-            <datalist id="variedades">
-                @foreach ($variedades as $variedad)
-                    <option value="{{ $variedad->id }}">{{ $variedad->descripcion}}</option>
-                @endforeach
-            </datalist>
-            <div class="valid-feedback">
-                ¡Bien!
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+            <i class="fas fa-search"></i>
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Seleccione Variedad</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-dialog modal-lg">
+                        <table id="table1"
+                            class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
+                            cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>CÓDIGO</th>
+                                    <th>DESCRIPCIÓN</>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($variedades as $variedad)
+                                    <tr>
+                                        <td>{{ $variedad->codigo }}</td>
+                                        <td>{{ $variedad->descripcion }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Seleccionar</button>
+                    </div>
+                </div>
             </div>
-            <div class="invalid-feedback">
-                ¡Rellene este campo!
-            </div>
+        </div>
     </div>
     <div class="form-group">
         <label>Código de Estudio:</label>
-        <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código Ej (EST001)"
+        <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo"
+            name="codigo" placeholder="Ingrese el código Ej (EST001)"
             value="{{ isset($estudio->codigo) ? $estudio->codigo : '' }}" required>
         <div class="valid-feedback">
             ¡Bien!
@@ -95,7 +175,8 @@
     </div>
     <div class="form-group">
         <label>Nombre de Estudio:</label>
-        <input type="text" onkeypress="return soloNombre(event);" class="form-control" name="nombreEstudio" placeholder="Ingrese el nombre de estudio"
+        <input type="text" onkeypress="return soloNombre(event);" class="form-control" name="nombreEstudio"
+            placeholder="Ingrese el nombre de estudio"
             value="{{ isset($estudio->nombreEstudio) ? $estudio->nombreEstudio : '' }}" required>
         <div class="valid-feedback">
             ¡Bien!
@@ -108,7 +189,8 @@
 <br>
 <div class="form-group">
     <label for="fenologia">Fenologia:</label>
-    <input type="text" onkeypress="return soloNum(event);" minlength="1" maxlength="3" class="form-control" id="fenologia" name="fenologia" placeholder="Ingrese la fenologia"
+    <input type="text" onkeypress="return soloNum(event);" minlength="1" maxlength="3" class="form-control"
+        id="fenologia" name="fenologia" placeholder="Ingrese la fenologia"
         value="{{ isset($estudio->fenologia) ? $estudio->fenologia : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
@@ -185,7 +267,17 @@
         <button class="btn btn-primary btn-block">Guardar</button>
     </div>
 </div>
-
+@section('js')
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"
+        crossorigin="anonymous"></script>
+    <script src="{{ asset('/js/datatable-modal.js') }}"></script>
+@endsection
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {

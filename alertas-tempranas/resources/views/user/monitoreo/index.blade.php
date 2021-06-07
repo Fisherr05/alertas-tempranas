@@ -1,7 +1,7 @@
 @extends('layouts.base')
-@section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
+@section('css')
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
         type="text/css">
 @endsection
@@ -39,11 +39,11 @@
             <div class="card-header align-items-center">
                 <div class="row align-items-center">
                     <div class="col-md-10">
-                        <h1>Finca</h1>
+                        <h1>Monitoreo</h1>
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="fincas/create" class="btn btn-success">Nuevo Registro</a>
+                            <a href="monitoreos/create" class="btn btn-success">Nuevo Registro</a>
                         </div>
                     </div>
                 </div>
@@ -54,46 +54,30 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>NOMBRE ZONA</th>
-                            <th>NOMBRE FINCA</th>
-                            <th>CÉDULA</th>
-                            <th>PROPIETARIO</th>
-                            <th>TELÉFONO</th>
-                            <th>COORDENADAS</th>
-                            <th>VARIEDADES</th>
+                            <th>CODIGO</th>
+                            <th>ESTUDIO</th>
+                            <th>FECHA PLANIFICADA</th>
+                            <th>FECHA DE EJECUCION</th>
+                            <th>OBSERVACIONES</th>
                             <th>ACCIONES</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($fincas as $finca)
+                        @foreach ($monitoreos as $monitoreo)
                             <tr>
-                                <td>{{ $finca->id }}</td>
-                                @foreach ($zonas as $zona)
-                                    @if ($finca->idZona == $zona->id)
-                                        <td>{{ $zona->nombreZona }}</td>
+                                <td>{{ $monitoreo->codigo }}</td>
+                                @foreach ($estudios as $estudio)
+                                    @if ($monitoreo->idEstudio == $estudio->id)
+                                        <td>{{ $estudio->codigo }}</td>
                                     @endif
                                 @endforeach
-                                <td>{{ $finca->nombreFinca }}</td>
-                                <td>{{ $finca->cedula }}</td>
-                                <td>{{ $finca->propietarioFinca }}</td>
-                                <td>{{ $finca->telefono}}</td>
-                                <td>{{ $finca->coFinca }}</td>
+                                <td>{{ $monitoreo->fechaPlanificada }}</td>
+                                <td>{{ $monitoreo->fechaEjecucion }}</td>
+                                <td>{{ $monitoreo->observaciones }}</td>
                                 <td>
-                                    @foreach ($finca->variedades as $variedad)
-                                       {{$variedad->descripcion}}<br>
-                                    @endforeach
-
-                                <td>
-                                    <form action="{{ route('fincas.destroy', $finca->id) }}" method="POST">
-                                        <a href="/fincas/{{ $finca->id }}/edit" class="btn btn-secondary"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Desea eliminar esto?')"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                    <a href="/monitoreos/{{ $monitoreo->id }}/edit" class="btn btn-secondary"><i
+                                        class="fas fa-pencil-alt"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -103,8 +87,6 @@
         </div>
     </div>
 @section('js')
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous">
-    </script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
         crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"

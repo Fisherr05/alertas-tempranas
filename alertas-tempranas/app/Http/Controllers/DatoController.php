@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dato;
+use App\Models\Estudio;
 use App\Models\Monitoreo;
 use App\Models\Planta;
 use Illuminate\Http\Request;
@@ -34,6 +35,7 @@ class DatoController extends Controller
         $datos['datos'] = Dato::all();
         $datos['monitoreos'] = Monitoreo::all();
         $datos['plantas'] =Planta::all();
+        $datos['estudios']=Estudio::all();
         return view('dato.create',$datos);
     }
 

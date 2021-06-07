@@ -1,34 +1,33 @@
 @extends('layouts.base')
 @section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
-
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
         type="text/css">
 @endsection
 
 @section('contenido')
     <!--Mensaje Creado -->
-    @if (session('fincaGuardado'))
+    @if (session('tecnicoGuardado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('fincaGuardado') }}
+            {{ session('tecnicoGuardado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Modificado-->
-    @if (session('fincaModificado'))
+    @if (session('tecnicoModificado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('fincaModificado') }}
+            {{ session('tecnicoModificado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Eliminado -->
-    @if (session('fincaEliminado'))
+    @if (session('tecnicoEliminado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('fincaEliminado') }}
+            {{ session('tecnicoEliminado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -39,11 +38,11 @@
             <div class="card-header align-items-center">
                 <div class="row align-items-center">
                     <div class="col-md-10">
-                        <h1>Finca</h1>
+                        <h1>Técnico</h1>
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="fincas/create" class="btn btn-success">Nuevo Registro</a>
+                            <a href="tecnicos/create" class="btn btn-success">Nuevo Registro</a>
                         </div>
                     </div>
                 </div>
@@ -54,46 +53,31 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>NOMBRE ZONA</th>
-                            <th>NOMBRE FINCA</th>
-                            <th>CÉDULA</th>
-                            <th>PROPIETARIO</th>
+                            <th>MONITOREO</th>
+                            <th>NOMBRE TÉCNICO</th>
+                            <th>INSTITUCIÓN</th>
                             <th>TELÉFONO</th>
-                            <th>COORDENADAS</th>
-                            <th>VARIEDADES</th>
+                            <th>EMAIL</th>
+                            <th>ACTIVO</th>
                             <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($fincas as $finca)
+                        @foreach ($tecnicos as $tecnico)
                             <tr>
-                                <td>{{ $finca->id }}</td>
-                                @foreach ($zonas as $zona)
-                                    @if ($finca->idZona == $zona->id)
-                                        <td>{{ $zona->nombreZona }}</td>
+                                @foreach ($monitoreos as $monitoreo)
+                                    @if ($monitoreo->id == $tecnico->idMonitoreo)
+                                        <td>{{ $monitoreo->codigo }}</td>
                                     @endif
                                 @endforeach
-                                <td>{{ $finca->nombreFinca }}</td>
-                                <td>{{ $finca->cedula }}</td>
-                                <td>{{ $finca->propietarioFinca }}</td>
-                                <td>{{ $finca->telefono}}</td>
-                                <td>{{ $finca->coFinca }}</td>
+                                <td>{{ $tecnico->nombreTecnico }}</td>
+                                <td>{{ $tecnico->institucion }}</td>
+                                <td>{{ $tecnico->telefono }}</td>
+                                <td>{{ $tecnico->email }}</td>
+                                <td>{{ $tecnico->activo }}</td>
                                 <td>
-                                    @foreach ($finca->variedades as $variedad)
-                                       {{$variedad->descripcion}}<br>
-                                    @endforeach
-
-                                <td>
-                                    <form action="{{ route('fincas.destroy', $finca->id) }}" method="POST">
-                                        <a href="/fincas/{{ $finca->id }}/edit" class="btn btn-secondary"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Desea eliminar esto?')"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </form>
+                                    <a href="/tecnicos/{{ $tecnico->id }}/edit" class="btn btn-secondary"><i
+                                        class="fas fa-pencil-alt"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -103,8 +87,6 @@
         </div>
     </div>
 @section('js')
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous">
-    </script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
         crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"

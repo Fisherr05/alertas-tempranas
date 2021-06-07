@@ -104,12 +104,12 @@ class PlantaController extends Controller
     public function getPlantas(Request $request)
     {
         if (!$request->idMonitoreo) {
-            $html = '<option value="">'.'Seleccione una planta'.'</option>';
+            $html = '';
         } else {
             $html = '';
             $plantas = Planta::where('idMonitoreo', $request->idMonitoreo)->get();
             foreach ($plantas as $planta) {
-                $html .= '<option value="'.$planta->id.'">'.$planta->codigo.'</option>';
+                $html .= '<tr><td>'.$planta->id.'"</td>'.$planta->codigo.'</td></tr>';
             }
         }
         return response()->json(['html' => $html]);

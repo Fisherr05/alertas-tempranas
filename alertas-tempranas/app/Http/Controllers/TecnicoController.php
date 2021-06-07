@@ -32,6 +32,7 @@ class TecnicoController extends Controller
         //
         $datos['tecnicos'] = Tecnico::all();
         $datos['monitoreos'] = Monitoreo::all();
+        $datos['estudios']= Estudio::all();
         return view('tecnico.create',$datos);
     }
 

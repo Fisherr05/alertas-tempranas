@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Estudio;
 use App\Models\Finca;
 use App\Models\Variedad;
+use App\Models\Zona;
 use Illuminate\Http\Request;
 
 class EstudioController extends Controller
@@ -33,6 +34,7 @@ class EstudioController extends Controller
         //
         $datos['estudios'] = Estudio::all();
         $datos['fincas'] = Finca::all();
+        $datos['zonas']= Zona::all();
         $datos['variedades']=Variedad::all();
         return view('estudio.create',$datos);
 

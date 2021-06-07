@@ -9,10 +9,5 @@ class finca_variedads extends Model
 {
     use HasFactory;
     public $timestamps = true;
-    public function fincas(){
-        return $this->hasMany('App\Models\Finca')->withtimestamps();
-    }
-    public function variedades(){
-        return $this->hasMany('App\Models\Variedad')->withtimestamps();
-    }
+
 }

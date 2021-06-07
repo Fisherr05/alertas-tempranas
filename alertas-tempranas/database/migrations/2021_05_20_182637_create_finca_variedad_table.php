@@ -13,12 +13,12 @@ class CreateFincaVariedadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('finca_variedads', function (Blueprint $table) {
+        Schema::create('finca_variedad', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idFinca');
-            $table->unsignedBigInteger('idVariedad');
-            $table->foreign('idFinca')->references('id')->on('fincas')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idVariedad')->references('id')->on('variedads')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('finca_id');
+            $table->unsignedBigInteger('variedad_id');
+            $table->foreign('finca_id')->references('id')->on('fincas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('variedad_id')->references('id')->on('variedads')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

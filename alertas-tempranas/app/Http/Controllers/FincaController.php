@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Finca;
 use App\Models\Zona;
 use App\Models\Variedad;
+use App\Models\Canton;
+use App\Models\finca_variedads;
+use App\Models\Parroquia;
 use Illuminate\Http\Request;
 
 class FincaController extends Controller
@@ -34,6 +37,8 @@ class FincaController extends Controller
         $datos['zonas'] = Zona::all();
         $datos['fincas'] = Finca::all();
         $datos['variedades'] = Variedad::all();
+        $datos['cantones']=Canton::all();
+        $datos['parroquias']=Parroquia::all();
         return view('finca.create',$datos);
     }
 
@@ -46,10 +51,20 @@ class FincaController extends Controller
     public function store(Request $request)
     {
         //
-        $datos= request()->except('_token');
-        Finca::insert($datos);
+       $finca=Finca::create([
+        'idZona'=>$request->idZona,
+        'nombreFinca'=>$request->nombreFinca,
+        'propietarioFinca'=>$request->propietarioFinca,
+        'cedula'=>$request->cedula,
+        'telefono'=>$request->telefono,
+        'coFinca'=>$request->coFinca,
+        'densidad'=>$request->densidad,
+
+       ]);
+        $finca-> variedades()->attach($request->idVariedad);
         return redirect('/fincas')->with('fincaGuardado','Finca guardado con éxito');
     }
+
 
     /**
      * Display the specified resource.
@@ -57,8 +72,8 @@ class FincaController extends Controller
      * @param  \App\Models\Finca  $finca
      * @return \Illuminate\Http\Response
      */
-    public function show(Finca $finca)
-    {
+    public function show(Finca $finca){
+
         //
     }
 
@@ -71,7 +86,7 @@ class FincaController extends Controller
     public function edit($id)
     {
         //
-        $finca= Finca::findOrFail($id);
+        $finca= Finca::find($id);
         $zonas = Zona::all();
         $variedades = Variedad::all();
         return view('finca.edit', compact('finca','zonas','variedades'));
@@ -87,8 +102,17 @@ class FincaController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $datos= request()->except(['_token', '_method']);
-        Finca::where('id','=',$id)->update($datos);
+        $finca=Finca::find($id);
+            $finca->idZona=$request->idZona;
+            $finca->nombreFinca=$request->nombreFinca;
+            $finca->propietarioFinca=$request->propietarioFinca;
+            $finca->cedula=$request->cedula;
+            $finca->telefono=$request->telefono;
+            $finca->coFinca=$request->coFinca;
+            $finca->densidad=$request->densidad;
+            $finca->variedades()->sync($request->variedades);
+            $finca->save();
+
         return redirect('/fincas')->with('fincaModificado','Finca modificado con éxito');
     }
 
@@ -103,5 +127,11 @@ class FincaController extends Controller
         //
         Finca::destroy($id);
         return back()->with('fincaEliminado','Finca eliminado con éxito');
+    }
+
+    public function post(Request $request){
+        $finca= Finca::create($request->all());
+
+        return redirect('/fincas')->with('fincaGuardado','Finca guardado con éxito');
     }
 }

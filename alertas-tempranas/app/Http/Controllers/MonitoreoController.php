@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Monitoreo;
 use App\Models\Estudio;
+use App\Models\Finca;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -31,6 +32,7 @@ class MonitoreoController extends Controller
         //
         $datos['monitoreos'] = Monitoreo::all();
         $datos1['estudios'] = Estudio::all();
+        $datos['fincas']= Finca::all();
         return view('monitoreo.create',$datos,$datos1);
     }
 

@@ -3,12 +3,22 @@
 namespace App\Http\Controllers;
 use App\Models\finca_variedads;
 use App\Models\Variedad;
+use App\Models\Finca;
 
 use Illuminate\Http\Request;
 
 class FincaVariedadController extends Controller
 {
     //
+    public function store(Request $request)
+    {
+        //
+        $fincaVariedad=new finca_variedads();
+        $fincaVariedad->idFinca=$request->input('idFinca');
+        $fincaVariedad->idVariedad=$request->input('idVariedad');
+        $fincaVariedad->save();
+        return back();
+    }
     public function getFincas(Request $request)
     {
         if (!$request->idFinca) {

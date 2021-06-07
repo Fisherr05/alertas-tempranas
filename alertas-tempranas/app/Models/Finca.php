@@ -9,6 +9,15 @@ class Finca extends Model
 {
     use HasFactory;
     public $timestamps = true;
+    protected $fillable=[
+        'idZona',
+        'nombreFinca',
+        'propietarioFinca',
+        'cedula',
+        'telefono',
+        'coFinca',
+        'densidad',
+    ];
 
     //Reacion de uno a muchos
 
@@ -20,7 +29,5 @@ class Finca extends Model
     public function variedades(){
         return $this->belongsToMany('App\Models\Variedad')->withtimestamps();
     }
-    public function zona(){
-        return $this->belongsToMany('App\Models\Zona')->withtimestamps();
-    }
+
 }
