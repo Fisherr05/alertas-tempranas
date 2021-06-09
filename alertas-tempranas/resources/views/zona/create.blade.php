@@ -1,6 +1,12 @@
-@extends('layouts.base')
+@extends('adminlte::page')
 
-@section('contenido-centrado')
+@section('title', 'Alertas Tempranas')
+
+@section('content_header')
+
+@stop
+
+@section('content')
     <div class="card">
         <div class="card-header">
             <h1>Nuevo Registro</h1>
@@ -12,23 +18,43 @@
             </form>
         </div>
     </div>
+@stop
+
 @section('css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.bootstrap4.min.css" integrity="sha512-MMojOrCQrqLg4Iarid2YMYyZ7pzjPeXKRvhW9nZqLo6kPBBTuvNET9DBVWptAo/Q20Fy11EIHM5ig4WlIrJfQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-@endsection
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+
+@stop
+
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js" integrity="sha512-pF+DNRwavWMukUv/LyzDyDMn8U2uvqYQdJN0Zvilr6DDo/56xPDZdDoyPDYZRSL4aOKO/FGKXTpzDyQJ8je8Qw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="text/javascript">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
         $(document).ready(function() {
-            $('#idCanton').on('change', function() {
+            $('#idCanton').on("change", function() {
                 $.ajax({
                     url: "{{ route('admin.parroquias.bycanton') }}?idCanton=" + $(this).val(),
                     method: 'GET',
-                    success: function(data) {
-                        console.log(data);
-                        $('#idParroquia').html(data.html);
+                    //console.log(data);
+                    //$('#idParroquia').html(data.html);
+                    success: function(result) {
+                        console.log(result);
+                        var dbSelect = $('#idParroquia');
+                        dbSelect.empty();
+                        for (var i = 0; i < result.length; i++) {
+                            dbSelect.append($('<option/>', {
+                                value: result[i].id,
+                                text: result[i].nombre
+                            }));
+                        }
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(thrownError);
                     }
                 });
-            });
+            })
         });
 
     </script>
@@ -54,12 +80,18 @@
 
     </script>
     <script>
-        $(document).ready(function() {
-            $('select').selectize({
-                sortField: 'text'
+        $(function() {
+            $('select').each(function() {
+                $(this).select2({
+                    theme: 'bootstrap4',
+                    width: $(this).data('width') ? $(this).data('width') : $(this).hasClass(
+                        'w-100') ? '100%' : 'style',
+                    placeholder: $(this).data('placeholder'),
+                    allowClear: Boolean($(this).data('allow-clear')),
+                    closeOnSelect: !$(this).attr('multiple'),
+                    language: "es",
+                });
             });
         });
-
     </script>
-@endsection
-@endsection
+@stop

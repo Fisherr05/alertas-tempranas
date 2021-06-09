@@ -15,15 +15,15 @@ class CreateZonasTable extends Migration
     {
         Schema::create('zonas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idCanton');
+            //$table->unsignedBigInteger('idCanton');
             $table->unsignedBigInteger('idParroquia');
             $table->string('nombreZona');
             $table->string('localidad');
             $table->string('coZona');
-            $table->foreign('idCanton')
+           /* $table->foreign('idCanton')
                 ->references('id')->on('cantons')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade');*/
             $table->foreign('idParroquia')
                 ->references('id')->on('parroquias')
                 ->onDelete('cascade')

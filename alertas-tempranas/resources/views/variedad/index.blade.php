@@ -1,13 +1,13 @@
-@extends('layouts.base')
-@section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+@extends('adminlte::page')
 
-    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
-        type="text/css">
-@endsection
+@section('title', 'Alertas Tempranas')
 
-@section('contenido')
-    <!--Mensaje Creado -->
+@section('content_header')
+
+@stop
+
+@section('content')
+<!--Mensaje Creado -->
     @if (session('variedadGuardado'))
         <div class="alert alert-success alert-dismissible fade show">
             {{ session('variedadGuardado') }}
@@ -82,8 +82,18 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
+        type="text/css">
+@stop
+
 @section('js')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
+ <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
         crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"
         crossorigin="anonymous"></script>
@@ -280,5 +290,5 @@
         });
 
     </script>
-@endsection
-@endsection
+
+@stop

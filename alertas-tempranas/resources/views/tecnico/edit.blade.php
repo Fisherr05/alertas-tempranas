@@ -1,59 +1,12 @@
-@extends('layouts.base')
+@extends('adminlte::page')
 
-@section('contenido-centrado')
-<script>
-    function soloLetras(e){
-        key = e.keyCode || e.which;
-        tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú";
+@section('title', 'Alertas Tempranas')
 
-        especiales=[8,32];
-        tecla_especial= false;
-        for(var i in especiales){
-            if(key == especiales[i]){
-            tecla_especial=true;
-            break;
-            }
-        }
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            alert("Ingresar solo letras");
-            return false;
-        }
-    }
+@section('content_header')
 
-    function soloLetrayNumero(e){
-        key = e.keyCode || e.which;
-        tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú1234567890-_";
+@stop
 
-        especiales=[8,32];
-        tecla_especial= false;
-        for(var i in especiales){
-            if(key == especiales[i]){
-            tecla_especial=true;
-            break;
-            }
-        }
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            alert("Ingresar datos correspondientes");
-            return false;
-        }
-    }
-
-    function soloNum(ev){
-        if(window.event){
-            keynum = ev.keyCode;
-        }else{
-            keynum = ev.which;
-        }
-        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
-            return true;
-        }else{
-            alert("Ingresar solo números");
-            return false;
-        }
-    }
-</script>
+@section('content')
 <div class="card">
     <div class="card-header">
         <h1>Editar Registro</h1>
@@ -63,12 +16,11 @@
       @csrf @method('PATCH')
         <div class="form-group">
             <label>Seleccione Monitoreo:</label>
-            <input id="monitoreo" list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
-            <datalist id="monitoreos">
-                @foreach ($monitoreos as $monitoreo)
-                    <option value="{{ $monitoreo->id }}">{{ $monitoreo->codigo }}</option>
-                @endforeach
-            </datalist>
+            <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
+            @foreach ($monitoreos as $monitoreo)
+                <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}"@if ($monitoreo->id == $tecnico->idMonitoreo) selected @endif>{{ $monitoreo->codigo }}</option>
+            @endforeach
+            </select>
             <div class="valid-feedback">
                 ¡Bien!
             </div>
@@ -161,6 +113,67 @@
       </form>
     </div>
 </div>
+
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+<script>
+    function soloLetras(e){
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú";
+
+        especiales=[8,32];
+        tecla_especial= false;
+        for(var i in especiales){
+            if(key == especiales[i]){
+            tecla_especial=true;
+            break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            alert("Ingresar solo letras");
+            return false;
+        }
+    }
+
+    function soloLetrayNumero(e){
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú1234567890-_";
+
+        especiales=[8,32];
+        tecla_especial= false;
+        for(var i in especiales){
+            if(key == especiales[i]){
+            tecla_especial=true;
+            break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            alert("Ingresar datos correspondientes");
+            return false;
+        }
+    }
+
+    function soloNum(ev){
+        if(window.event){
+            keynum = ev.keyCode;
+        }else{
+            keynum = ev.which;
+        }
+        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
+            return true;
+        }else{
+            alert("Ingresar solo números");
+            return false;
+        }
+    }
+</script>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
@@ -183,4 +196,4 @@
 
 </script>
 
-@endsection
+@stop

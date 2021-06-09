@@ -14,9 +14,9 @@ class Estudio extends Model
     public function monitoreos(){
         return $this->hasMany('App\Models\Monitoreo')->withtimestamps();
     }
-    public function variedades(){
+    /*public function variedades(){
         return $this->hasMany('App\Models\Variedad')->withtimestamps();
-    }
+    }*/
 
     // Relacion uno a muchos (inversa)
     public function finca(){

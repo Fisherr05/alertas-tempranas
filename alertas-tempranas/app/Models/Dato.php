@@ -15,7 +15,7 @@ class Dato extends Model
         return $this->hasMany('App\Models\Planta')->withtimestamps();
     }
     //relacion de uno a muchos(inversa)
-    public function monitoreo(){
+    /*public function monitoreo(){
         return $this->belongsTo('App\Models\Monitoreo')->withtimestamps();
-    }
+    }*/
 }

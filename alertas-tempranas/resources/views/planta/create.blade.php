@@ -1,7 +1,13 @@
-@extends('layouts.base')
+@extends('adminlte::page')
 
-@section('contenido-centrado')
-<div class="card">
+@section('title', 'Alertas Tempranas')
+
+@section('content_header')
+
+@stop
+
+@section('content')
+  <div class="card">
     <div class="card-header">
         <h1>Nuevo Registro</h1>
     </div>
@@ -11,5 +17,13 @@
         @include('planta.form')
       </form>
     </div>
-</div>
-@endsection
+  </div>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+
+@stop

@@ -1,11 +1,4 @@
-@section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
-    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
-        type="text/css">
-    <link href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" rel="stylesheet"
-        type="text/css">
-@endsection
 <script>
     function soloLetras(e) {
         key = e.keyCode || e.which;
@@ -44,106 +37,21 @@
 
 <div class="form-group">
     <label>Seleccione Monitoreo:</label>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        <i class="fas fa-search"></i>
-    </button>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Seleccione Monitoreo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table id="table"
-                        class="display table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
-                        cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>CODIGO</th>
-                                <th>ESTUDIO</th>
-                                <th>FECHA PLANIFICADA</th>
-                                <th>FECHA DE EJECUCION</th>
-                                <th>OBSERVACIONES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($monitoreos as $monitoreo)
-                                <tr>
-                                    <td>{{ $monitoreo->codigo }}</td>
-                                    @foreach ($estudios as $estudio)
-                                        @if ($monitoreo->idEstudio == $estudio->id)
-                                            <td>{{ $estudio->codigo }}</td>
-                                        @endif
-                                    @endforeach
-                                    <td>{{ $monitoreo->fechaPlanificada }}</td>
-                                    <td>{{ $monitoreo->fechaEjecucion }}</td>
-                                    <td>{{ $monitoreo->observaciones }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Seleccionar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
+    @foreach ($monitoreos as $monitoreo)
+        <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}"@if ($monitoreo->id == $dato->idMonitoreo) selected @endif>{{ $monitoreo->codigo }}</option>
+    @endforeach
+    </select>
 </div>
 <br>
 <div class="form-group">
     <label>Seleccione Planta:</label>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
-        <i class="fas fa-search"></i>
-    </button>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Seleccione Planta</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body ">
-                    <table id="table1"
-                        class="display table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
-                        cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>CÓDIGO</th>
-                                <th>MONITOREO</>
-                                <th>COORDENADAS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($plantas as $planta)
-                                <tr>
-                                    <td>{{ $planta->codigo }}</td>
-                                    @foreach ($monitoreos as $monitoreo)
-                                        @if ($planta->idMonitoreo == $monitoreo->id)
-                                            <td>{{ $monitoreo->codigo }}</td>
-                                        @endif
-                                    @endforeach
-                                    <td>{{ $planta->coPlanta }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Seleccionar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <select id="idPlanta" class="form-control" name="idPlanta" required>
+    @foreach ($plantas as $planta)
+        <option value="{{ isset($planta->id) ? $planta->id : '' }}" @if ($planta->id == $dato->idPlanta) selected @endif>{{ $planta->codigo }}</option>
+    @endforeach
+    </select>
+
 </div>
 <br>
 <div class="form-group">

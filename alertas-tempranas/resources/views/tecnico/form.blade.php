@@ -52,57 +52,11 @@
 </script>
 <div class="form-group">
     <label>Seleccione Monitoreo:</label>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        <i class="fas fa-search"></i>
-    </button>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Seleccione Monitoreo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table id="table"
-                    class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
-                    cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>CODIGO</th>
-                            <th>ESTUDIO</th>
-                            <th>FECHA PLANIFICADA</th>
-                            <th>FECHA DE EJECUCION</th>
-                            <th>OBSERVACIONES</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($monitoreos as $monitoreo)
-                            <tr>
-                                <td>{{ $monitoreo->codigo }}</td>
-                                @foreach ($estudios as $estudio)
-                                    @if ($monitoreo->idEstudio == $estudio->id)
-                                        <td>{{ $estudio->codigo }}</td>
-                                    @endif
-                                @endforeach
-                                <td>{{ $monitoreo->fechaPlanificada }}</td>
-                                <td>{{ $monitoreo->fechaEjecucion }}</td>
-                                <td>{{ $monitoreo->observaciones }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Selecionar</button>
-            </div>
-            </div>
-        </div>
-    </div>
+    <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
+    @foreach ($monitoreos as $monitoreo)
+        <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}"@if ($monitoreo->id == $tecnico->idMonitoreo) selected @endif>{{ $monitoreo->codigo }}</option>
+    @endforeach
+    </select>
 </div>
 <div class="form-group">
         <label for="fenologia">Nombre de Técnico:</label>

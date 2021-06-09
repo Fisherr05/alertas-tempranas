@@ -1,10 +1,4 @@
-@section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
-    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
-        type="text/css">
-    <link href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
-@endsection
 <script>
     function soloLetras(e) {
         key = e.keyCode || e.which;
@@ -43,62 +37,11 @@
 <div class="form-group">
     <div class="form-group">
         <label>Seleccione Estudio:</label>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            <i class="fas fa-search"></i>
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Seleccione Estudio</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <table id="table"
-                            class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
-                            cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>CODIGO</th>
-                                    <th>ESTUDIO</th>
-                                    <th>FINCA</th>
-                                    <th>FENOLOGIA</th>
-                                    <th>DENSIDAD</th>
-                                    <th>FECHA INICIO</th>
-                                    <th>FECHA FIN</th>
-                                    <th>ACTIVO</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($estudios as $estudio)
-                                    <tr>
-                                        <td>{{ $estudio->codigo }}</td>
-                                        <td>{{ $estudio->nombreEstudio }}</td>
-                                        @foreach ($fincas as $finca)
-                                            @if ($estudio->idFinca == $finca->id)
-                                                <td>{{ $finca->nombreFinca }}</td>
-                                            @endif
-                                        @endforeach
-                                        <td>{{ $estudio->fenologia }}</td>
-                                        <td>{{ $estudio->densidad }}</td>
-                                        <td>{{ $estudio->fechaInicio }}</td>
-                                        <td>{{ $estudio->fechaFin }}</td>
-                                        <td>{{ $estudio->activo }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Seleccionar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <select id="idEstudio" class="form-control" name="idEstudio" required>
+        @foreach ($estudios as $estudio)
+            <option value="{{ isset($estudio->id) ? $estudio->id : '' }}"@foreach ($monitoreos as $monitoreo) @if ($estudio->id == $monitoreo->idEstudio) selected @endif @endforeach>{{ $estudio->nombreEstudio }}</option>
+        @endforeach
+        </select>
     </div>
     <div class="form-group">
         <label>Código de Monitoreo:</label>

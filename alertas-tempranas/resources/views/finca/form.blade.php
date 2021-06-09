@@ -1,10 +1,3 @@
-@section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
-
-    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
-        type="text/css">
-    <link href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
-@endsection
 <script>
     function soloLetras(e) {
         key = e.keyCode || e.which;
@@ -63,7 +56,7 @@
 
 <div class="form-goup">
     <label>Seleccione Zona:</label>
-    <select class="form-control" name="idZona" required>
+    <select id="idZona" class="form-control" name="idZona" required>
     @foreach ($zonas as $zona)
         <option value="{{ $zona->id }}">{{ $zona->nombreZona }}</option>
     @endforeach
@@ -145,19 +138,20 @@
     </div>
     <div class="invalid-feedback">
         ¡Rellene este campo!
-    </div>
+</div>
     <br>
 
 
 </div>
-<label>Variedad:</label>
-    <select name="idVariedad[]" id="idVariedad" multiple data-live-search="true"  class="form-control">
-        <option selected> Seleccione Variedad
+<div class="form-group">
+    <label>Variedad:</label>
+    <select name="idVariedad[]" id="idVariedad" multiple  class="form-control" required>
              @foreach ($variedades as $variedad)
-                <option value="{{ $variedad->id }}">{{ $variedad->descripcion }}</option>
+                <option  value="{{ $variedad->id }}" required>{{ $variedad->descripcion }}</option>
             @endforeach
-        </option>
     </select>
+</div>
+
 <br>
 <!-- Validacion errores-->
 @if ($errors->any())
@@ -178,17 +172,7 @@
         <button id="btnSave" class="btn btn-primary btn-block">Guardar</button>
     </div>
 </div>
-@section('js')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"
-        crossorigin="anonymous"></script>
-    <script src="{{ asset('/js/datatable-modal.js') }}"></script>
-@endsection
+
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
@@ -218,12 +202,7 @@
     });
     */
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" ></script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('select').selectpicker();
-    });
-</script>
+
+
+

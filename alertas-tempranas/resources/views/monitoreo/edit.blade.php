@@ -1,41 +1,12 @@
-@extends('layouts.base ')
+@extends('adminlte::page')
 
-@section('contenido-centrado')
-<script>
-    function soloLetras(e){
-        key = e.keyCode || e.which;
-        tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú0123456789";
+@section('title', 'Alertas Tempranas')
 
-        especiales=[8,13];
-        tecla_especial= false;
-        for(var i in especiales){
-            if(key == especiales[i]){
-            tecla_especial=true;
-            break;
-            }
-        }
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            alert("Ingresar datos correspondientes");
-            return false;
-        }
-    }
+@section('content_header')
 
-    function soloNum(ev){
-        if(window.event){
-            keynum = ev.keyCode;
-        }else{
-            keynum = ev.which;
-        }
-        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
-            return true;
-        }else{
-            alert("Ingresar solo números");
-            return false;
-        }
-    }
-</script>
+@stop
 
+@section('content')
     <div class="card">
         <div class="card-header">
             <h1>Editar Registro</h1>
@@ -56,12 +27,11 @@
             </div>
                 <div class="form-group">
                 <label>Seleccione Estudio:</label>
-                <input id="estudio" list="estudios" placeholder="Escriba para buscar..." required name="idEstudio">
-                <datalist id="estudios">
-                    @foreach ($estudios as $estudio)
-                        <option value="{{ $estudio->id }}">{{ $estudio->codigo}}</option>
-                    @endforeach
-                </datalist>
+                <select id="idEstudio" class="form-control" name="idEstudio" required>
+                @foreach ($estudios as $estudio)
+                    <option value="{{ isset($estudio->id) ? $estudio->id : '' }}"@foreach ($monitoreos as $monitoreo) @if ($estudio->id == $monitoreo->idEstudio) selected @endif @endforeach>{{ $estudio->nombreEstudio }}</option>
+                @endforeach
+                </select>
                 <div class="valid-feedback">
                     ¡Bien!
                 </div>
@@ -136,7 +106,50 @@
             </form>
         </div>
     </div>
-    <script>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+<script>
+    function soloLetras(e){
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú0123456789";
+
+        especiales=[8,13];
+        tecla_especial= false;
+        for(var i in especiales){
+            if(key == especiales[i]){
+            tecla_especial=true;
+            break;
+            }
+        }
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            alert("Ingresar datos correspondientes");
+            return false;
+        }
+    }
+
+    function soloNum(ev){
+        if(window.event){
+            keynum = ev.keyCode;
+        }else{
+            keynum = ev.which;
+        }
+        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
+            return true;
+        }else{
+            alert("Ingresar solo números");
+            return false;
+        }
+    }
+</script>
+
+
+<script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {
             'use strict';
@@ -156,5 +169,5 @@
             }, false);
         })();
 
-    </script>
-@endsection
+</script>
+@stop

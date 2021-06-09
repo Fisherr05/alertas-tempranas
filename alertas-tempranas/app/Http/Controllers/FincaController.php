@@ -110,7 +110,7 @@ class FincaController extends Controller
             $finca->telefono=$request->telefono;
             $finca->coFinca=$request->coFinca;
             $finca->densidad=$request->densidad;
-            $finca->variedades()->sync($request->variedades);
+            $finca-> variedades()->sync($request->idVariedad);
             $finca->save();
 
         return redirect('/fincas')->with('fincaModificado','Finca modificado con éxito');

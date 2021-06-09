@@ -11,9 +11,9 @@ class Monitoreo extends Model
     public $timestamps = true;
 
     //Relacion uno a muchos
-    public function datos(){
+    /*public function datos(){
         return $this->hasMany('App\Models\Datos')->withtimestamps();
-    }
+    }*/
 
     public function tecnicos(){
         return $this->hasMany('App\Models\Tecnico')->withtimestamps();

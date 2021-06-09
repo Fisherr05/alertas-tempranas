@@ -1,10 +1,4 @@
-@section('css')
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
-    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
-        type="text/css">
-    <link href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
-@endsection
 <script>
     function soloLetras(e) {
         key = e.keyCode || e.which;
@@ -63,103 +57,17 @@
 <div class="form-group">
     <div class="form-group">
         <label>Seleccione Finca:</label>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            <i class="fas fa-search"></i>
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Seleccione Finca</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <table id="table"
-                            class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
-                            cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>NOMBRE ZONA</th>
-                                    <th>NOMBRE FINCA</th>
-                                    <th>CÉDULA</th>
-                                    <th>PROPIETARIO</th>
-                                    <th>TELÉFONO</th>
-                                    <th>COORDENADAS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($fincas as $finca)
-                                    <tr>
-                                        <td>{{ $finca->id }}</td>
-                                        @foreach ($zonas as $zona)
-                                            @if ($finca->idZona == $zona->id)
-                                                <td>{{ $zona->nombreZona }}</td>
-                                            @endif
-                                        @endforeach
-                                        <td>{{ $finca->nombreFinca }}</td>
-                                        <td>{{ $finca->cedula }}</td>
-                                        <td>{{ $finca->propietarioFinca }}</td>
-                                        <td>{{ $finca->telefono }}</td>
-                                        <td>{{ $finca->coFinca }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Seleccionar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
+        @foreach ($fincas as $finca)
+            <option value="{{ isset($finca->id) ? $finca->id : '' }}"@foreach ($estudios as $estudio) @if ($finca->id == $estudio->idFinca) selected @endif @endforeach>{{ $finca->nombreFinca }}</option>
+        @endforeach
+        </select>
     </div>
     <div class="form-group">
         <label>Seleccione Variedad:</label>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
-            <i class="fas fa-search"></i>
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Seleccione Variedad</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-dialog modal-lg">
-                        <table id="table1"
-                            class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
-                            cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>CÓDIGO</th>
-                                    <th>DESCRIPCIÓN</>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($variedades as $variedad)
-                                    <tr>
-                                        <td>{{ $variedad->codigo }}</td>
-                                        <td>{{ $variedad->descripcion }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Seleccionar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <select id="idVariedad" class="form-control" name="idVariedad" required>
+        <option value=""> Seleccione Variedad</option>
+        </select>
     </div>
     <div class="form-group">
         <label>Código de Estudio:</label>

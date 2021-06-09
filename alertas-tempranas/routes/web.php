@@ -31,6 +31,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
 Route::resource('monitoreos','App\Http\Controllers\MonitoreoController');
 Route::resource('fincas', 'App\Http\Controllers\FincaController');
 Route::resource('zonas', 'App\Http\Controllers\ZonaController');
@@ -43,3 +47,11 @@ Route::get('plantas/bymonitoreo', 'App\Http\Controllers\PlantaController@getPlan
 Route::resource('plantas', 'App\Http\Controllers\PlantaController');
 Route::get('parroquias/bycanton', 'App\Http\Controllers\ParroquiaController@getParroquias')->name('admin.parroquias.bycanton');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

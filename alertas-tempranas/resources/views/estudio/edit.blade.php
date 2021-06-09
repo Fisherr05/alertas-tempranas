@@ -1,6 +1,149 @@
-@extends('layouts.base')
+@extends('adminlte::page')
 
-@section('contenido-centrado')
+@section('title', 'Alertas Tempranas')
+
+@section('content_header')
+
+@stop
+
+@section('content')
+<div class="card">
+        <div class="card-header">
+            <h1>Editar Registro</h1>
+        </div>
+    <div class="card-body">
+        <form class="needs-validation" action="/estudios/{{ $estudio->id }}" method="POST" novalidate>
+                    @csrf @method('PATCH')
+                    <div class="form-group">
+                        <label>Seleccione Finca:</label>
+                            <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
+                            @foreach ($fincas as $finca)
+                                <option value="{{ isset($finca->id) ? $finca->id : '' }}"@foreach ($estudios as $estudio) @if ($finca->id == $estudio->idFinca) selected @endif @endforeach>{{ $finca->nombreFinca }}</option>
+                            @endforeach
+                            </select>
+                            <div class="valid-feedback">
+                                ¡Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                ¡Rellene este campo!
+                            </div>
+                    </div>
+                        <div class="form-group">
+                            <label>Código de Estudio:</label>
+                            <input type="text" disabled maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de estudio"
+                                value="{{ isset($estudio->codigo) ? $estudio->codigo : '' }}" required>
+                            <div class="valid-feedback">
+                                ¡Bien!
+                            </div>
+                            <div class="invalid-feedback">
+                                ¡Rellene este campo!
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label for="fenologia">Nombre de Estudio:</label>
+                        <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="fenologia" name="nombreEstudio" placeholder="Ingrese el nombre de estudio"
+                            value="{{ isset($estudio->nombreEstudio) ? $estudio->nombreEstudio : '' }}" required>
+                        <div class="valid-feedback">
+                            ¡Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            ¡Rellene este campo!
+                        </div>
+                    </div>
+                    <br>
+                <div class="form-group">
+                    <label for="fenologia">Fenologia:</label>
+                    <input type="text" onkeypress="return soloNum(event);" minlength="1" maxlength="3" class="form-control" id="fenologia" name="fenologia" placeholder="Ingrese la fenologia"
+                        value="{{ isset($estudio->fenologia) ? $estudio->fenologia : '' }}" required>
+                    <div class="valid-feedback">
+                        ¡Bien!
+                    </div>
+                    <div class="invalid-feedback">
+                        ¡Rellene este campo!
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="densidad">Densidad:</label>
+                    <input type="text" class="form-control" id="densidad" name="densidad" placeholder="Ingrese la densidad"
+                        value="{{ isset($estudio->densidad) ? $estudio->densidad : '' }}" required>
+                    <div class="valid-feedback">
+                        ¡Bien!
+                    </div>
+                    <div class="invalid-feedback">
+                        ¡Rellene este campo!
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Ingrese fecha inicio:</label>
+                    <input type="date" class="sm-form-control" id="fechaInicio" name="fechaInicio"
+                        value="{{ isset($estudio->fechaInicio) ? $estudio->fechaInicio : '' }}" required>
+                    <div class="valid-feedback">
+                        ¡Bien!
+                    </div>
+                    <div class="invalid-feedback">
+                        ¡Rellene este campo!
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Ingrese fecha fin:</label>
+                    <input type="date" class="sm-form-control" id="fechaFin" name="fechaFin"
+                        value="{{ isset($estudio->fechaFin) ? $estudio->fechaFin : '' }}" required>
+                    <div class="valid-feedback">
+                        ¡Bien!
+                    </div>
+                    <div class="invalid-feedback">
+                        ¡Rellene este campo!
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Activo:</label>
+                    <input type="text" class="form-control" id="activo" name="activo" placeholder="Ingrese activo"
+                        value="{{ isset($estudio->activo) ? $estudio->activo : '' }}" required>
+                    <div class="valid-feedback">
+                        ¡Bien!
+                    </div>
+                    <div class="invalid-feedback">
+                        ¡Rellene este campo!
+                    </div>
+                </div>
+                </div>
+
+                <br>
+                <!-- Validacion errores-->
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="/estudios" class="btn btn-danger btn-block">Regresar</a>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-block">Guardar</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
 <script>
     function soloLetras(e){
         key = e.keyCode || e.which;
@@ -35,136 +178,7 @@
         }
     }
 </script>
-<div class="card">
-    <div class="card-header">
-        <h1>Editar Registro</h1>
-    </div>
-    <div class="card-body">
-      <form class="needs-validation" action="/estudios/{{ $estudio->id }}" method="POST" novalidate>
-      @csrf @method('PATCH')
-      <div class="form-group">
-        <label>Seleccione Finca:</label>
-            <input id="finca" list="fincas" placeholder="Escriba para buscar..." name="idFinca" value="{{ isset($finca->id) ? $finca->id : '' }}" required>
-            <datalist id="fincas">
-                @foreach ($fincas as $finca)
-                    <option value="{{ isset($finca->id) ? $finca->id : '' }}">{{ $finca->nombreFinca }}</option>
-                @endforeach
-            </datalist>
-            <div class="valid-feedback">
-                ¡Bien!
-            </div>
-            <div class="invalid-feedback">
-                ¡Rellene este campo!
-            </div>
-      </div>
-        <div class="form-group">
-            <label>Código de Estudio:</label>
-            <input type="text" disabled maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de estudio"
-                value="{{ isset($estudio->codigo) ? $estudio->codigo : '' }}" required>
-            <div class="valid-feedback">
-                ¡Bien!
-            </div>
-            <div class="invalid-feedback">
-                ¡Rellene este campo!
-            </div>
-        </div>
 
-    <div class="form-group">
-        <label for="fenologia">Nombre de Estudio:</label>
-        <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="fenologia" name="nombreEstudio" placeholder="Ingrese el nombre de estudio"
-            value="{{ isset($estudio->nombreEstudio) ? $estudio->nombreEstudio : '' }}" required>
-        <div class="valid-feedback">
-            ¡Bien!
-        </div>
-        <div class="invalid-feedback">
-            ¡Rellene este campo!
-        </div>
-    </div>
-    <br>
-<div class="form-group">
-    <label for="fenologia">Fenologia:</label>
-    <input type="text" onkeypress="return soloNum(event);" minlength="1" maxlength="3" class="form-control" id="fenologia" name="fenologia" placeholder="Ingrese la fenologia"
-        value="{{ isset($estudio->fenologia) ? $estudio->fenologia : '' }}" required>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<br>
-<div class="form-group">
-    <label for="densidad">Densidad:</label>
-    <input type="text" class="form-control" id="densidad" name="densidad" placeholder="Ingrese la densidad"
-        value="{{ isset($estudio->densidad) ? $estudio->densidad : '' }}" required>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<br>
-<div class="form-group">
-    <label>Ingrese fecha inicio:</label>
-    <input type="date" class="sm-form-control" id="fechaInicio" name="fechaInicio"
-        value="{{ isset($estudio->fechaInicio) ? $estudio->fechaInicio : '' }}" required>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<br>
-<div class="form-group">
-    <label>Ingrese fecha fin:</label>
-    <input type="date" class="sm-form-control" id="fechaFin" name="fechaFin"
-        value="{{ isset($estudio->fechaFin) ? $estudio->fechaFin : '' }}" required>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-<br>
-<div class="form-group">
-    <label>Activo:</label>
-    <input type="text" class="form-control" id="activo" name="activo" placeholder="Ingrese activo"
-        value="{{ isset($estudio->activo) ? $estudio->activo : '' }}" required>
-    <div class="valid-feedback">
-        ¡Bien!
-    </div>
-    <div class="invalid-feedback">
-        ¡Rellene este campo!
-    </div>
-</div>
-</div>
-
-<br>
-<!-- Validacion errores-->
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-<br>
-<div class="row">
-    <div class="col-md-6">
-        <a href="/estudios" class="btn btn-danger btn-block">Regresar</a>
-    </div>
-    <div class="col-md-6">
-        <button class="btn btn-primary btn-block">Guardar</button>
-    </div>
-</div>
-      </form>
-    </div>
-</div>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
@@ -186,4 +200,5 @@
     })();
 
 </script>
-@endsection
+
+@stop

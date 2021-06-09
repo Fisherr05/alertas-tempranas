@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Variedad;
+use App\Models\finca_variedads;
+use App\Models\Finca;
 use Illuminate\Http\Request;
+
 
 class VariedadController extends Controller
 {
@@ -99,19 +102,5 @@ class VariedadController extends Controller
         //
         Variedad::destroy($id);
         return back()->with('variedadEliminado','Variedad eliminado con éxito');
-    }
-
-    public function getVariedades(Request $request)
-    {
-        if (!$request->idFinca) {
-            $html = '<option value="">'.'Seleccione una variedad'.'</option>';
-        } else {
-            $html = '';
-            $variedades = Variedad::where('idFinca', $request->idFinca)->get();
-            foreach ($variedades as $variedad) {
-                $html .= '<option value="'.$variedad->id.'">'.$variedad->codigo.'</option>';
-            }
-        }
-        return response()->json(['html' => $html]);
     }
 }

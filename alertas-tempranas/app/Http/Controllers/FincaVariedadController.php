@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\finca_variedads;
 use App\Models\Variedad;
+use Illuminate\Support\Facades\DB;
 use App\Models\Finca;
 
 use Illuminate\Http\Request;
@@ -37,5 +38,26 @@ class FincaVariedadController extends Controller
             }
         }
         return response()->json(['html' => $html]);
+    }
+
+    public function getVariedades(Request $request)
+    {
+        /*if (!$request->idFinca) {
+            $html = '<option value="">'.'Seleccione una variedad'.'</option>';
+        } else {
+            $html = '';
+            $variedades = Variedad::where('idFinca', $request->idFinca)->get();
+            foreach ($variedades as $variedad) {
+                $html .= '<option value="'.$variedad->id.'">'.$variedad->codigo.'</option>';
+            }
+        }
+        return response()->json(['html' => $html]);*/
+        $variedades = DB::table('finca_variedad')
+            ->join('variedads', 'finca_variedad.variedad_id', '=', 'variedads.id')
+            ->join('fincas', 'finca_variedad.finca_id', '=', "fincas.id")
+            ->select('variedads.*')
+            ->get();
+
+        return response()->json($variedades);
     }
 }
