@@ -8,27 +8,27 @@
 
 @section('content')
     <!--Mensaje Creado -->
-    @if (session('estudioGuardado'))
+    @if (session('datoGuardado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('estudioGuardado') }}
+            {{ session('datoGuardado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Modificado-->
-    @if (session('estudioModificado'))
+    @if (session('datoModificado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('estudioModificado') }}
+            {{ session('datoModificado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Eliminado -->
-    @if (session('estudioEliminado'))
+    @if (session('datoEliminado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('estudioEliminado') }}
+            {{ session('datoEliminado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -39,11 +39,12 @@
             <div class="card-header align-items-center">
                 <div class="row align-items-center">
                     <div class="col-md-10">
-                        <h1>Estudio</h1>
+                        <h1>Datos</h1>
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="estudios/create" class="btn btn-success">Nuevo Registro</a>
+                            <a href="datos/create" class="btn btn-success btn-block">Nuevo Registro</a>
+                            <a href="/tecnico" class="btn btn-danger btn-block "><i class="far fa-arrow-alt-circle-left"></i> Regresar</a>
                         </div>
                     </div>
                 </div>
@@ -54,53 +55,32 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>CODIGO</th>
-                            <th>ESTUDIO</th>
-                            <th>FINCA</th>
-                            <th>VARIEDAD</th>
-                            <th>FENOLOGIA</th>
-                            <th>DENSIDAD</th>
-                            <th>FECHA INICIO</th>
-                            <th>FECHA FIN</th>
-                            <th>ACTIVO</th>
+                            <th>ID</th>
+                            <th>MONITOREO</th>
+                            <th>PLANTA</th>
+                            <th>FRUTO</th>
+                            <th>INCIDENCIA (%)</th>
+                            <th>SEVERIDAD (%)</th>
                             <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($estudios as $estudio)
+                        @foreach ($datos as $dato)
                             <tr>
-                                <td>{{ $estudio->codigo }}</td>
-                                <td>{{ $estudio->nombreEstudio }}</td>
-                                @foreach ($fvs as $fv)
-                                    @if ($estudio->idFv == $fv->id)
-                                        @foreach ($fincas as $finca)
-                                            @if ($fv->finca_id == $finca->id)
-                                                <td>{{ $finca->nombreFinca }}</td>
-                                            @endif
-                                        @endforeach
-                                        @foreach ($variedades as $variedad)
-                                            @if ($fv->variedad_id == $variedad->id)
-                                                <td>{{ $variedad->descripcion }}</td>
-                                            @endif
-                                        @endforeach
+                                <td>{{ $dato->id }}</td>
+                                @foreach ($monitoreos as $monitoreo)
+                                    @if ($dato->idMonitoreo== $monitoreo->id)
+                                        <td>{{ $monitoreo->codigo }}</td>
                                     @endif
                                 @endforeach
-                                <td>{{ $estudio->fenologia }}</td>
-                                <td>{{ $estudio->densidad }}</td>
-                                <td>{{ $estudio->fechaInicio }}</td>
-                                <td>{{ $estudio->fechaFin }}</td>
-                                <td>{{ $estudio->activo }}</td>
-                                <td>
-                                    <form action="{{ route('estudios.destroy', $estudio->id) }}" method="POST">
-                                        <a href="/estudios/{{ $estudio->id }}/edit" class="btn btn-secondary"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Desea eliminar esto?')"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
+                                @foreach ($plantas as $planta)
+                                    @if ($dato->idPlanta== $planta->id)
+                                        <td>{{ $planta->codigo }}</td>
+                                    @endif
+                                @endforeach
+                                <td>{{ $dato->fruto }}</td>
+                                <td>{{ $dato->incidencia }}</td>
+                                <td>{{ $dato->severidad }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -112,7 +92,8 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
         type="text/css">
 @stop
@@ -315,5 +296,4 @@
         });
 
     </script>
-
 @stop

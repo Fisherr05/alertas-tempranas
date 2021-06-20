@@ -39,7 +39,7 @@
     <label>Seleccione Monitoreo:</label>
     <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
     @foreach ($monitoreos as $monitoreo)
-        <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}"@if ($monitoreo->id == $dato->idMonitoreo) selected @endif>{{ $monitoreo->codigo }}</option>
+        <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}">{{ $monitoreo->codigo }}</option>
     @endforeach
     </select>
 </div>
@@ -48,7 +48,7 @@
     <label>Seleccione Planta:</label>
     <select id="idPlanta" class="form-control" name="idPlanta" required>
     @foreach ($plantas as $planta)
-        <option value="{{ isset($planta->id) ? $planta->id : '' }}" @if ($planta->id == $dato->idPlanta) selected @endif>{{ $planta->codigo }}</option>
+        <option value="{{ isset($planta->id) ? $planta->id : '' }}">{{ $planta->codigo }}</option>
     @endforeach
     </select>
 
@@ -56,7 +56,7 @@
 <br>
 <div class="form-group">
     <label>Fruto:</label>
-    <input type="number" min="1" max="10" maxlength="2" onkeypress="return soloNum(event);" class="form-control" id="fruto"
+    <input type="text" min="1" max="10" minlength="1" maxlength="2" onkeypress="return soloNum(event);" class="form-control" id="fruto"
         name="fruto" placeholder="Ingrese el número del fruto" value="{{ isset($dato->fruto) ? $dato->fruto : '' }}"
         required>
     <div class="valid-feedback">
@@ -106,7 +106,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/datos" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/datos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>

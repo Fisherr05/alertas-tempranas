@@ -22,6 +22,12 @@ class MonitoreoController extends Controller
         return view('monitoreo.index',compact('monitoreos','estudios'));
     }
 
+    public function registro()
+    {
+        $monitoreos = Monitoreo::all();
+        $estudios= Estudio::all();
+        return view('monitoreo.registro',compact('monitoreos','estudios'));
+    }
     /**
      * Show the form for creating a new resource.
      *

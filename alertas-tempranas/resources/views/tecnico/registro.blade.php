@@ -3,32 +3,36 @@
 @section('title', 'Alertas Tempranas')
 
 @section('content_header')
-
+    <h1></h1>
 @stop
 
 @section('content')
-    <!--Mensaje Creado -->
-    @if (session('estudioGuardado'))
+<div class="card">
+
+    <div class="card-body">
+      @csrf
+<!--Mensaje Creado -->
+    @if (session('tecnicoGuardado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('estudioGuardado') }}
+            {{ session('tecnicoGuardado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Modificado-->
-    @if (session('estudioModificado'))
+    @if (session('tecnicoModificado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('estudioModificado') }}
+            {{ session('tecnicoModificado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     @endif
     <!--Mensaje Eliminado -->
-    @if (session('estudioEliminado'))
+    @if (session('tecnicoEliminado'))
         <div class="alert alert-success alert-dismissible fade show">
-            {{ session('estudioEliminado') }}
+            {{ session('tecnicoEliminado') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -39,12 +43,14 @@
             <div class="card-header align-items-center">
                 <div class="row align-items-center">
                     <div class="col-md-10">
-                        <h1>Estudio</h1>
+                               <h1>Sus Monitoreos</h1>
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="estudios/create" class="btn btn-success">Nuevo Registro</a>
+                            <a href="/dato" class="btn btn-primary btn-block">Siguiente</a>
                         </div>
+
+
                     </div>
                 </div>
             </div>
@@ -54,65 +60,45 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>CODIGO</th>
+                            <th>MONITOREO</th>
                             <th>ESTUDIO</th>
-                            <th>FINCA</th>
-                            <th>VARIEDAD</th>
-                            <th>FENOLOGIA</th>
-                            <th>DENSIDAD</th>
-                            <th>FECHA INICIO</th>
-                            <th>FECHA FIN</th>
-                            <th>ACTIVO</th>
-                            <th>ACCIONES</th>
+                            <th>FECHA PLANIFICADA</th>
+                            <th>FECHA EJECUCIÓN</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($estudios as $estudio)
+
+
                             <tr>
-                                <td>{{ $estudio->codigo }}</td>
-                                <td>{{ $estudio->nombreEstudio }}</td>
-                                @foreach ($fvs as $fv)
-                                    @if ($estudio->idFv == $fv->id)
-                                        @foreach ($fincas as $finca)
-                                            @if ($fv->finca_id == $finca->id)
-                                                <td>{{ $finca->nombreFinca }}</td>
-                                            @endif
-                                        @endforeach
-                                        @foreach ($variedades as $variedad)
-                                            @if ($fv->variedad_id == $variedad->id)
-                                                <td>{{ $variedad->descripcion }}</td>
-                                            @endif
-                                        @endforeach
-                                    @endif
-                                @endforeach
-                                <td>{{ $estudio->fenologia }}</td>
-                                <td>{{ $estudio->densidad }}</td>
-                                <td>{{ $estudio->fechaInicio }}</td>
-                                <td>{{ $estudio->fechaFin }}</td>
-                                <td>{{ $estudio->activo }}</td>
-                                <td>
-                                    <form action="{{ route('estudios.destroy', $estudio->id) }}" method="POST">
-                                        <a href="/estudios/{{ $estudio->id }}/edit" class="btn btn-secondary"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Desea eliminar esto?')"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
+                            @foreach ($monitoreos as $monitoreo)
+                                @if ($estudio->id == $monitoreo->idEstudio)
+                                    <td>{{ $monitoreo->codigo }}</td>
+                                    <td>{{ $estudio->codigo }}</td>
+                                    <td>{{ $monitoreo->fechaPlanificada }}</td>
+                                <td>{{ $monitoreo->fechaEjecucion }}</td>
+                                @endif
+                            @endforeach
                             </tr>
+
+
                         @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>
+
+    </div>
+  </div>
+
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="/css/admin_custom.css">
+     <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
         type="text/css">
 @stop
@@ -124,6 +110,7 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js" crossorigin="anonymous"></script>
+
     <script>
         $(document).ready(function() {
             $("#table").DataTable({
@@ -315,5 +302,4 @@
         });
 
     </script>
-
 @stop

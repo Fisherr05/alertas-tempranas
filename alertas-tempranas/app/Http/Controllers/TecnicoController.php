@@ -22,6 +22,15 @@ class TecnicoController extends Controller
         return view('tecnico.index',$datos);
     }
 
+    public function registro()
+    {
+        //
+        $datos['tecnicos'] = Tecnico::all();
+        $datos['monitoreos'] = Monitoreo::all();
+        $datos['estudios'] = Estudio::all();
+        return view('tecnico.registro',$datos);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -36,6 +45,7 @@ class TecnicoController extends Controller
         return view('tecnico.create',$datos);
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -49,6 +59,8 @@ class TecnicoController extends Controller
         Tecnico::insert($datos);
         return redirect('/tecnicos')->with('tecnicoGuardado','Técnico guardado con éxito');
     }
+
+
 
     /**
      * Display the specified resource.

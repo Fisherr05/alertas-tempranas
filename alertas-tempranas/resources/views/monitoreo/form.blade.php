@@ -39,7 +39,7 @@
         <label>Seleccione Estudio:</label>
         <select id="idEstudio" class="form-control" name="idEstudio" required>
         @foreach ($estudios as $estudio)
-            <option value="{{ isset($estudio->id) ? $estudio->id : '' }}"@foreach ($monitoreos as $monitoreo) @if ($estudio->id == $monitoreo->idEstudio) selected @endif @endforeach>{{ $estudio->nombreEstudio }}</option>
+            <option value="{{ isset($estudio->id) ? $estudio->id : '' }}"@foreach ($monitoreos as $monitoreo) @if ($estudio->id == $monitoreo->idEstudio) selected @endif @endforeach>{{ $estudio->codigo }} - {{ $estudio->nombreEstudio }}</option>
         @endforeach
         </select>
     </div>
@@ -106,7 +106,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/monitoreos" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/monitoreos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>

@@ -16,7 +16,7 @@ class finca_variedad extends Controller
         $datos= request()->except('_token');
         $variedad=new Variedad;
         $variedad->idFinca=$datos['idFinca'];
-        $variedad->idVariedad=$datos['idVareidad'];
+        $variedad->idVariedad=$datos['idVariedad'];
         $variedad->save();
 
     }

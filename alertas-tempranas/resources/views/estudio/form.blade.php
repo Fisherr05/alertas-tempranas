@@ -1,4 +1,3 @@
-
 <script>
     function soloLetras(e) {
         key = e.keyCode || e.which;
@@ -57,17 +56,30 @@
 <div class="form-group">
     <div class="form-group">
         <label>Seleccione Finca:</label>
-        <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
-        @foreach ($fincas as $finca)
-            <option value="{{ isset($finca->id) ? $finca->id : '' }}"@foreach ($estudios as $estudio) @if ($finca->id == $estudio->idFinca) selected @endif @endforeach>{{ $finca->nombreFinca }}</option>
-        @endforeach
+        <select id="idFinca" class="form-control" required>
+            <option hidden value="">Selecione una finca</option>
+            @foreach ($fincas as $finca)
+                <option value="{{ isset($finca->id) ? $finca->id : '' }}">{{ $finca->nombreFinca }}</option>
+            @endforeach
         </select>
+        <div class="valid-feedback">
+            ¡Bien!
+        </div>
+        <div class="invalid-feedback">
+            ¡Rellene este campo!
+        </div>
     </div>
     <div class="form-group">
         <label>Seleccione Variedad:</label>
-        <select id="idVariedad" class="form-control" name="idVariedad" required>
-        <option value=""> Seleccione Variedad</option>
+        <select id="idVariedad" class="form-control" name="idFv" required>
+            <option hidden value=""> Seleccione una variedad</option>
         </select>
+        <div class="valid-feedback">
+            ¡Bien!
+        </div>
+        <div class="invalid-feedback">
+            ¡Rellene este campo!
+        </div>
     </div>
     <div class="form-group">
         <label>Código de Estudio:</label>
@@ -169,41 +181,9 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/estudios" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/estudios" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>
     </div>
 </div>
-@section('js')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"
-        crossorigin="anonymous"></script>
-    <script src="{{ asset('/js/datatable-modal.js') }}"></script>
-@endsection
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-
-</script>

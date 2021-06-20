@@ -1,15 +1,34 @@
 @extends('layouts.base')
 
 @section('contenido-centrado')
-<div class="card">
+
+@endsection
+@extends('adminlte::page')
+
+@section('title', 'Alertas Tempranas')
+
+@section('content_header')
+
+@stop
+
+@section('content')
+    <div class="card">
     <div class="card-header">
         <h1>Nuevo Registro</h1>
     </div>
     <div class="card-body">
       <form class="needs-validation" action="/tecnicos" method="POST" novalidate>
       @csrf
-        @include('tecnico.form')
+        @include('user.tecnico.form')
       </form>
     </div>
 </div>
-@endsection
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop

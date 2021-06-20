@@ -36,7 +36,7 @@
     <label>Seleccione Monitoreo:</label>
     <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
     @foreach ($monitoreos as $monitoreo)
-        <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}"@if ($monitoreo->id == $planta->idMonitoreo) selected @endif>{{ $planta->codigo }}</option>
+        <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}">{{ $monitoreo->codigo }}</option>
     @endforeach
     </select>
 
@@ -69,7 +69,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/plantas" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/plantas" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>

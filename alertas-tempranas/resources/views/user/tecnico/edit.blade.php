@@ -63,12 +63,11 @@
       @csrf @method('PATCH')
         <div class="form-group">
             <label>Seleccione Monitoreo:</label>
-            <input id="monitoreo" list="monitoreos" placeholder="Escriba para buscar..." name="idMonitoreo" value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}" required>
-            <datalist id="monitoreos">
-                @foreach ($monitoreos as $monitoreo)
-                    <option value="{{ $monitoreo->id }}">{{ $monitoreo->codigo }}</option>
-                @endforeach
-            </datalist>
+            <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
+            @foreach ($monitoreos as $monitoreo)
+                <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}">{{ $monitoreo->codigo }}</option>
+            @endforeach
+            </select>
             <div class="valid-feedback">
                 ¡Bien!
             </div>

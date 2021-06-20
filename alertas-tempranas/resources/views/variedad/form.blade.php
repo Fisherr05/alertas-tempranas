@@ -60,7 +60,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/variedades" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/variedades" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>

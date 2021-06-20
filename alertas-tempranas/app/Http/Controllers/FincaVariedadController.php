@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\finca_variedads;
+use App\Models\finca_variedad;
 use App\Models\Variedad;
 use Illuminate\Support\Facades\DB;
 use App\Models\Finca;
@@ -14,13 +14,13 @@ class FincaVariedadController extends Controller
     public function store(Request $request)
     {
         //
-        $fincaVariedad=new finca_variedads();
+        $fincaVariedad=new finca_variedad();
         $fincaVariedad->idFinca=$request->input('idFinca');
         $fincaVariedad->idVariedad=$request->input('idVariedad');
         $fincaVariedad->save();
         return back();
     }
-    public function getFincas(Request $request)
+   /* public function getFincas(Request $request)
     {
         if (!$request->idFinca) {
             $html = '<option value="">'.'Seleccione una variedad'.'</option>';
@@ -38,9 +38,9 @@ class FincaVariedadController extends Controller
             }
         }
         return response()->json(['html' => $html]);
-    }
+    }*/
 
-    public function getVariedades(Request $request)
+    public function getVariedades(Request $request) //Función que retorna las variedades de una finca
     {
         /*if (!$request->idFinca) {
             $html = '<option value="">'.'Seleccione una variedad'.'</option>';
@@ -55,7 +55,8 @@ class FincaVariedadController extends Controller
         $variedades = DB::table('finca_variedad')
             ->join('variedads', 'finca_variedad.variedad_id', '=', 'variedads.id')
             ->join('fincas', 'finca_variedad.finca_id', '=', "fincas.id")
-            ->select('variedads.*')
+            ->select('finca_variedad.id', 'variedads.codigo', 'variedads.descripcion')
+            ->where('finca_id', $request->idFinca)
             ->get();
 
         return response()->json($variedades);

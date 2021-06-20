@@ -24,6 +24,15 @@ class DatoController extends Controller
         return view('dato.index',$datos);
     }
 
+    public function registro()
+    {
+        //
+        $datos['datos'] = Dato::all();
+        $datos ['monitoreos'] = Monitoreo::all();
+        $datos ['plantas'] = Planta::all();
+        return view('dato.registro',$datos);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

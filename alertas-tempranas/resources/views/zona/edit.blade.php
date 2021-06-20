@@ -92,7 +92,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="d-grid gap-2">
-                            <a href="/zonas" class="btn btn-danger btn-block">Regresar</a>
+                            <a href="/zonas" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
                         </div>
 
                     </div>

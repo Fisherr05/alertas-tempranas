@@ -50,8 +50,8 @@
 <div class="form-row">
     <div class="form-group col">
         <label>Ingrese Canton:</label>
-        <select  name="" id="idCanton" class="form-control" required>
-            <option value="">Selecione un cantón</option>
+        <select  id="idCanton" class="form-control" required>
+            <option hidden value="">Selecione un cantón</option>
             @foreach ($cantones as $canton)
                 <option value="{{ $canton->id }}">{{ $canton->nombre }}</option>
             @endforeach
@@ -60,7 +60,7 @@
     <div class="form-group col">
         <label>Ingrese Parroquia:</label>
         <select  name="idParroquia" id="idParroquia" class="form-control" required>
-            <option value="">Seleccione una parroquia</option>
+            <option hidden value="">Seleccione una parroquia</option>
         </select>
     </div>
 </div>
@@ -102,7 +102,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/zonas" class="btn btn-danger btn-block">Regresar</a>
+        <a href="/zonas" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
     </div>
     <div class="col-md-6">
         <button class="btn btn-primary btn-block">Guardar</button>

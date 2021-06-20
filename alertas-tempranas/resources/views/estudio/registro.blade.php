@@ -39,11 +39,11 @@
             <div class="card-header align-items-center">
                 <div class="row align-items-center">
                     <div class="col-md-10">
-                        <h1>Estudio</h1>
+                        <h1>Seleccione un Estudio</h1>
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="estudios/create" class="btn btn-success">Nuevo Registro</a>
+                            <a href="/monitoreo" class="btn btn-primary btn-block">Siguiente</a>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,6 @@
                             <th>FECHA INICIO</th>
                             <th>FECHA FIN</th>
                             <th>ACTIVO</th>
-                            <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,17 +89,6 @@
                                 <td>{{ $estudio->fechaInicio }}</td>
                                 <td>{{ $estudio->fechaFin }}</td>
                                 <td>{{ $estudio->activo }}</td>
-                                <td>
-                                    <form action="{{ route('estudios.destroy', $estudio->id) }}" method="POST">
-                                        <a href="/estudios/{{ $estudio->id }}/edit" class="btn btn-secondary"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Desea eliminar esto?')"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
                             </tr>
                         @endforeach
                     </tbody>

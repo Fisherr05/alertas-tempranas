@@ -87,11 +87,28 @@
                     width: $(this).data('width') ? $(this).data('width') : $(this).hasClass(
                         'w-100') ? '100%' : 'style',
                     placeholder: $(this).data('placeholder'),
-                    allowClear: Boolean($(this).data('allow-clear')),
+                    allowClear: true,
                     closeOnSelect: !$(this).attr('multiple'),
                     language: "es",
                 });
             });
+            /*$("#idCanton").select2({
+                theme: 'classic',
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass(
+                        'w-100') ? '100%' : 'style',
+                placeholder: "Seleccione un cantón",
+                allowClear: true,
+                language: "es",
+            });
+            $("#idParroquia").select2({
+                theme: 'classic',
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass(
+                        'w-100') ? '100%' : 'style',
+                placeholder: "Seleccione una parroquia",
+                allowClear: true,
+                language: "es",
+            });*/
         });
+
     </script>
 @stop

@@ -289,6 +289,11 @@ return [
             'url'         => 'datos',
             'icon'        => 'far fa-fw fa-file',
         ],
+        [
+            'text'        => 'Registro',
+            'url'         => 'tecnico',
+            'icon'        => 'far fa-fw fa-file',
+        ],
         ['header' => 'CONFIGURACIÓN'],
         [
             'text' => 'Perfil',
