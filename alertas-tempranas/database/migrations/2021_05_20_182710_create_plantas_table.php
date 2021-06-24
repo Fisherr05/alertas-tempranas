@@ -15,12 +15,11 @@ class CreatePlantasTable extends Migration
     {
         Schema::create('plantas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idMonitoreo');
+            $table->unsignedBigInteger('idEstudio');
             $table->string('codigo');
             $table->string('coPlanta');
-            $table->foreign('idMonitoreo')->references('id')->on('monitoreos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idEstudio')->references('id')->on('estudios')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
-
         });
     }
 

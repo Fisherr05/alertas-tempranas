@@ -15,8 +15,8 @@ class Monitoreo extends Model
         return $this->hasMany('App\Models\Datos')->withtimestamps();
     }*/
 
-    public function tecnicos(){
-        return $this->hasMany('App\Models\Tecnico')->withtimestamps();
+    public function tecnico(){
+        return $this->belongsTo('App\Models\Tecnico')->withtimestamps();
     }
 
     public function archivos(){

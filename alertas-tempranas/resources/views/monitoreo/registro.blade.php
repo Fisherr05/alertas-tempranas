@@ -59,6 +59,7 @@
                             <th>FECHA PLANIFICADA</th>
                             <th>FECHA DE EJECUCION</th>
                             <th>OBSERVACIONES</th>
+                            <th>ACCIÓN</th>
 
                         </tr>
                     </thead>
@@ -74,6 +75,9 @@
                                 <td>{{ $monitoreo->fechaPlanificada }}</td>
                                 <td>{{ $monitoreo->fechaEjecucion }}</td>
                                 <td>{{ $monitoreo->observaciones }}</td>
+                                <td>
+                                    <a href="/datos" class="btn btn-primary btn-block">Siguiente</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

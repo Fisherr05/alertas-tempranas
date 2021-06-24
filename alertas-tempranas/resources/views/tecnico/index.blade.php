@@ -54,7 +54,6 @@
                     cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>MONITOREO</th>
                             <th>NOMBRE TÉCNICO</th>
                             <th>INSTITUCIÓN</th>
                             <th>TELÉFONO</th>
@@ -66,11 +65,6 @@
                     <tbody>
                         @foreach ($tecnicos as $tecnico)
                             <tr>
-                                @foreach ($monitoreos as $monitoreo)
-                                    @if ($monitoreo->id == $tecnico->idMonitoreo)
-                                        <td>{{ $monitoreo->codigo }}</td>
-                                    @endif
-                                @endforeach
                                 <td>{{ $tecnico->nombreTecnico }}</td>
                                 <td>{{ $tecnico->institucion }}</td>
                                 <td>{{ $tecnico->telefono }}</td>

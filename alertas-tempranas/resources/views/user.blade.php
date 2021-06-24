@@ -14,10 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are Admin!') }}
-                    <div class="col-md-6">
-                        <a href="/zonas" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i> Regresar</a>
-                    </div>
+                    {{ __('You are User!') }}
                 </div>
             </div>
         </div>

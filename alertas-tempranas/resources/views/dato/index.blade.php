@@ -73,8 +73,8 @@
                                     @endif
                                 @endforeach
                                 @foreach ($plantas as $planta)
-                                    @if ($dato->idPlanta== $planta->id)
-                                        <td>{{ $planta->codigo }}</td>
+                                    @if ($dato->idPlanta == $planta->id)
+                                        <td>{{$planta->codigo}}</td>
                                     @endif
                                 @endforeach
                                 <td>{{ $dato->fruto }}</td>

@@ -55,7 +55,7 @@
                     <thead>
                         <tr>
                             <th>CÓDIGO</th>
-                            <th>MONITOREO</>
+                            <th>ESTUDIO</>
                             <th>COORDENADAS</th>
                             <th>ACCIONES</th>
                         </tr>
@@ -64,9 +64,9 @@
                         @foreach ($plantas as $planta)
                             <tr>
                                 <td>{{ $planta->codigo }}</td>
-                                @foreach ($monitoreos as $monitoreo)
-                                    @if($planta->idMonitoreo==$monitoreo->id)
-                                        <td>{{ $monitoreo->codigo }}</td>
+                                @foreach ($estudios as $estudio)
+                                    @if($planta->idEstudio==$estudio->id)
+                                        <td>{{ $estudio->codigo }}</td>
                                     @endif
                                 @endforeach
                                 <td>{{ $planta->coPlanta }}</td>

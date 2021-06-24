@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTecnicosTable extends Migration
+class CreateDatosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTecnicosTable extends Migration
      */
     public function up()
     {
-        Schema::create('tecnicos', function (Blueprint $table) {
+        Schema::create('datos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idMonitoreo');
-            $table->string('nombreTecnico');
-            $table->string('institucion');
-            $table->string('telefono');
-            $table->string('email');
-            $table->string('activo');
+            $table->string('incidencia');
+            $table->string('severidad');
+            $table->unsignedBigInteger('idPlanta');
+            $table->unsignedBigInteger('fruto');
             $table->foreign('idMonitoreo')->references('id')->on('monitoreos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idPlanta')->references('id')->on('plantas')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateTecnicosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tecnicos');
+        Schema::dropIfExists('datos');
     }
 }

@@ -16,11 +16,13 @@ class CreateMonitoreosTable extends Migration
         Schema::create('monitoreos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idEstudio');
+            $table->unsignedBigInteger('idTecnico');
             $table->string('codigo');
             $table->date('fechaPlanificada');
             $table->date('fechaEjecucion');
             $table->string('observaciones');
             $table->foreign('idEstudio')->references('id')->on('estudios')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idTecnico')->references('id')->on('tecnicos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -15,7 +15,8 @@ class VariedadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+     public function index()
     {
         //
         $datos['variedades'] = Variedad::all();

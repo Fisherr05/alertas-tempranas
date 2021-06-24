@@ -51,14 +51,6 @@
     }
 </script>
 <div class="form-group">
-    <label>Seleccione Monitoreo:</label>
-    <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
-    @foreach ($monitoreos as $monitoreo)
-        <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}">{{ $monitoreo->codigo }}</option>
-    @endforeach
-    </select>
-</div>
-<div class="form-group">
         <label for="fenologia">Nombre de Técnico:</label>
         <input type="text"  onkeypress="return soloLetras(event);" class="form-control" id="nombreTecnico" name="nombreTecnico" placeholder="Ingrese el nombre del técnico"
             value="{{ isset($tecnico->nombreTecnico) ? $tecnico->nombreTecnico : '' }}" required>
@@ -132,10 +124,10 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/tecnicos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
+        <a href="/tecnicos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i> Regresar</a>
     </div>
     <div class="col-md-6">
-        <button class="btn btn-primary btn-block">Guardar</button>
+        <button class="btn btn-primary btn-block"> <i class="far fa-save"></i> Guardar</button>
     </div>
 </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Monitoreo;
 use App\Models\Estudio;
 use App\Models\Finca;
+use App\Models\Tecnico;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -15,7 +16,8 @@ class MonitoreoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+     public function index()
     {
         $monitoreos = Monitoreo::all();
         $estudios= Estudio::all();
@@ -28,6 +30,8 @@ class MonitoreoController extends Controller
         $estudios= Estudio::all();
         return view('monitoreo.registro',compact('monitoreos','estudios'));
     }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,6 +43,7 @@ class MonitoreoController extends Controller
         $datos['monitoreos'] = Monitoreo::all();
         $datos1['estudios'] = Estudio::all();
         $datos['fincas']= Finca::all();
+        $datos['tecnicos']=Tecnico::all();
         return view('monitoreo.create',$datos,$datos1);
     }
 
@@ -84,8 +89,8 @@ class MonitoreoController extends Controller
         //
         $monitoreo = Monitoreo::findOrFail($id);
         $estudios = Estudio::all();
-
-        return view('monitoreo.edit', compact('monitoreo','estudios'));
+        $tecnicos = Tecnico::all();
+        return view('monitoreo.edit', compact('monitoreo','estudios','tecnicos'));
     }
 
     /**

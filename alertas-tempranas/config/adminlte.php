@@ -250,7 +250,9 @@ return [
         [
             'text'        => 'Zonas',
             'url'         => 'zonas',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-map-marked-alt',
+            'can'         => '',
+            'active'       => ['zonas', 'zonas*', 'regex:@^zonas/[0-9]+$@']
            //'label'       => 4,
             //'label_color' => 'success',
         ],
@@ -258,43 +260,59 @@ return [
             'text'        => 'Variedades',
             'url'         => 'variedades',
             'icon'        => 'far fa-fw fa-file',
+            'can'         => '',
+            'active'       => ['variedades', 'variedades*', 'regex:@^variedades/[0-9]+$@']
         ],
         [
             'text'        => 'Fincas',
             'url'         => 'fincas',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-warehouse',
+            'can'         => '',
+            'active'       => ['fincas', 'fincas*', 'regex:@^fincas/[0-9]+$@']
         ],
         [
             'text'        => 'Estudios',
             'url'         => 'estudios',
-            'icon'        => 'far fa-fw fa-file',
-        ],
-        [
-            'text'        => 'Monitoreos',
-            'url'         => 'monitoreos',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-book-open',
+            'can'         => '',
+            'active'       => ['estudios', 'estudios*', 'regex:@^estudios/[0-9]+$@']
         ],
         [
             'text'        => 'Tecnicos',
             'url'         => 'tecnicos',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-users-cog',
+            'can'         => '',
+            'active'       => ['tecnicos', 'tecnicos*', 'regex:@^tecnicos/[0-9]+$@']
+        ],
+        [
+            'text'        => 'Monitoreos',
+            'url'         => 'monitoreos',
+            'icon'        => 'fas fa-pager',
+            'can'         => '',
+            'active'       => ['monitoreos', 'monitoreos*', 'regex:@^monitoreos/[0-9]+$@']
         ],
         [
             'text'        => 'Plantas',
             'url'         => 'plantas',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-seedling',
+            'can'         => '',
+            'active'       => ['plantas', 'plantas*', 'regex:@^plantas/[0-9]+$@']
         ],
         [
             'text'        => 'Datos',
             'url'         => 'datos',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-server',
+            'can'         => '',
+            'active'       => ['datos', 'datos*', 'regex:@^datos/[0-9]+$@']
         ],
         [
             'text'        => 'Registro',
             'url'         => 'tecnico',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-clipboard',
+            'can'         => '',
+            'active'       => ['tecnico','regex:@^tecnico/[0-9]+$@']
         ],
-        ['header' => 'CONFIGURACIÓN'],
+        /*['header' => 'CONFIGURACIÓN'],
         [
             'text' => 'Perfil',
             'url'  => 'user/profile',
@@ -304,7 +322,7 @@ return [
             'text' => 'Cambiar Contraseña',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ],
+        ],*/
         /*[
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',

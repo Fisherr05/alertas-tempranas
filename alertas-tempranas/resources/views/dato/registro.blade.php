@@ -43,257 +43,139 @@
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="datos/create" class="btn btn-success btn-block">Nuevo Registro</a>
-                            <a href="/tecnico" class="btn btn-danger btn-block "><i class="far fa-arrow-alt-circle-left"></i> Regresar</a>
+                            <a href="/tecnico" class="btn btn-danger btn-block "><i
+                                    class="far fa-arrow-alt-circle-left"></i> Regresar</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-body table-responsive">
-                <table id="table"
-                    class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
-                    cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>MONITOREO</th>
-                            <th>PLANTA</th>
-                            <th>FRUTO</th>
-                            <th>INCIDENCIA (%)</th>
-                            <th>SEVERIDAD (%)</th>
-                            <th>ACCIONES</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($datos as $dato)
+
+
+            <form class="needs-validation" action="/dato/guardar" method="POST" novalidate>
+                @csrf
+                @php
+                    $contadorLineas = 0;
+                @endphp
+                @php
+                    $contadorFilas = 0;
+                @endphp
+                <div class="container">
+                    <table class="table table-hover table-bordered table-sm bg-white shadow-lg display nowra">
+                        <thead>
                             <tr>
-                                <td>{{ $dato->id }}</td>
-                                @foreach ($monitoreos as $monitoreo)
-                                    @if ($dato->idMonitoreo== $monitoreo->id)
-                                        <td>{{ $monitoreo->codigo }}</td>
-                                    @endif
-                                @endforeach
-                                @foreach ($plantas as $planta)
-                                    @if ($dato->idPlanta== $planta->id)
-                                        <td>{{ $planta->codigo }}</td>
-                                    @endif
-                                @endforeach
-                                <td>{{ $dato->fruto }}</td>
-                                <td>{{ $dato->incidencia }}</td>
-                                <td>{{ $dato->severidad }}</td>
+                                <th>Planta</th>
+                                <th>Frutos</th>
+                                <th>Insidencia</th>
+                                <th>Severidad</th>
+                                <th>Acción</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach ($plantas as $planta)
+                                @for ($i = 1; $i <= 10; $i++)
+                                    <tr>
+                                        <input class="form-control" type="hidden" name="idMonitoreo[]"
+                                            value="{{ $monitoreo->id }}">
+                                        <input class="form-control" type="hidden" name="idPlanta[]"
+                                            value="{{ $planta->id }}">
+                                        <td><input readonly value="{{ $planta->codigo }}" class="form-control text"
+                                                name="" id=""></td>
+                                        <td><input readonly value="{{ $i }}" class="form-control text" name="fruto[]"
+                                                id=""></td>
+                                        <td><input value="" min="0" max="99" minlength="1" maxlength="2"
+                                                onkeypress="return soloNum(event);"
+                                                onchange="sumar(this.value,{{ $contadorFilas }});" class="form-control text"
+                                                name="incidencia[]" id="" required>
+                                        </td>
+                                        <td><input type="text" class="form-control" name="severidad[]"
+                                                id="spTotal-{{ $contadorFilas }}" value="" readonly>
+                                        </td>
+                                        <td><button type="button" class="btn btn-primary" id="remove"><i class="far fa-times-circle"></i></button></td>
+                                    </tr>
+                                    @php
+                                        $contadorFilas = $contadorFilas + 1;
+                                    @endphp
+                                @endfor
+                                @php
+                                    $contadorLineas = $contadorLineas + 1;
+                                @endphp
+                                @if ($contadorLineas != count($plantas))
+                                    <div class="dropdown-divider"></div>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container col-md-2">
+                    <button class="btn btn-primary btn-block" @if ($contadorLineas==0) disabled @endif ><i class="far fa-save"> </i> Guardar</button>
+                </div>
+                <br>
+            </form>
         </div>
     </div>
 @stop
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
-
-    <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
-        type="text/css">
 @stop
 
 @section('js')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js" crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function() {
-            $("#table").DataTable({
-                "language": {
-                    "processing": "Procesando...",
-                    "lengthMenu": "Mostrar _MENU_ registros",
-                    "zeroRecords": "No se encontraron resultados",
-                    "emptyTable": "Ningún dato disponible en esta tabla",
-                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "search": "Buscar:",
-                    "infoThousands": ",",
-                    "loadingRecords": "Cargando...",
-                    "paginate": {
-                        "first": "Primero",
-                        "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    },
-                    "aria": {
-                        "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-                        "sortDescending": ": Activar para ordenar la columna de manera descendente"
-                    },
-                    "buttons": {
-                        "copy": "Copiar",
-                        "colvis": "Visibilidad",
-                        "collection": "Colección",
-                        "colvisRestore": "Restaurar visibilidad",
-                        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-                        "copySuccess": {
-                            "1": "Copiada 1 fila al portapapeles",
-                            "_": "Copiadas %d fila al portapapeles"
-                        },
-                        "copyTitle": "Copiar al portapapeles",
-                        "csv": "CSV",
-                        "excel": "Excel",
-                        "pageLength": {
-                            "-1": "Mostrar todas las filas",
-                            "1": "Mostrar 1 fila",
-                            "_": "Mostrar %d filas"
-                        },
-                        "pdf": "PDF",
-                        "print": "Imprimir"
-                    },
-                    "autoFill": {
-                        "cancel": "Cancelar",
-                        "fill": "Rellene todas las celdas con <i>%d<\/i>",
-                        "fillHorizontal": "Rellenar celdas horizontalmente",
-                        "fillVertical": "Rellenar celdas verticalmentemente"
-                    },
-                    "decimal": ",",
-                    "searchBuilder": {
-                        "add": "Añadir condición",
-                        "button": {
-                            "0": "Constructor de búsqueda",
-                            "_": "Constructor de búsqueda (%d)"
-                        },
-                        "clearAll": "Borrar todo",
-                        "condition": "Condición",
-                        "conditions": {
-                            "date": {
-                                "after": "Despues",
-                                "before": "Antes",
-                                "between": "Entre",
-                                "empty": "Vacío",
-                                "equals": "Igual a",
-                                "notBetween": "No entre",
-                                "notEmpty": "No Vacio",
-                                "not": "Diferente de"
-                            },
-                            "number": {
-                                "between": "Entre",
-                                "empty": "Vacio",
-                                "equals": "Igual a",
-                                "gt": "Mayor a",
-                                "gte": "Mayor o igual a",
-                                "lt": "Menor que",
-                                "lte": "Menor o igual que",
-                                "notBetween": "No entre",
-                                "notEmpty": "No vacío",
-                                "not": "Diferente de"
-                            },
-                            "string": {
-                                "contains": "Contiene",
-                                "empty": "Vacío",
-                                "endsWith": "Termina en",
-                                "equals": "Igual a",
-                                "notEmpty": "No Vacio",
-                                "startsWith": "Empieza con",
-                                "not": "Diferente de"
-                            },
-                            "array": {
-                                "not": "Diferente de",
-                                "equals": "Igual",
-                                "empty": "Vacío",
-                                "contains": "Contiene",
-                                "notEmpty": "No Vacío",
-                                "without": "Sin"
-                            }
-                        },
-                        "data": "Data",
-                        "deleteTitle": "Eliminar regla de filtrado",
-                        "leftTitle": "Criterios anulados",
-                        "logicAnd": "Y",
-                        "logicOr": "O",
-                        "rightTitle": "Criterios de sangría",
-                        "title": {
-                            "0": "Constructor de búsqueda",
-                            "_": "Constructor de búsqueda (%d)"
-                        },
-                        "value": "Valor"
-                    },
-                    "searchPanes": {
-                        "clearMessage": "Borrar todo",
-                        "collapse": {
-                            "0": "Paneles de búsqueda",
-                            "_": "Paneles de búsqueda (%d)"
-                        },
-                        "count": "{total}",
-                        "countFiltered": "{shown} ({total})",
-                        "emptyPanes": "Sin paneles de búsqueda",
-                        "loadMessage": "Cargando paneles de búsqueda",
-                        "title": "Filtros Activos - %d"
-                    },
-                    "select": {
-                        "1": "%d fila seleccionada",
-                        "_": "%d filas seleccionadas",
-                        "cells": {
-                            "1": "1 celda seleccionada",
-                            "_": "$d celdas seleccionadas"
-                        },
-                        "columns": {
-                            "1": "1 columna seleccionada",
-                            "_": "%d columnas seleccionadas"
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
                         }
-                    },
-                    "thousands": ".",
-                    "datetime": {
-                        "previous": "Anterior",
-                        "next": "Proximo",
-                        "hours": "Horas",
-                        "minutes": "Minutos",
-                        "seconds": "Segundos",
-                        "unknown": "-",
-                        "amPm": [
-                            "am",
-                            "pm"
-                        ]
-                    },
-                    "editor": {
-                        "close": "Cerrar",
-                        "create": {
-                            "button": "Nuevo",
-                            "title": "Crear Nuevo Registro",
-                            "submit": "Crear"
-                        },
-                        "edit": {
-                            "button": "Editar",
-                            "title": "Editar Registro",
-                            "submit": "Actualizar"
-                        },
-                        "remove": {
-                            "button": "Eliminar",
-                            "title": "Eliminar Registro",
-                            "submit": "Eliminar",
-                            "confirm": {
-                                "_": "¿Está seguro que desea eliminar %d filas?",
-                                "1": "¿Está seguro que desea eliminar 1 fila?"
-                            }
-                        },
-                        "error": {
-                            "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
-                        },
-                        "multi": {
-                            "title": "Múltiples Valores",
-                            "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
-                            "restore": "Deshacer Cambios",
-                            "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
-                        }
-                    },
-                    "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
-                },
-                "lengthMenu": [
-                    [5, 10, 50, 100, -1],
-                    [5, 10, 50, 100, "Todos"]
-                ],
-                responsive: true
-            });
-        });
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+    <script>
+        function sumar(valor, codigoId) {
+            var total = 0;
+            valor = parseInt(valor); // Convertir el valor a un entero (número).
 
+            total = document.getElementById('spTotal-' + codigoId).value;
+
+            // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
+            total = (total == null || total == undefined || total == "") ? 0 : total;
+
+            /* Esta es el calculo severidad. */
+            total = (parseInt(valor) / 100);
+
+
+            // Colocar el resultado en el control "input".
+
+            document.getElementById('spTotal-' + codigoId).value = total;
+        }
+
+        function soloNum(ev) {
+            if (window.event) {
+                keynum = ev.keyCode;
+            } else {
+                keynum = ev.which;
+            }
+            if ((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13) {
+                return true;
+            } else {
+                alert("Ingresar solo números");
+                return false;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).on('click','#remove',function(){
+            $(this).closest('tr').remove();
+        });
     </script>
 @stop

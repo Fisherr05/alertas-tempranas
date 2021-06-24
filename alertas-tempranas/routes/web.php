@@ -35,27 +35,28 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-Route::resource('monitoreos','App\Http\Controllers\MonitoreoController');
-Route::resource('fincas', 'App\Http\Controllers\FincaController');
-Route::resource('zonas', 'App\Http\Controllers\ZonaController');
-Route::resource('estudios', 'App\Http\Controllers\EstudioController');
-Route::resource('tecnicos', 'App\Http\Controllers\TecnicoController');
-Route::resource('datos', 'App\Http\Controllers\DatoController');
-Route::get('/tecnico', [App\Http\Controllers\TecnicoController::class,'registro']);
-Route::get('/estudio', [App\Http\Controllers\EstudioController::class,'registro']);
-Route::get('/monitoreo',[App\Http\Controllers\MonitoreoController::class, 'registro']);
-Route::get('/dato', [App\Http\Controllers\DatoController::class, 'registro']);
-Route::get('variedades/byfinca', 'App\Http\Controllers\FincaVariedadController@getVariedades')->name('admin.variedades.byfinca');
-Route::resource('variedades', 'App\Http\Controllers\VariedadController');
-Route::get('plantas/bymonitoreo', 'App\Http\Controllers\PlantaController@getPlantas')->name('admin.plantas.bymonitoreo');
-Route::resource('plantas', 'App\Http\Controllers\PlantaController');
-Route::get('parroquias/bycanton', 'App\Http\Controllers\ParroquiaController@getParroquias')->name('admin.parroquias.bycanton');
-
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/user', [App\Http\Controllers\HomeController::class, 'getUser'])->name('user');
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('monitoreos','App\Http\Controllers\MonitoreoController')->middleware(['auth','admin']);
+Route::resource('fincas', 'App\Http\Controllers\FincaController')->middleware(['auth','admin']);
+Route::resource('zonas', 'App\Http\Controllers\ZonaController')->middleware(['auth','admin']);
+Route::resource('estudios', 'App\Http\Controllers\EstudioController')->middleware('admin');
+Route::resource('tecnicos', 'App\Http\Controllers\TecnicoController')->middleware('admin');
+Route::resource('datos', 'App\Http\Controllers\DatoController')->middleware('auth','admin');
+Route::get('/tecnico', [App\Http\Controllers\TecnicoController::class,'registro'])->middleware(['auth']);
+//Route::get('/estudio', [App\Http\Controllers\EstudioController::class,'registro'])->middleware(['auth','admin']);
+//Route::get('/monitoreo',[App\Http\Controllers\MonitoreoController::class, 'registro'])->middleware(['auth','admin']);
+Route::get('/dato/{idMonitoreo}', [App\Http\Controllers\DatoController::class, 'pendientes'])->middleware('auth','admin');
+Route::post('/dato/guardar',[App\Http\Controllers\DatoController::class, 'guardar'])->middleware('auth','admin');
+Route::get('variedades/byfinca', 'App\Http\Controllers\FincaVariedadController@getVariedades')->name('admin.variedades.byfinca')->middleware('admin');
+Route::resource('variedades', 'App\Http\Controllers\VariedadController')->middleware('admin');
+Route::get('plantas/bymonitoreo', 'App\Http\Controllers\PlantaController@getPlantas')->name('admin.plantas.bymonitoreo')->middleware('admin');
+Route::resource('plantas', 'App\Http\Controllers\PlantaController')->middleware('admin');
+Route::get('parroquias/bycanton', 'App\Http\Controllers\ParroquiaController@getParroquias')->name('admin.parroquias.bycanton')->middleware('admin');
+
+
+

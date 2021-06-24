@@ -6,6 +6,7 @@ use App\Models\Dato;
 use App\Models\Estudio;
 use App\Models\Monitoreo;
 use App\Models\Planta;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class DatoController extends Controller
@@ -15,22 +16,23 @@ class DatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
         $datos['datos'] = Dato::all();
-        $datos ['monitoreos'] = Monitoreo::all();
-        $datos ['plantas'] = Planta::all();
-        return view('dato.index',$datos);
+        $datos['monitoreos'] = Monitoreo::all();
+        $datos['plantas'] = Planta::all();
+        return view('dato.index', $datos);
     }
 
     public function registro()
     {
         //
         $datos['datos'] = Dato::all();
-        $datos ['monitoreos'] = Monitoreo::all();
-        $datos ['plantas'] = Planta::all();
-        return view('dato.registro',$datos);
+        $datos['monitoreos'] = Monitoreo::all();
+        $datos['plantas'] = Planta::all();
+        return view('dato.registro', $datos);
     }
 
     /**
@@ -43,9 +45,9 @@ class DatoController extends Controller
         //
         $datos['datos'] = Dato::all();
         $datos['monitoreos'] = Monitoreo::all();
-        $datos['plantas'] =Planta::all();
-        $datos['estudios']=Estudio::all();
-        return view('dato.create',$datos);
+        $datos['plantas'] = Planta::all();
+        $datos['estudios'] = Estudio::all();
+        return view('dato.create', $datos);
     }
 
     /**
@@ -59,7 +61,30 @@ class DatoController extends Controller
         //
         $datos = request()->except('_token');
         Dato::insert($datos);
-        return redirect('/datos')->with('datoGuardado','Dato guardado con éxito');
+
+        return redirect('/datos')->with('datoGuardado', 'Dato guardado con éxito');
+    }
+
+    public function guardar(Request $request)
+    {
+        $idMonitoreo = $request->idMonitoreo;
+        $idPlanta= $request->idPlanta;
+        $fruto = $request->fruto;
+        $incidencia = $request->incidencia;
+        $severidad = $request->severidad;
+        for ($i=0;$i < count($idMonitoreo); $i++) {
+            $datasave = [
+                'idMonitoreo' => $idMonitoreo[$i],
+                'idPlanta' => $idPlanta[$i],
+                'fruto' => $fruto[$i],
+                'incidencia' => $incidencia[$i],
+                'severidad' => $severidad[$i],
+            ];
+            DB::table('datos')->insert($datasave);
+        }
+
+        //return dd($i);
+        return redirect('/tecnico')->with('datoGuardado', 'Dato guardado con éxito');
     }
 
     /**
@@ -85,7 +110,7 @@ class DatoController extends Controller
         $dato = Dato::findorFail($id);
         $monitoreos = Monitoreo::all();
         $plantas = Planta::all();
-        return view('dato.edit', compact('dato', 'monitoreos','plantas'));
+        return view('dato.edit', compact('dato', 'monitoreos', 'plantas'));
     }
 
     /**
@@ -98,9 +123,9 @@ class DatoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $datos= request()->except(['_token', '_method']);
-        Dato::where('id','=',$id)->update($datos);
-        return redirect('/datos')->with('datoModificado','Dato modificado con éxito');
+        $datos = request()->except(['_token', '_method']);
+        Dato::where('id', '=', $id)->update($datos);
+        return redirect('/datos')->with('datoModificado', 'Dato modificado con éxito');
     }
 
     /**
@@ -113,6 +138,18 @@ class DatoController extends Controller
     {
         //
         Dato::destroy($id);
-        return back()->with('datoEliminado','Dato eliminado con éxito');
+        return back()->with('datoEliminado', 'Dato eliminado con éxito');
+    }
+
+    public function pendientes($idMonitoreo)
+    {
+        //
+        $monitoreo = Monitoreo::findorFail($idMonitoreo);
+        $plantas = DB::table('plantas')
+            ->join('monitoreos', 'plantas.idEstudio', '=', "monitoreos.idEstudio")
+            ->select('plantas.*')
+            ->where('monitoreos.id', $idMonitoreo)
+            ->get();
+        return view('dato.registro', compact('plantas', 'monitoreo'));
     }
 }

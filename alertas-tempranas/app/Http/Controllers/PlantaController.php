@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estudio;
 use App\Models\Planta;
 use App\Models\Monitoreo;
+use App\Models\Tecnico;
 use Illuminate\Http\Request;
 
 class PlantaController extends Controller
@@ -13,11 +15,13 @@ class PlantaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+     public function index()
     {
         //
         $datos['plantas'] = Planta::all();
         $datos['monitoreos'] =Monitoreo::all();
+        $datos['estudios'] =Estudio::all();
         return view('planta.index',$datos);
     }
 
@@ -31,6 +35,7 @@ class PlantaController extends Controller
         //
         $datos['plantas'] = Planta::all();
         $datos['monitoreos'] =Monitoreo::all();
+        $datos['estudios'] =Estudio::all();
         return view('planta.create',$datos);
     }
 
@@ -69,8 +74,8 @@ class PlantaController extends Controller
     {
         //
         $planta= Planta::findOrFail($id);
-        $monitoreos=Monitoreo::all();
-        return view('planta.edit', compact('planta','monitoreos'));
+        $estudios=Estudio::all();
+        return view('planta.edit', compact('planta','estudios'));
     }
 
     /**

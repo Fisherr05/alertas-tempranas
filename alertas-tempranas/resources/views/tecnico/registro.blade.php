@@ -47,7 +47,7 @@
                     </div>
                     <div class="container col-md-2">
                         <div class="text-center justify-content-center">
-                            <a href="/dato" class="btn btn-primary btn-block">Siguiente</a>
+
                         </div>
 
 
@@ -63,26 +63,27 @@
                             <th>MONITOREO</th>
                             <th>ESTUDIO</th>
                             <th>FECHA PLANIFICADA</th>
-                            <th>FECHA EJECUCIÓN</th>
+                            <th>ACCIÓN</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($estudios as $estudio)
 
-
-                            <tr>
                             @foreach ($monitoreos as $monitoreo)
                                 @if ($estudio->id == $monitoreo->idEstudio)
-                                    <td>{{ $monitoreo->codigo }}</td>
-                                    <td>{{ $estudio->codigo }}</td>
-                                    <td>{{ $monitoreo->fechaPlanificada }}</td>
-                                <td>{{ $monitoreo->fechaEjecucion }}</td>
-                                @endif
-                            @endforeach
+                            <tr>
+
+                                <td>{{ $monitoreo->codigo }}</td>
+                                <td>{{ $estudio->codigo}} - {{$estudio->nombreEstudio }}</td>
+                                <td>{{ $monitoreo->fechaPlanificada }}</td>
+                                <td><a href="/dato/{{$monitoreo->id}}" class="btn btn-primary btn-block" onClick="this.disabled='disabled'">Ir  <i
+                                    class="far fa-arrow-alt-circle-right"> </i> </a></td>
+
                             </tr>
+                                @endif
 
-
+                            @endforeach
                         @endforeach
                     </tbody>
                 </table>

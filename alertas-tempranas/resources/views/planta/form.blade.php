@@ -33,10 +33,10 @@
     }
 </script>
 <div class="form-group">
-    <label>Seleccione Monitoreo:</label>
-    <select id="idMonitoreo" class="form-control" name="idMonitoreo" required>
-    @foreach ($monitoreos as $monitoreo)
-        <option value="{{ isset($monitoreo->id) ? $monitoreo->id : '' }}">{{ $monitoreo->codigo }}</option>
+    <label>Seleccione Estudio:</label>
+    <select id="idEstudio" class="form-control" name="idEstudio" required>
+    @foreach ($estudios as $estudio)
+        <option value="{{ isset($estudio->id) ? $estudio->id : '' }}">{{ $estudio->codigo }} - {{ $estudio->nombreEstudio }}</option>
     @endforeach
     </select>
 
@@ -72,7 +72,7 @@
         <a href="/plantas" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
     </div>
     <div class="col-md-6">
-        <button class="btn btn-primary btn-block">Guardar</button>
+        <button class="btn btn-primary btn-block"><i class="far fa-save"></i> Guardar</button>
     </div>
 </div>
 <script>

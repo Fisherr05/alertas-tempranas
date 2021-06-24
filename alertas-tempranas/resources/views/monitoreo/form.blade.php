@@ -38,8 +38,18 @@
     <div class="form-group">
         <label>Seleccione Estudio:</label>
         <select id="idEstudio" class="form-control" name="idEstudio" required>
+        <option hidden value="">Selecione una estudio</option>
         @foreach ($estudios as $estudio)
-            <option value="{{ isset($estudio->id) ? $estudio->id : '' }}"@foreach ($monitoreos as $monitoreo) @if ($estudio->id == $monitoreo->idEstudio) selected @endif @endforeach>{{ $estudio->codigo }} - {{ $estudio->nombreEstudio }}</option>
+            <option value="{{ isset($estudio->id) ? $estudio->id : '' }}">{{ $estudio->codigo }} - {{ $estudio->nombreEstudio }}</option>
+        @endforeach
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Seleccione Técnico:</label>
+        <select id="idTecnico" class="form-control" name="idTecnico" required>
+        <option hidden value="">Selecione una técnico</option>
+        @foreach ($tecnicos as $tecnico)
+            <option value="{{ isset($tecnico->id) ? $tecnico->id : '' }}">{{ $tecnico->nombreTecnico }} </option>
         @endforeach
         </select>
     </div>
@@ -47,7 +57,7 @@
         <label>Código de Monitoreo:</label>
         <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo"
             name="codigo" placeholder="Ingrese el código Ej (MT0001) "
-            value="{{ isset($monitoreo->codigo) ? $monitoreo->codigo : '' }}" required>
+            value="" required>
         <div class="valid-feedback">
             ¡Bien!
         </div>
@@ -59,7 +69,7 @@
 <div class="form-group">
     <label>Ingrese fecha planificada:</label>
     <input type="date" class="sm-form-control" id="fechaPlanificada" name="fechaPlanificada"
-        value="{{ isset($monitoreo->fechaPlanificada) ? $monitoreo->fechaPlanificada : '' }}" required>
+        value="" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -71,7 +81,7 @@
 <div class="form-group">
     <label>Ingrese fecha de ejecución:</label>
     <input type="date" class="sm-form-control" id="fechaEjecucion" name="fechaEjecucion"
-        value="{{ isset($monitoreo->fechaEjecucion) ? $monitoreo->fechaEjecucion : '' }}" required>
+        required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -83,7 +93,6 @@
 <div class="form-group">
     <label>Observaciones:</label>
     <textarea class="form-control" id="observaciones" name="observaciones"
-        value="{{ isset($monitoreo->observaciones) ? $monitoreo->observaciones : '' }}"
         placeholder="Agregue Observacion" maxlength="255" required></textarea>
     <div class="valid-feedback">
         ¡Bien!
@@ -106,23 +115,13 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <a href="/monitoreos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
+        <a href="/monitoreos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"> </i> Regresar</a>
     </div>
     <div class="col-md-6">
-        <button class="btn btn-primary btn-block">Guardar</button>
+        <button class="btn btn-primary btn-block"><i class="far fa-save"> </i> Guardar</button>
     </div>
 </div>
-@section('js')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"
-        crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"
-        crossorigin="anonymous"></script>
-    <script src="{{ asset('/js/datatable-modal.js') }}"></script>
-@endsection
+
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {

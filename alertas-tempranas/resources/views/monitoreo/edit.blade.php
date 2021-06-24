@@ -27,7 +27,7 @@
             </div>
                 <div class="form-group">
                 <label>Seleccione Estudio:</label>
-                <select id="idEstudio" class="form-control" name="idEstudio" required>
+                <select disabled id="idEstudio" class="form-control" name="idEstudio" required>
                 @foreach ($estudios as $estudio)
                     <option value="{{ isset($estudio->id) ? $estudio->id : '' }}">{{ $estudio->nombreEstudio }}</option>
                 @endforeach
@@ -39,6 +39,20 @@
                     ¡Rellene este campo!
                 </div>
             </div>
+            <div class="form-group">
+                    <label>Seleccione Técnico:</label>
+                    <select id="idTecnico" class="form-control" name="idTecnico" required>
+                    @foreach ($tecnicos as $tecnico)
+                        <option value="{{ isset($tecnico->id) ? $tecnico->id : '' }}">{{ $tecnico->nombreTecnico }} </option>
+                    @endforeach
+                    </select>
+                    <div class="valid-feedback">
+                    ¡Bien!
+                    </div>
+                    <div class="invalid-feedback">
+                        ¡Rellene este campo!
+                    </div>
+                </div>
                 <br>
                 <div class="form-group">
                     <label>Ingrese fecha planificada:</label>
@@ -91,13 +105,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="d-grid gap-2">
-                            <a href="/monitoreos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"></i>Regresar</a>
+                            <a href="/monitoreos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"> </i> Regresar</a>
                         </div>
 
                     </div>
                     <div class="col-md-6">
                         <div class="d-grid gap-2">
-                            <button class="btn btn-primary btn-block">Guardar</button>
+                            <button class="btn btn-primary btn-block"><i class="far fa-save"> </i> Guardar</button>
                         </div>
 
                     </div>
