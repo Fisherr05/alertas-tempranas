@@ -18,20 +18,24 @@ class UserTableSeeder extends Seeder
         //
         User::create([
             'name' =>'Administrador',
-            'email' =>'admin@gmail.com',
+            'email' =>'admin@mail.com',
             'password' =>Hash::make('admin'),
             'fullacces' => 'yes',
-            'codigo' => 'adm1',
+            'institucion'=>'',
+            'telefono'=>'',
+            'activo'=>'',
         ]);
 
 
 
         User::create([
             'name' =>'Usuario',
-            'email' =>'usuario@gmail.com',
+            'email' =>'usuario@mail.com',
+            'institucion'=>'',
             'password' =>Hash::make('user'),
+            'telefono'=>'',
             'fullacces' => 'no',
-            'codigo' => 'cas1',
+            'activo'=>'',
         ]);
 
     }

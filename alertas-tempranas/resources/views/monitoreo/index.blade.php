@@ -56,6 +56,7 @@
                         <tr>
                             <th>CODIGO</th>
                             <th>ESTUDIO</th>
+                            <th>TÉCNICO</th>
                             <th>FECHA PLANIFICADA</th>
                             <th>FECHA DE EJECUCION</th>
                             <th>OBSERVACIONES</th>
@@ -69,9 +70,15 @@
                                 <td>{{ $monitoreo->codigo }}</td>
                                 @foreach ($estudios as $estudio)
                                     @if ($monitoreo->idEstudio == $estudio->id)
-                                        <td>{{ $estudio->codigo }}</td>
+                                        <td>{{ $estudio->codigo }} - {{$estudio->nombreEstudio}}</td>
                                     @endif
                                 @endforeach
+                                @foreach ($tecnicos as $tecnico)
+                                    @if ($tecnico->id == $monitoreo->idTecnico)
+                                        <td>{{ $tecnico->name }}</td>
+                                    @endif
+                                @endforeach
+
                                 <td>{{ $monitoreo->fechaPlanificada }}</td>
                                 <td>{{ $monitoreo->fechaEjecucion }}</td>
                                 <td>{{ $monitoreo->observaciones }}</td>

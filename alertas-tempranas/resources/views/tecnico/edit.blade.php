@@ -16,8 +16,8 @@
       @csrf @method('PATCH')
         <div class="form-group">
                 <label for="fenologia">Nombre de Técnico:</label>
-                <input type="text"  onkeypress="return soloLetras(event);" class="form-control" id="nombreTecnico" name="nombreTecnico" placeholder="Ingrese el nombre del técnico"
-                    value="{{ isset($tecnico->nombreTecnico) ? $tecnico->nombreTecnico : '' }}" required>
+                <input type="text"  onkeypress="return soloLetras(event);" class="form-control" id="name" name="name" placeholder="Ingrese el nombre del técnico"
+                    value="{{ isset($tecnico->name) ? $tecnico->name : '' }}" required>
                 <div class="valid-feedback">
                     ¡Bien!
                 </div>
@@ -42,7 +42,7 @@
         <div class="form-group">
             <label>Teléfono:</label>
             <input type="text" onkeypress="return soloNum(event);" minlength="7" maxlength="10" class="form-control" id="telefono" name="telefono" placeholder="Ingrese número de teléfono"
-                value="{{ isset($tecnico->telefeno) ? $tecnico->telefeno : '' }}" required="">
+                value="{{ isset($tecnico->telefono) ? $tecnico->telefono : '' }}" required="">
             <div class="valid-feedback">
                 ¡Bien!
             </div>
@@ -55,6 +55,18 @@
             <label>Email:</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese email"
                 value="{{ isset($tecnico->email) ? $tecnico->email : '' }}" required>
+            <div class="valid-feedback">
+                ¡Bien!
+            </div>
+            <div class="invalid-feedback">
+                ¡Rellene este campo!
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>Contraseña:</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese contraeña"
+                value="" required>
             <div class="valid-feedback">
                 ¡Bien!
             </div>

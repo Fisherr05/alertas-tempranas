@@ -49,7 +49,7 @@
         <select id="idTecnico" class="form-control" name="idTecnico" required>
         <option hidden value="">Selecione una técnico</option>
         @foreach ($tecnicos as $tecnico)
-            <option value="{{ isset($tecnico->id) ? $tecnico->id : '' }}">{{ $tecnico->nombreTecnico }} </option>
+            <option value="{{ isset($tecnico->id) ? $tecnico->id : '' }}">{{ $tecnico->name}} </option>
         @endforeach
         </select>
     </div>

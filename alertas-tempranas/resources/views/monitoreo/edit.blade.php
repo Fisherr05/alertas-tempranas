@@ -14,6 +14,7 @@
         <div class="card-body">
             <form action="/monitoreos/{{ $monitoreo->id }}" class="needs-validation" method="POST" novalidate>
                 @csrf @method('PATCH')
+                @can('1')
                 <div class="form-group">
                 <label>Código de Monitoreo:</label>
                 <input type="text" disabled maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de monitoreo"
@@ -43,7 +44,7 @@
                     <label>Seleccione Técnico:</label>
                     <select id="idTecnico" class="form-control" name="idTecnico" required>
                     @foreach ($tecnicos as $tecnico)
-                        <option value="{{ isset($tecnico->id) ? $tecnico->id : '' }}">{{ $tecnico->nombreTecnico }} </option>
+                        <option value="{{ isset($tecnico->id) ? $tecnico->id : '' }}">{{ $tecnico->name }} </option>
                     @endforeach
                     </select>
                     <div class="valid-feedback">
@@ -78,6 +79,7 @@
                     </div>
                 </div>
                 <br>
+                @endcan
                 <div class="form-group">
                     <label>Observaciones:</label>
                     <textarea class="form-control" id="observaciones" name="observaciones"

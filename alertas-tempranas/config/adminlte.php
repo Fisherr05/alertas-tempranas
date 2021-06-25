@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>Alertas',
+    'logo' => '<b>ALERTAS</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -223,6 +223,30 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
+    'full_name'                   => 'Nombre completo',
+    'email'                       => 'Email',
+    'password'                    => 'Contraseña',
+    'retype_password'             => 'Confirmar la contraseña',
+    'remember_me'                 => 'Recordarme',
+    'register'                    => 'Registrarse',
+    'register_a_new_membership'   => 'Crear una nueva cuenta',
+    'i_forgot_my_password'        => 'Olvidé mi contraseña',
+    'i_already_have_a_membership' => 'Ya tengo una cuenta',
+    'sign_in'                     => 'Acceder',
+    'log_out'                     => 'Salir',
+    'toggle_navigation'           => 'Alternar barra de navegación',
+    'login_message'               => 'Autenticarse para iniciar sesión',
+    'register_message'            => 'Crear una nueva cuenta',
+    'password_reset_message'      => 'Restablecer la contraseña',
+    'reset_password'              => 'Restablecer la contraseña',
+    'send_password_reset_link'    => 'Enviar enlace para restablecer la contraseña',
+    'verify_message'              => 'Tu cuenta necesita una verificación',
+    'verify_email_sent'           => 'Se ha enviado un nuevo enlace de verificación a su correo electrónico.',
+    'verify_check_your_email'     => 'Antes de continuar, busque en su correo electrónico un enlace de verificación.',
+    'verify_if_not_recieved'      => 'Si no has recibido el correo electrónico',
+    'verify_request_another'      => 'haga clic aquí para solicitar otro',
+    'confirm_password_message'    => 'Por favor, confirme su contraseña para continuar.',
+
 
     'menu' => [
         // Navbar items:
@@ -238,7 +262,7 @@ return [
 
 
         // Sidebar items:
-        [
+       /* [
             'type' => 'sidebar-menu-search',
             'text' => 'Buscar',
         ],
@@ -246,12 +270,12 @@ return [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
-        ],
+        ],*/
         [
             'text'        => 'Zonas',
             'url'         => 'zonas',
             'icon'        => 'fas fa-map-marked-alt',
-            'can'         => '',
+            'can'         => '1',
             'active'       => ['zonas', 'zonas*', 'regex:@^zonas/[0-9]+$@']
            //'label'       => 4,
             //'label_color' => 'success',
@@ -260,56 +284,56 @@ return [
             'text'        => 'Variedades',
             'url'         => 'variedades',
             'icon'        => 'far fa-fw fa-file',
-            'can'         => '',
+            'can'         => '1',
             'active'       => ['variedades', 'variedades*', 'regex:@^variedades/[0-9]+$@']
         ],
         [
             'text'        => 'Fincas',
             'url'         => 'fincas',
             'icon'        => 'fas fa-warehouse',
-            'can'         => '',
+            'can'         => '1',
             'active'       => ['fincas', 'fincas*', 'regex:@^fincas/[0-9]+$@']
         ],
         [
             'text'        => 'Estudios',
             'url'         => 'estudios',
             'icon'        => 'fas fa-book-open',
-            'can'         => '',
+            'can'         => '1',
             'active'       => ['estudios', 'estudios*', 'regex:@^estudios/[0-9]+$@']
         ],
         [
             'text'        => 'Tecnicos',
             'url'         => 'tecnicos',
             'icon'        => 'fas fa-users-cog',
-            'can'         => '',
+            'can'         => '1',
             'active'       => ['tecnicos', 'tecnicos*', 'regex:@^tecnicos/[0-9]+$@']
         ],
         [
             'text'        => 'Monitoreos',
             'url'         => 'monitoreos',
             'icon'        => 'fas fa-pager',
-            'can'         => '',
+            'can'         => '1',
             'active'       => ['monitoreos', 'monitoreos*', 'regex:@^monitoreos/[0-9]+$@']
         ],
         [
             'text'        => 'Plantas',
             'url'         => 'plantas',
             'icon'        => 'fas fa-seedling',
-            'can'         => '',
+            'can'         => '1',
             'active'       => ['plantas', 'plantas*', 'regex:@^plantas/[0-9]+$@']
         ],
         [
             'text'        => 'Datos',
             'url'         => 'datos',
             'icon'        => 'fas fa-server',
-            'can'         => '',
+            'can'         => ['1','2'],
             'active'       => ['datos', 'datos*', 'regex:@^datos/[0-9]+$@']
         ],
         [
-            'text'        => 'Registro',
+            'text'        => 'Registros Pendientes',
             'url'         => 'tecnico',
             'icon'        => 'fas fa-clipboard',
-            'can'         => '',
+            'can'         => ['1','2'],
             'active'       => ['tecnico','regex:@^tecnico/[0-9]+$@']
         ],
         /*['header' => 'CONFIGURACIÓN'],

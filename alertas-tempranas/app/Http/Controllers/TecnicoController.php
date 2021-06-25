@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tecnico;
+use App\Models\User;
 use App\Models\Estudio;
 use App\Models\Monitoreo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TecnicoController extends Controller
 {
@@ -18,7 +19,7 @@ class TecnicoController extends Controller
      public function index()
     {
         //
-        $datos['tecnicos'] = Tecnico::all();
+        $datos['tecnicos'] = User::all();
         $datos['monitoreos'] = Monitoreo::all();
         return view('tecnico.index',$datos);
     }
@@ -26,7 +27,7 @@ class TecnicoController extends Controller
     public function registro()
     {
         //
-        $datos['tecnicos'] = Tecnico::all();
+        $datos['tecnicos'] = User::all();
         $datos['monitoreos'] = Monitoreo::all();
         $datos['estudios'] = Estudio::all();
         return view('tecnico.registro',$datos);
@@ -40,7 +41,7 @@ class TecnicoController extends Controller
     public function create()
     {
         //
-        $datos['tecnicos'] = Tecnico::all();
+        $datos['tecnicos'] = User::all();
         $datos['monitoreos'] = Monitoreo::all();
         $datos['estudios']= Estudio::all();
         return view('tecnico.create',$datos);
@@ -57,7 +58,9 @@ class TecnicoController extends Controller
     {
         //
         $datos =request()-> except('_token');
-        Tecnico::insert($datos);
+        $datos["password"]= Hash::make($datos["password"]);
+        //return dd($datos);
+        User::insert($datos);
         return redirect('/tecnicos')->with('tecnicoGuardado','Técnico guardado con éxito');
     }
 
@@ -69,7 +72,7 @@ class TecnicoController extends Controller
      * @param  \App\Models\Tecnico  $tecnico
      * @return \Illuminate\Http\Response
      */
-    public function show(Tecnico $tecnico)
+    public function show(User $tecnico)
     {
         //
     }
@@ -84,7 +87,7 @@ class TecnicoController extends Controller
     {
         //
         $monitoreos = Monitoreo::all();
-        $tecnico = Tecnico::findOrfail($id);
+        $tecnico = User::findOrfail($id);
 
         return view('tecnico.edit', compact('tecnico','monitoreos'));
     }
@@ -100,7 +103,8 @@ class TecnicoController extends Controller
     {
         //
         $datos= request()->except(['_token', '_method']);
-        Tecnico::where('id','=',$id)->update($datos);
+        $datos["password"]= Hash::make($datos["password"]);
+        User::where('id','=',$id)->update($datos);
         return redirect('/tecnicos')->with('tecnicoModificado','Técnico modificado con éxito');
     }
 
@@ -113,7 +117,7 @@ class TecnicoController extends Controller
     public function destroy($id)
     {
         //
-        Tecnico::destroy($id);
+        User::destroy($id);
         return back()->with('tecnicoEliminado','Técnico  eliminado con éxito');
     }
 }

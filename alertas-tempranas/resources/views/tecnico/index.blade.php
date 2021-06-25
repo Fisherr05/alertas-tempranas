@@ -52,8 +52,12 @@
                 <table id="table"
                     class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
                     cellspacing="0" width="100%">
+                    @php
+                        $count=1;
+                    @endphp
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>NOMBRE TÉCNICO</th>
                             <th>INSTITUCIÓN</th>
                             <th>TELÉFONO</th>
@@ -64,8 +68,10 @@
                     </thead>
                     <tbody>
                         @foreach ($tecnicos as $tecnico)
+                            @if($tecnico->fullacces == 'no')
                             <tr>
-                                <td>{{ $tecnico->nombreTecnico }}</td>
+                                <td>{{ $count++ }}</td>
+                                <td>{{ $tecnico->name }}</td>
                                 <td>{{ $tecnico->institucion }}</td>
                                 <td>{{ $tecnico->telefono }}</td>
                                 <td>{{ $tecnico->email }}</td>
@@ -82,6 +88,7 @@
                                     </form>
                                 </td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,8 +22,23 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
     public function boot()
     {
-        //
+        $this->register();
+
+        \Gate::define('1', function ($user) {
+            if ($user->fullacces == 'yes') {
+                return true;
+            }
+            return false;
+        });
+
+        \Gate::define('2', function ($user) {
+            if ($user->fullacces == 'no') {
+                return true;
+            }
+            return false;
+        });
     }
 }

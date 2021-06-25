@@ -81,4 +81,9 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    //Relacion uno a muchos
+    public function monitoreos(){
+        return $this->hasMany('App\Models\Monitoreo')->withtimestamps();
+    }
 }

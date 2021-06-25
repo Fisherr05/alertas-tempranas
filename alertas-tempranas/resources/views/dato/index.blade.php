@@ -41,11 +41,13 @@
                     <div class="col-md-10">
                         <h1>Datos</h1>
                     </div>
-                    <div class="container col-md-2">
-                        <div class="text-center justify-content-center">
-                            <a href="datos/create" class="btn btn-success">Nuevo Registro</a>
+                    @can('1')
+                        <div class="container col-md-2">
+                            <div class="text-center justify-content-center">
+                                <a href="datos/create" class="btn btn-success">Nuevo Registro</a>
+                            </div>
                         </div>
-                    </div>
+                    @endcan
                 </div>
             </div>
             <div class="card-body table-responsive">
@@ -60,39 +62,86 @@
                             <th>FRUTO</th>
                             <th>INCIDENCIA (%)</th>
                             <th>SEVERIDAD (%)</th>
-                            <th>ACCIONES</th>
+                            @can('1')
+                                <th>ACCIONES</th>
+                            @endcan
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($datos as $dato)
-                            <tr>
-                                <td>{{ $dato->id }}</td>
-                                @foreach ($monitoreos as $monitoreo)
-                                    @if ($dato->idMonitoreo== $monitoreo->id)
-                                        <td>{{ $monitoreo->codigo }}</td>
-                                    @endif
-                                @endforeach
-                                @foreach ($plantas as $planta)
-                                    @if ($dato->idPlanta == $planta->id)
-                                        <td>{{$planta->codigo}}</td>
-                                    @endif
-                                @endforeach
-                                <td>{{ $dato->fruto }}</td>
-                                <td>{{ $dato->incidencia }}</td>
-                                <td>{{ $dato->severidad }}</td>
-                                <td>
-                                    <form action="{{ route('datos.destroy', $dato->id) }}" method="POST">
-                                        <a href="/datos/{{ $dato->id }}/edit" class="btn btn-secondary"><i
-                                                class="fas fa-pencil-alt"></i></a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"
-                                            onclick="return confirm('¿Desea eliminar esto?')"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
+                        @if (auth()->user()->fullacces == 'yes')
+                            @foreach ($datos as $dato)
+                                <tr>
+                                    <td>{{ $dato->id }}</td>
+                                    @foreach ($monitoreos as $monitoreo)
+                                        @if ($dato->idMonitoreo == $monitoreo->id)
+                                            <td>{{ $monitoreo->codigo }}</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($plantas as $planta)
+                                        @if ($dato->idPlanta == $planta->id)
+                                            <td>{{ $planta->codigo }}</td>
+                                        @endif
+                                    @endforeach
+                                    <td>{{ $dato->fruto }}</td>
+                                    <td>{{ $dato->incidencia }}</td>
+                                    <td>{{ $dato->severidad }}</td>
+
+                                    @can('1')
+                                        <td>
+                                            <form action="{{ route('datos.destroy', $dato->id) }}" method="POST">
+                                                <a href="/datos/{{ $dato->id }}/edit" class="btn btn-secondary"><i
+                                                        class="fas fa-pencil-alt"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('¿Desea eliminar esto?')"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </td>
+                                    @endcan
+                                </tr>
+                            @endforeach
+                        @else
+                            @foreach ($datos as $dato)
+                                <tr>
+                                    @foreach ($monitoreos as $monitoreo)
+                                        @if (auth()->user()->id == $monitoreo->idTecnico)
+                                            @foreach ($datos as $dato)
+                                <tr>
+                                    <td>{{ $dato->id }}</td>
+                                        @if ($dato->idMonitoreo == $monitoreo->id)
+                                            <td>{{ $monitoreo->codigo }}</td>
+                                        @endif
+                                    @foreach ($plantas as $planta)
+                                        @if ($dato->idPlanta == $planta->id)
+                                            <td>{{ $planta->codigo }}</td>
+                                        @endif
+                                    @endforeach
+                                    <td>{{ $dato->fruto }}</td>
+                                    <td>{{ $dato->incidencia }}</td>
+                                    <td>{{ $dato->severidad }}</td>
+
+                                    @can('1')
+                                        <td>
+                                            <form action="{{ route('datos.destroy', $dato->id) }}" method="POST">
+                                                <a href="/datos/{{ $dato->id }}/edit" class="btn btn-secondary"><i
+                                                        class="fas fa-pencil-alt"></i></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('¿Desea eliminar esto?')"><i
+                                                        class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </td>
+                                    @endcan
+                                </tr>
+                            @endforeach
+                        @endif
                         @endforeach
+                        </tr>
+                        @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -304,6 +353,5 @@
                 responsive: true
             });
         });
-
     </script>
 @stop

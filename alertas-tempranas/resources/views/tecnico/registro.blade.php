@@ -7,99 +7,116 @@
 @stop
 
 @section('content')
-<div class="card">
-
-    <div class="card-body">
-      @csrf
-<!--Mensaje Creado -->
-    @if (session('tecnicoGuardado'))
-        <div class="alert alert-success alert-dismissible fade show">
-            {{ session('tecnicoGuardado') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    <!--Mensaje Modificado-->
-    @if (session('tecnicoModificado'))
-        <div class="alert alert-success alert-dismissible fade show">
-            {{ session('tecnicoModificado') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    <!--Mensaje Eliminado -->
-    @if (session('tecnicoEliminado'))
-        <div class="alert alert-success alert-dismissible fade show">
-            {{ session('tecnicoEliminado') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
     <div class="card">
-        <div class="justify-content-center">
-            <div class="card-header align-items-center">
-                <div class="row align-items-center">
-                    <div class="col-md-10">
-                               <h1>Sus Monitoreos</h1>
-                    </div>
-                    <div class="container col-md-2">
-                        <div class="text-center justify-content-center">
 
+        <div class="card-body">
+            @csrf
+            <!--Mensaje Creado -->
+            @if (session('tecnicoGuardado'))
+                <div class="alert alert-success alert-dismissible fade show">
+                    {{ session('tecnicoGuardado') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            <!--Mensaje Modificado-->
+            @if (session('tecnicoModificado'))
+                <div class="alert alert-success alert-dismissible fade show">
+                    {{ session('tecnicoModificado') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            <!--Mensaje Eliminado -->
+            @if (session('tecnicoEliminado'))
+                <div class="alert alert-success alert-dismissible fade show">
+                    {{ session('tecnicoEliminado') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+            <div class="card">
+                <div class="justify-content-center">
+                    <div class="card-header align-items-center">
+                        <div class="row align-items-center">
+                            <div class="col-md-10">
+                                <h1>Sus Monitoreos</h1>
+                            </div>
+                            <div class="container col-md-2">
+                                <div class="text-center justify-content-center">
+
+                                </div>
+
+
+                            </div>
                         </div>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table id="table"
+                            class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
+                            cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>MONITOREO</th>
+                                    <th>ESTUDIO</th>
+                                    <th>FECHA PLANIFICADA</th>
+                                    <th>OBSERVACIONES</th>
+                                    <th>ACCIÓN</th>
 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($estudios as $estudio)
+
+                                    @foreach ($monitoreos as $monitoreo)
+                                        @if ($estudio->id == $monitoreo->idEstudio)
+                                            @if(auth()->user()->fullacces == 'yes')
+                                            <tr>
+                                                <td>{{ $monitoreo->codigo }}</td>
+                                                <td>{{ $estudio->codigo }} - {{ $estudio->nombreEstudio }}</td>
+                                                <td>{{ $monitoreo->fechaPlanificada }}</td>
+                                                <td>{{ $monitoreo->observaciones }}</td>
+                                                <td class="d-flex justify-content-center">
+
+                                                <a href="/dato/{{ $monitoreo->id }}" class="btn btn-primary "
+                                                        onClick="this.disabled='disabled';">Ir <i
+                                                            class="far fa-arrow-alt-circle-right"> </i> </a></td>
+                                            </tr>
+                                            @elseif(auth()->user()->id == $monitoreo->idTecnico && auth()->user()->fullacces == 'no')
+                                            <tr>
+                                                <td>{{ $monitoreo->codigo }}</td>
+                                                <td>{{ $estudio->codigo }} - {{ $estudio->nombreEstudio }}</td>
+                                                <td>{{ $monitoreo->fechaPlanificada }}</td>
+                                                <td>{{ $monitoreo->observaciones }}</td>
+                                                <td class="d-flex justify-content-center">
+
+                                                        <a href="/dato/{{ $monitoreo->id }}" class="btn btn-primary"
+                                                        onClick="this.disabled='disabled'">Ir <i
+                                                            class="far fa-arrow-alt-circle-right"> </i> </a>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                @endforeach
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
             </div>
-            <div class="card-body table-responsive">
-                <table id="table"
-                    class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
-                    cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>MONITOREO</th>
-                            <th>ESTUDIO</th>
-                            <th>FECHA PLANIFICADA</th>
-                            <th>ACCIÓN</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($estudios as $estudio)
-
-                            @foreach ($monitoreos as $monitoreo)
-                                @if ($estudio->id == $monitoreo->idEstudio)
-                            <tr>
-
-                                <td>{{ $monitoreo->codigo }}</td>
-                                <td>{{ $estudio->codigo}} - {{$estudio->nombreEstudio }}</td>
-                                <td>{{ $monitoreo->fechaPlanificada }}</td>
-                                <td><a href="/dato/{{$monitoreo->id}}" class="btn btn-primary btn-block" onClick="this.disabled='disabled'">Ir  <i
-                                    class="far fa-arrow-alt-circle-right"> </i> </a></td>
-
-                            </tr>
-                                @endif
-
-                            @endforeach
-                        @endforeach
-                    </tbody>
-                </table>
-
-            </div>
         </div>
     </div>
-
-    </div>
-  </div>
 
 @stop
 
 @section('css')
-     <link rel="stylesheet" href="/css/admin_custom.css">
-     <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet"
         type="text/css">
 @stop
@@ -301,6 +318,5 @@
                 responsive: true
             });
         });
-
     </script>
 @stop

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Monitoreo;
 use App\Models\Estudio;
 use App\Models\Finca;
-use App\Models\Tecnico;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -21,7 +21,8 @@ class MonitoreoController extends Controller
     {
         $monitoreos = Monitoreo::all();
         $estudios= Estudio::all();
-        return view('monitoreo.index',compact('monitoreos','estudios'));
+        $tecnicos= User::all();
+        return view('monitoreo.index',compact('monitoreos','estudios','tecnicos'));
     }
 
     public function registro()
@@ -43,7 +44,7 @@ class MonitoreoController extends Controller
         $datos['monitoreos'] = Monitoreo::all();
         $datos1['estudios'] = Estudio::all();
         $datos['fincas']= Finca::all();
-        $datos['tecnicos']=Tecnico::all();
+        $datos['tecnicos']=User::all();
         return view('monitoreo.create',$datos,$datos1);
     }
 
@@ -89,7 +90,7 @@ class MonitoreoController extends Controller
         //
         $monitoreo = Monitoreo::findOrFail($id);
         $estudios = Estudio::all();
-        $tecnicos = Tecnico::all();
+        $tecnicos = User::all();
         return view('monitoreo.edit', compact('monitoreo','estudios','tecnicos'));
     }
 

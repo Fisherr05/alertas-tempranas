@@ -22,7 +22,7 @@ class CreateMonitoreosTable extends Migration
             $table->date('fechaEjecucion');
             $table->string('observaciones');
             $table->foreign('idEstudio')->references('id')->on('estudios')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idTecnico')->references('id')->on('tecnicos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idTecnico')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

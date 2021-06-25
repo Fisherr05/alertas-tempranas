@@ -8,8 +8,8 @@
 
 <li class="nav-item">
     <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <i class="fa fa-fw fa-power-off"></i>
-        {{ __('adminlte::adminlte.log_out') }}
+        <i class="fas fa-sign-out-alt"></i>
+        Cerrar
     </a>
     <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">
         @if(config('adminlte.logout_method'))
