@@ -54,9 +54,12 @@
                 <table id="table"
                     class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
                     cellspacing="0" width="100%">
+                    @php
+                        $count=1;
+                    @endphp
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>MONITOREO</th>
                             <th>PLANTA</th>
                             <th>FRUTO</th>
@@ -72,7 +75,7 @@
                         @if (auth()->user()->fullacces == 'yes')
                             @foreach ($datos as $dato)
                                 <tr>
-                                    <td>{{ $dato->id }}</td>
+                                    <td>{{ $count++ }}</td>
                                     @foreach ($monitoreos as $monitoreo)
                                         @if ($dato->idMonitoreo == $monitoreo->id)
                                             <td>{{ $monitoreo->codigo }}</td>

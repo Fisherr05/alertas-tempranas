@@ -52,8 +52,12 @@
                 <table id="table"
                     class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
                     cellspacing="0" width="100%">
+                    @php
+                        $count=1;
+                    @endphp
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>CODIGO</th>
                             <th>ESTUDIO</th>
                             <th>TÉCNICO</th>
@@ -67,6 +71,7 @@
                     <tbody>
                         @foreach ($monitoreos as $monitoreo)
                             <tr>
+                                <td>{{ $count++ }}</td>
                                 <td>{{ $monitoreo->codigo }}</td>
                                 @foreach ($estudios as $estudio)
                                     @if ($monitoreo->idEstudio == $estudio->id)

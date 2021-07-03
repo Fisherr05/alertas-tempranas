@@ -15,70 +15,74 @@
             <form action="/monitoreos/{{ $monitoreo->id }}" class="needs-validation" method="POST" novalidate>
                 @csrf @method('PATCH')
                 @can('1')
-                <div class="form-group">
-                <label>Código de Monitoreo:</label>
-                <input type="text" disabled maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el código de monitoreo"
-                    value="{{ isset($monitoreo->codigo) ? $monitoreo->codigo : '' }}" required>
-                <div class="valid-feedback">
-                    ¡Bien!
-                </div>
-                <div class="invalid-feedback">
-                    ¡Rellene este campo!
-                </div>
-            </div>
-                <div class="form-group">
-                <label>Seleccione Estudio:</label>
-                <select disabled id="idEstudio" class="form-control" name="idEstudio" required>
-                @foreach ($estudios as $estudio)
-                    <option value="{{ isset($estudio->id) ? $estudio->id : '' }}">{{ $estudio->nombreEstudio }}</option>
-                @endforeach
-                </select>
-                <div class="valid-feedback">
-                    ¡Bien!
-                </div>
-                <div class="invalid-feedback">
-                    ¡Rellene este campo!
-                </div>
-            </div>
-            <div class="form-group">
-                    <label>Seleccione Técnico:</label>
-                    <select id="idTecnico" class="form-control" name="idTecnico" required>
-                    @foreach ($tecnicos as $tecnico)
-                        <option value="{{ isset($tecnico->id) ? $tecnico->id : '' }}">{{ $tecnico->name }} </option>
-                    @endforeach
-                    </select>
-                    <div class="valid-feedback">
-                    ¡Bien!
+                    <div class="form-group">
+                        <label>Código de Monitoreo:</label>
+                        <input type="text" maxlength="6" onkeypress="return soloLetras(event);" class="form-control" id="codigo"
+                            name="codigo" placeholder="Ingrese el código de monitoreo"
+                            value="{{ isset($monitoreo->codigo) ? $monitoreo->codigo : '' }}" required>
+                        <div class="valid-feedback">
+                            ¡Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            ¡Rellene este campo!
+                        </div>
                     </div>
-                    <div class="invalid-feedback">
-                        ¡Rellene este campo!
+                    <div class="form-group">
+                        <label>Seleccione Estudio:</label>
+                        <select disabled id="idEstudio" class="form-control" name="idEstudio" required>
+                            @foreach ($estudios as $estudio)
+                                <option value="{{ isset($estudio->id) ? $estudio->id : '' }}">{{ $estudio->nombreEstudio }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <div class="valid-feedback">
+                            ¡Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            ¡Rellene este campo!
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label>Ingrese fecha planificada:</label>
-                    <input type="date" id="fechaPlanificada" name="fechaPlanificada"
-                        value="{{ isset($monitoreo->fechaPlanificada) ? $monitoreo->fechaPlanificada : '' }}" required>
-                    <div class="valid-feedback">
-                        ¡Bien!
+                    <div class="form-group">
+                        <label>Seleccione Técnico:</label>
+                        <select id="idTecnico" class="form-control" name="idTecnico" required>
+                            @foreach ($tecnicos as $tecnico)
+                                @if ($tecnico->fullacces == 'no')
+                                    <option value="{{ isset($tecnico->id) ? $tecnico->id : '' }}" @if ($tecnico->id == $monitoreo->idTecnico) selected @endif>{{ $tecnico->name }} </option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <div class="valid-feedback">
+                            ¡Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            ¡Rellene este campo!
+                        </div>
                     </div>
-                    <div class="invalid-feedback">
-                        ¡Rellene este campo!
+                    <br>
+                    <div class="form-group">
+                        <label>Ingrese fecha planificada:</label>
+                        <input type="date" id="fechaPlanificada" name="fechaPlanificada"
+                            value="{{ isset($monitoreo->fechaPlanificada) ? $monitoreo->fechaPlanificada : '' }}" required>
+                        <div class="valid-feedback">
+                            ¡Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            ¡Rellene este campo!
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="form-group">
-                    <label>Ingrese fecha de ejecución:</label>
-                    <input type="date" id="fechaEjecucion" name="fechaEjecucion"
-                        value="{{ isset($monitoreo->fechaEjecucion) ? $monitoreo->fechaEjecucion : '' }}" required>
-                    <div class="valid-feedback">
-                        ¡Bien!
+                    <br>
+                    <div class="form-group">
+                        <label>Ingrese fecha de ejecución:</label>
+                        <input type="date" id="fechaEjecucion" name="fechaEjecucion"
+                            value="{{ isset($monitoreo->fechaEjecucion) ? $monitoreo->fechaEjecucion : '' }}" required>
+                        <div class="valid-feedback">
+                            ¡Bien!
+                        </div>
+                        <div class="invalid-feedback">
+                            ¡Rellene este campo!
+                        </div>
                     </div>
-                    <div class="invalid-feedback">
-                        ¡Rellene este campo!
-                    </div>
-                </div>
-                <br>
+                    <br>
                 @endcan
                 <div class="form-group">
                     <label>Observaciones:</label>
@@ -107,7 +111,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="d-grid gap-2">
-                            <a href="/monitoreos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"> </i> Regresar</a>
+                            <a href="/monitoreos" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left">
+                                </i> Regresar</a>
                         </div>
 
                     </div>
@@ -129,43 +134,43 @@
 @stop
 
 @section('js')
-<script>
-    function soloLetras(e){
-        key = e.keyCode || e.which;
-        tecla = String.fromCharCode(key).toString();
-        letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú0123456789";
+    <script>
+        function soloLetras(e) {
+            key = e.keyCode || e.which;
+            tecla = String.fromCharCode(key).toString();
+            letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú0123456789";
 
-        especiales=[8,13];
-        tecla_especial= false;
-        for(var i in especiales){
-            if(key == especiales[i]){
-            tecla_especial=true;
-            break;
+            especiales = [8, 13];
+            tecla_especial = false;
+            for (var i in especiales) {
+                if (key == especiales[i]) {
+                    tecla_especial = true;
+                    break;
+                }
+            }
+            if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+                alert("Ingresar datos correspondientes");
+                return false;
             }
         }
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
-            alert("Ingresar datos correspondientes");
-            return false;
-        }
-    }
 
-    function soloNum(ev){
-        if(window.event){
-            keynum = ev.keyCode;
-        }else{
-            keynum = ev.which;
+        function soloNum(ev) {
+            if (window.event) {
+                keynum = ev.keyCode;
+            } else {
+                keynum = ev.which;
+            }
+            if ((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13) {
+                return true;
+            } else {
+                alert("Ingresar solo números");
+                return false;
+            }
         }
-        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
-            return true;
-        }else{
-            alert("Ingresar solo números");
-            return false;
-        }
-    }
-</script>
+    </script>
 
 
-<script>
+    <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {
             'use strict';
@@ -184,6 +189,5 @@
                 });
             }, false);
         })();
-
-</script>
+    </script>
 @stop

@@ -283,7 +283,7 @@ return [
         [
             'text'        => 'Variedades',
             'url'         => 'variedades',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-asterisk',
             'can'         => '1',
             'active'       => ['variedades', 'variedades*', 'regex:@^variedades/[0-9]+$@']
         ],
@@ -334,7 +334,7 @@ return [
             'url'         => 'tecnico',
             'icon'        => 'fas fa-clipboard',
             'can'         => ['1','2'],
-            'active'       => ['tecnico','regex:@^tecnico/[0-9]+$@']
+            'active'       => ['tecnico','regex:@^tecnico/[0-9]+$@', '/dato/*']
         ],
         /*['header' => 'CONFIGURACIÓN'],
         [

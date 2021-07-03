@@ -52,9 +52,12 @@
                 <table id="table"
                     class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
                     cellspacing="0" width="100%">
+                    @php
+                        $count=1;
+                    @endphp
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>NOMBRE ZONA</th>
                             <th>NOMBRE FINCA</th>
                             <th>CÉDULA</th>
@@ -68,7 +71,7 @@
                     <tbody>
                         @foreach ($fincas as $finca)
                             <tr>
-                                <td>{{ $finca->id }}</td>
+                                <td>{{ $count++ }}</td>
                                 @foreach ($zonas as $zona)
                                     @if ($finca->idZona == $zona->id)
                                         <td>{{ $zona->nombreZona }}</td>

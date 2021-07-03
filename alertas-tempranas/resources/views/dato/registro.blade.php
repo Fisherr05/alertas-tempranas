@@ -47,6 +47,7 @@
                                     class="far fa-arrow-alt-circle-left"></i> Regresar</a>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -65,7 +66,7 @@
                             <tr>
                                 <th>Planta</th>
                                 <th>Frutos</th>
-                                <th>Insidencia</th>
+                                <th>Insidencia (%)</th>
                                 <th>Severidad</th>
                                 <th>Acción</th>
                             </tr>

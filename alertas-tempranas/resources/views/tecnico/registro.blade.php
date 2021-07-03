@@ -58,10 +58,20 @@
                         <table id="table"
                             class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
                             cellspacing="0" width="100%">
+                            @php
+                                $count = 1;
+                            @endphp
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>MONITOREO</th>
                                     <th>ESTUDIO</th>
+                                    @can('1')
+                                        <th>TECNICO</th>
+                                    @endcan
+                                    <th>FINCA</th>
+                                    <th>CANTON</th>
+                                    <th>PARROQUIA</th>
                                     <th>FECHA PLANIFICADA</th>
                                     <th>OBSERVACIONES</th>
                                     <th>ACCIÓN</th>
@@ -69,38 +79,47 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($estudios as $estudio)
 
-                                    @foreach ($monitoreos as $monitoreo)
-                                        @if ($estudio->id == $monitoreo->idEstudio)
-                                            @if(auth()->user()->fullacces == 'yes')
-                                            <tr>
-                                                <td>{{ $monitoreo->codigo }}</td>
-                                                <td>{{ $estudio->codigo }} - {{ $estudio->nombreEstudio }}</td>
-                                                <td>{{ $monitoreo->fechaPlanificada }}</td>
-                                                <td>{{ $monitoreo->observaciones }}</td>
-                                                <td class="d-flex justify-content-center">
+                                @foreach ($pendientes as $monitoreo)
+                                    @if (auth()->user()->fullacces == 'yes')
+                                        <tr>
+                                            <td>{{ $count++ }}</td>
+                                            <td>{{ $monitoreo->codigoMonitoreo }}</td>
+                                            <td>{{ $monitoreo->codigo }} - {{ $monitoreo->nombreEstudio }}</td>
+                                            <td>{{ $monitoreo->name }}</td>
+                                            <td>{{ $monitoreo->nombreFinca }}</td>
+                                            <td>{{ $monitoreo->cantonNombre }}</td>
+                                            <td>{{ $monitoreo->parroquiaNombre }}</td>
+                                            <td>{{ $monitoreo->fechaPlanificada }}</td>
+                                            <td>{{ $monitoreo->observaciones }}</td>
+                                            <td class="d-flex justify-content-center">
 
                                                 <a href="/dato/{{ $monitoreo->id }}" class="btn btn-primary "
-                                                        onClick="this.disabled='disabled';">Ir <i
-                                                            class="far fa-arrow-alt-circle-right"> </i> </a></td>
-                                            </tr>
-                                            @elseif(auth()->user()->id == $monitoreo->idTecnico && auth()->user()->fullacces == 'no')
-                                            <tr>
-                                                <td>{{ $monitoreo->codigo }}</td>
-                                                <td>{{ $estudio->codigo }} - {{ $estudio->nombreEstudio }}</td>
-                                                <td>{{ $monitoreo->fechaPlanificada }}</td>
-                                                <td>{{ $monitoreo->observaciones }}</td>
-                                                <td class="d-flex justify-content-center">
+                                                    onClick="this.disabled='disabled';">Ir <i
+                                                        class="far fa-arrow-alt-circle-right">
+                                                    </i> </a>
+                                            </td>
+                                        </tr>
+                                    @elseif(auth()->user()->id == $monitoreo->idTecnico &&
+                                        auth()->user()->fullacces == 'no')
+                                        <tr>
+                                            <td>{{ $count++ }}</td>
+                                            <td>{{ $monitoreo->codigoMonitoreo }}</td>
+                                            <td>{{ $monitoreo->codigo }} - {{ $monitoreo->nombreEstudio }}</td>
+                                            <td>{{ $monitoreo->nombreFinca }}</td>
+                                            <td>{{ $monitoreo->cantonNombre }}</td>
+                                            <td>{{ $monitoreo->parroquiaNombre }}</td>
+                                            <td>{{ $monitoreo->fechaPlanificada }}</td>
+                                            <td>{{ $monitoreo->observaciones }}</td>
+                                            <td class="d-flex justify-content-center">
 
-                                                        <a href="/dato/{{ $monitoreo->id }}" class="btn btn-primary"
-                                                        onClick="this.disabled='disabled'">Ir <i
-                                                            class="far fa-arrow-alt-circle-right"> </i> </a>
-                                                </td>
-                                            </tr>
-                                            @endif
-                                        @endif
-                                    @endforeach
+                                                <a href="/dato/{{ $monitoreo->id }}" class="btn btn-primary"
+                                                    onClick="this.disabled='disabled'">Ir <i
+                                                        class="far fa-arrow-alt-circle-right">
+                                                    </i> </a>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>

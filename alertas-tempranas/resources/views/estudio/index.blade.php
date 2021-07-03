@@ -52,9 +52,12 @@
                 <table id="table"
                     class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
                     cellspacing="0" width="100%">
+                    @php
+                        $count=1;
+                    @endphp
                     <thead>
                         <tr>
-                            <th>CODIGO</th>
+                            <th>#</th>
                             <th>ESTUDIO</th>
                             <th>FINCA</th>
                             <th>VARIEDAD</th>
@@ -69,7 +72,7 @@
                     <tbody>
                         @foreach ($estudios as $estudio)
                             <tr>
-                                <td>{{ $estudio->codigo }}</td>
+                                <td>{{ $count++ }}</td>
                                 <td>{{ $estudio->nombreEstudio }}</td>
                                 @foreach ($fvs as $fv)
                                     @if ($estudio->idFv == $fv->id)

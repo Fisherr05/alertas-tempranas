@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Estudio;
+use App\Models\Zona;
+use App\Models\Finca;
+use App\Models\Canton;
+use App\Models\Parroquia;
 use App\Models\Monitoreo;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,21 +21,29 @@ class TecnicoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function index()
+    public function index()
     {
         //
         $datos['tecnicos'] = User::all();
         $datos['monitoreos'] = Monitoreo::all();
-        return view('tecnico.index',$datos);
+        return view('tecnico.index', $datos);
     }
 
     public function registro()
     {
         //
-        $datos['tecnicos'] = User::all();
-        $datos['monitoreos'] = Monitoreo::all();
-        $datos['estudios'] = Estudio::all();
-        return view('tecnico.registro',$datos);
+        $pendientes = DB::table('finca_variedad')
+            ->join('fincas', 'finca_variedad.finca_id', '=', "fincas.id")
+            ->join('estudios', 'estudios.idFv', '=', 'finca_variedad.id')
+            ->join('zonas', 'fincas.idZona', '=', 'zonas.id')
+            ->join('parroquias', 'zonas.idParroquia', '=', 'parroquias.id')
+            ->join('cantons', 'cantons.id', '=', 'parroquias.idCanton')
+            ->join('monitoreos', 'estudios.id', '=', 'monitoreos.idEstudio')
+            ->join('users', 'monitoreos.idTecnico', '=', 'users.id')
+            ->select('monitoreos.id', 'users.name', 'estudios.codigo', 'monitoreos.codigo as codigoMonitoreo', 'fincas.nombreFinca', 'cantons.nombre as cantonNombre', 'parroquias.nombre as parroquiaNombre', 'monitoreos.fechaPlanificada', 'monitoreos.observaciones', 'estudios.nombreEstudio', 'monitoreos.idTecnico')
+            ->get();
+        //return dd($pedientes);
+        return view('tecnico.registro', compact('pendientes'));
     }
 
     /**
@@ -43,8 +56,8 @@ class TecnicoController extends Controller
         //
         $datos['tecnicos'] = User::all();
         $datos['monitoreos'] = Monitoreo::all();
-        $datos['estudios']= Estudio::all();
-        return view('tecnico.create',$datos);
+        $datos['estudios'] = Estudio::all();
+        return view('tecnico.create', $datos);
     }
 
 
@@ -57,11 +70,11 @@ class TecnicoController extends Controller
     public function store(Request $request)
     {
         //
-        $datos =request()-> except('_token');
-        $datos["password"]= Hash::make($datos["password"]);
+        $datos = request()->except('_token');
+        $datos["password"] = Hash::make($datos["password"]);
         //return dd($datos);
         User::insert($datos);
-        return redirect('/tecnicos')->with('tecnicoGuardado','Técnico guardado con éxito');
+        return redirect('/tecnicos')->with('tecnicoGuardado', 'Técnico guardado con éxito');
     }
 
 
@@ -89,7 +102,7 @@ class TecnicoController extends Controller
         $monitoreos = Monitoreo::all();
         $tecnico = User::findOrfail($id);
 
-        return view('tecnico.edit', compact('tecnico','monitoreos'));
+        return view('tecnico.edit', compact('tecnico', 'monitoreos'));
     }
 
     /**
@@ -102,10 +115,10 @@ class TecnicoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $datos= request()->except(['_token', '_method']);
-        $datos["password"]= Hash::make($datos["password"]);
-        User::where('id','=',$id)->update($datos);
-        return redirect('/tecnicos')->with('tecnicoModificado','Técnico modificado con éxito');
+        $datos = request()->except(['_token', '_method']);
+        $datos["password"] = Hash::make($datos["password"]);
+        User::where('id', '=', $id)->update($datos);
+        return redirect('/tecnicos')->with('tecnicoModificado', 'Técnico modificado con éxito');
     }
 
     /**
@@ -118,6 +131,6 @@ class TecnicoController extends Controller
     {
         //
         User::destroy($id);
-        return back()->with('tecnicoEliminado','Técnico  eliminado con éxito');
+        return back()->with('tecnicoEliminado', 'Técnico  eliminado con éxito');
     }
 }
