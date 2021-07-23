@@ -50,8 +50,8 @@
             return false;
         }
     }
-
 </script>
+
 
 <div class="form-group">
     <div class="form-group">

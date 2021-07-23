@@ -17,7 +17,9 @@ class CreatePlantasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('idEstudio');
             $table->string('codigo');
-            $table->string('coPlanta');
+            $table->string('x');
+            $table->string('y');
+            $table->string('z')->nullable();
             $table->foreign('idEstudio')->references('id')->on('estudios')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

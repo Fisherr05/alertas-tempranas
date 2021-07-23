@@ -17,7 +17,7 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         //
-        $rol1=Role::create(['name'=> 'admin']);
+      /* $rol1=Role::create(['name'=> 'admin']);
         $rol2=Role::create(['name'=> 'user']);
 
         Permission::create(['name' => 'admin.monitoreo'])->assignRole($rol1);
@@ -27,6 +27,6 @@ class RoleTableSeeder extends Seeder
         Permission::create(['name' => 'admin.tecnico'])->assignRole($rol1);
         Permission::create(['name' => 'admin.variedad'])->assignRole($rol1);
         Permission::create(['name' => 'admin.planta'])->assignRole($rol1);
-        Permission::create(['name' => 'admin.dato'])->assignRole($rol1);
+        Permission::create(['name' => 'admin.dato'])->assignRole($rol1);*/
     }
 }

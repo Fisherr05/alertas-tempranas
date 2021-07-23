@@ -92,7 +92,7 @@
                                             <td>{{ $monitoreo->parroquiaNombre }}</td>
                                             <td>{{ $monitoreo->fechaPlanificada }}</td>
                                             <td>{{ $monitoreo->observaciones }}</td>
-                                            <td class="d-flex justify-content-center">
+                                            <td >
 
                                                 <a href="/dato/{{ $monitoreo->id }}" class="btn btn-primary "
                                                     onClick="this.disabled='disabled';">Ir <i
@@ -111,7 +111,7 @@
                                             <td>{{ $monitoreo->parroquiaNombre }}</td>
                                             <td>{{ $monitoreo->fechaPlanificada }}</td>
                                             <td>{{ $monitoreo->observaciones }}</td>
-                                            <td class="d-flex justify-content-center">
+                                            <td >
 
                                                 <a href="/dato/{{ $monitoreo->id }}" class="btn btn-primary"
                                                     onClick="this.disabled='disabled'">Ir <i

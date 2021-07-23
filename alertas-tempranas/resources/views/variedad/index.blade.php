@@ -52,8 +52,12 @@
                 <table id="table"
                     class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
                     cellspacing="0" width="100%">
+                    @php
+                        $count=1;
+                    @endphp
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>CÓDIGO</th>
                             <th>DESCRIPCIÓN</>
                             <th>ACCIONES</th>
@@ -62,6 +66,7 @@
                     <tbody>
                         @foreach ($variedades as $variedad)
                             <tr>
+                                <td>{{ $count++ }}</td>
                                 <td>{{ $variedad->codigo }}</td>
                                 <td>{{ $variedad->descripcion }}</td>
                                 <td>

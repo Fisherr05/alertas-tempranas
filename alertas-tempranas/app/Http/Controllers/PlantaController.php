@@ -7,6 +7,7 @@ use App\Models\Planta;
 use App\Models\Monitoreo;
 use App\Models\Tecnico;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PlantaController extends Controller
 {
@@ -48,9 +49,40 @@ class PlantaController extends Controller
     public function store(Request $request)
     {
         //
-        $datos= request()->except('_token');
-        Planta::insert($datos);
+        $idEstudio=request()->idEstudio;
+        $codigo=request()->codigo;
+        $coordenadasX=request()->x;
+        $coordenadasY=request()->y;
+        for ($i=0; $i < count($coordenadasX); $i++) {
+            $datos=[
+                'idEstudio'=>$idEstudio,
+                'codigo'=>$codigo[$i],
+                'x'=>$coordenadasX[$i],
+                'y'=>$coordenadasY[$i],
+            ];
+            Planta::insert($datos);
+        }
         return redirect('/plantas')->with('plantaGuardado','Planta guardado con éxito');
+    }
+    public function guardar(Request $request)
+    {
+        $idEstudio = $request->idEstudio;
+        $codigo = $request->codigo;
+        $x = $request->x;
+        $y = $request->y;
+        $severidad = $request->severidad;
+        for ($i = 0; $i < count($idEstudio); $i++) {
+            $datasave = [
+                'idEstudio' => $idEstudio[$i],
+                'codigo' => $codigo[$i],
+                'x' => $x[$i],
+                'y' => $y[$i],
+            ];
+            DB::table('plantas')->insert($datasave);
+        }
+
+        //return dd($i);
+        return redirect('/tecnico')->with('datoGuardado', 'Dato guardado con éxito');
     }
 
     /**

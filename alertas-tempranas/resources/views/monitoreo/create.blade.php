@@ -66,5 +66,18 @@
             });
         });
   </script>
+  <script type="text/javascript">
+        $(document).ready(function() {
+            $("#fechaEjecucion").change(function() {
+                var startDate = document.getElementById("fechaPlanificada").value;
+                var endDate = document.getElementById("fechaEjecucion").value;
+
+                if ((Date.parse(startDate) >= Date.parse(endDate))) {
+                    alert("La fecha de ejecución debe ser mayor que la fecha planificada");
+                    document.getElementById("fechaEjecucion").value = "";
+                }
+            });
+        });
+    </script>
 @stop
 

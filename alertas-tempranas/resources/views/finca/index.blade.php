@@ -81,7 +81,7 @@
                                 <td>{{ $finca->cedula }}</td>
                                 <td>{{ $finca->propietarioFinca }}</td>
                                 <td>{{ $finca->telefono}}</td>
-                                <td>{{ $finca->coFinca }}</td>
+                                <td>X:{{ $finca->coordenadaX }} Y:{{ $finca->coordenadaY }}</td>
                                 <td>
                                     @foreach ($finca->variedades as $variedad)
                                        {{$variedad->descripcion}}<br>

@@ -116,9 +116,13 @@ class TecnicoController extends Controller
     {
         //
         $datos = request()->except(['_token', '_method']);
-        $datos["password"] = Hash::make($datos["password"]);
+        if (array_key_exists("password",$datos)){
+            $datos["password"] = Hash::make($datos["password"]);
+        }
+
         User::where('id', '=', $id)->update($datos);
         return redirect('/tecnicos')->with('tecnicoModificado', 'Técnico modificado con éxito');
+        //return dd($datos);
     }
 
     /**
@@ -130,7 +134,7 @@ class TecnicoController extends Controller
     public function destroy($id)
     {
         //
-        User::destroy($id);
+        User::where('id','=',$id)->delete($id);
         return back()->with('tecnicoEliminado', 'Técnico  eliminado con éxito');
     }
 }

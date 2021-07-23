@@ -15,7 +15,8 @@ class Finca extends Model
         'propietarioFinca',
         'cedula',
         'telefono',
-        'coFinca',
+        'coordenadaX',
+        'coordenadaY',
         'densidad',
     ];
 

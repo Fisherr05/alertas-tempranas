@@ -46,7 +46,6 @@ class VariedadController extends Controller
         //
         $datos= request()->except('_token');
         $variedad=new Variedad;
-        $variedad->id=$datos['id'];
         Variedad::insert($datos);
         $variedad->save;
         return redirect('/variedades')->with('variedadGuardado','Variedad guardado con éxito');

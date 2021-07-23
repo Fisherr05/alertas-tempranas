@@ -21,7 +21,8 @@ class CreateFincasTable extends Migration
             $table->string('cedula');
             $table->string('telefono');
             $table->string('densidad');
-            $table->string('coFinca');
+            $table->string('coordenadaX');
+            $table->string('coordenadaY');
             $table->foreign('idZona')
                 ->references('id')->on('zonas')
                 ->onDelete('cascade')

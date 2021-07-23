@@ -55,12 +55,14 @@
                     class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
                     cellspacing="0" width="100%">
                     @php
-                        $count=1;
+                        $count = 1;
+                        $estudioId = 0;
                     @endphp
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>MONITOREO</th>
+                            <th>ESTUDIO</th>
                             <th>PLANTA</th>
                             <th>FRUTO</th>
                             <th>INCIDENCIA (%)</th>
@@ -77,9 +79,12 @@
                                 <tr>
                                     <td>{{ $count++ }}</td>
                                     @foreach ($monitoreos as $monitoreo)
-                                        @if ($dato->idMonitoreo == $monitoreo->id)
-                                            <td>{{ $monitoreo->codigo }}</td>
-                                        @endif
+                                        @foreach ($estudios as $estudio)
+                                            @if ($dato->idMonitoreo == $monitoreo->id && $monitoreo->idEstudio == $estudio->id)
+                                                <td>{{ $monitoreo->codigo }}</td>
+                                                <td>{{ $estudio->codigo }}- {{ $estudio->nombreEstudio }}</td>
+                                            @endif
+                                        @endforeach
                                     @endforeach
                                     @foreach ($plantas as $planta)
                                         @if ($dato->idPlanta == $planta->id)
@@ -107,43 +112,28 @@
                             @endforeach
                         @else
                             @foreach ($datos as $dato)
-                                <tr>
                                     @foreach ($monitoreos as $monitoreo)
                                         @if (auth()->user()->id == $monitoreo->idTecnico)
-                                            @foreach ($datos as $dato)
-                                <tr>
-                                    <td>{{ $dato->id }}</td>
-                                        @if ($dato->idMonitoreo == $monitoreo->id)
-                                            <td>{{ $monitoreo->codigo }}</td>
-                                        @endif
-                                    @foreach ($plantas as $planta)
-                                        @if ($dato->idPlanta == $planta->id)
-                                            <td>{{ $planta->codigo }}</td>
+                                            @foreach ($estudios as $estudio)
+                                                @if ($dato->idMonitoreo == $monitoreo->id && $monitoreo->idEstudio == $estudio->id)
+                                                <tr>
+                                                    <td>{{ $count++ }}</td>
+                                                    <td>{{ $monitoreo->codigo }}</td>
+                                                    <td>{{ $estudio->codigo }} - {{ $estudio->nombreEstudio }}</td>
+                                                    @foreach ($plantas as $planta)
+                                                        @if ($dato->idPlanta == $planta->id)
+                                                            <td>{{ $planta->codigo }}</td>
+                                                        @endif
+                                                    @endforeach
+                                                    <td>{{ $dato->fruto }}</td>
+                                                    <td>{{ $dato->incidencia }}</td>
+                                                    <td>{{ $dato->severidad }}</td>
+                                                </tr>
+                                                @endif
+                                            @endforeach
                                         @endif
                                     @endforeach
-                                    <td>{{ $dato->fruto }}</td>
-                                    <td>{{ $dato->incidencia }}</td>
-                                    <td>{{ $dato->severidad }}</td>
-
-                                    @can('1')
-                                        <td>
-                                            <form action="{{ route('datos.destroy', $dato->id) }}" method="POST">
-                                                <a href="/datos/{{ $dato->id }}/edit" class="btn btn-secondary"><i
-                                                        class="fas fa-pencil-alt"></i></a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"
-                                                    onclick="return confirm('¿Desea eliminar esto?')"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </td>
-                                    @endcan
-                                </tr>
                             @endforeach
-                        @endif
-                        @endforeach
-                        </tr>
-                        @endforeach
                         @endif
                     </tbody>
                 </table>

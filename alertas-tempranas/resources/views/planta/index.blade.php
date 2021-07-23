@@ -74,7 +74,7 @@
                                         <td>{{ $estudio->codigo }}</td>
                                     @endif
                                 @endforeach
-                                <td>{{ $planta->coPlanta }}</td>
+                                <td>X:{{ $planta->x }} Y:{{ $planta->y }}</td>
                                 <td>
                                     <form action="{{ route('plantas.destroy', $planta->id) }}" method="POST">
                                         <a href="/plantas/{{ $planta->id }}/edit" class="btn btn-secondary"><i

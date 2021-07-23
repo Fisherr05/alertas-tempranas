@@ -19,24 +19,11 @@ class UserTableSeeder extends Seeder
         User::create([
             'name' =>'Administrador',
             'email' =>'admin@mail.com',
-            'password' =>Hash::make('admin'),
+            'password' =>Hash::make('adminalertas'),
             'fullacces' => 'yes',
             'institucion'=>'',
             'telefono'=>'',
             'activo'=>'',
         ]);
-
-
-
-        User::create([
-            'name' =>'Usuario',
-            'email' =>'usuario@mail.com',
-            'institucion'=>'',
-            'password' =>Hash::make('user'),
-            'telefono'=>'',
-            'fullacces' => 'no',
-            'activo'=>'',
-        ]);
-
     }
 }

@@ -77,10 +77,9 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <label>Coordenadas:</label>
-                    <input type="text" class="form-control" id="coFinca" name="coFinca"
-                        placeholder="Ingrese las coordenadas" value="{{ isset($finca->coFinca) ? $finca->coFinca : '' }}"
-                        required>
+                    <label>Coordenada X:</label>
+                    <input type="text" class="form-control" id="x" name="coordenadaX" placeholder="Ingrese las coordenadas"
+                        value="{{ isset($finca->coordenadaX) ? $finca->coordenadaX: '' }}" required>
                     <div class="valid-feedback">
                         ¡Bien!
                     </div>
@@ -89,6 +88,17 @@
                     </div>
                 </div>
                 <br>
+                <div class="form-group">
+                    <label>Coordenada Y:</label>
+                    <input type="text" class="form-control" id="y" name="coordenadaY" placeholder="Ingrese las coordenadas"
+                        value="{{ isset($finca->coordenadaY) ? $finca->coordenadaY : '' }}" required>
+                    <div class="valid-feedback">
+                        ¡Bien!
+                    </div>
+                    <div class="invalid-feedback">
+                        ¡Rellene este campo!
+                    </div>
+                </div>
                 <br>
                 <div class="form-group">
                     <label>Densidad:</label>
@@ -104,13 +114,13 @@
 
 
                 </div>
-               <div class="form-group">
-                <label>Variedad:</label>
-                <select name="idVariedad[]" id="idVariedad" multiple  class="form-control" required>
-                            @foreach ($variedades as $variedad)
-                            <option  value="{{ $variedad->id }}" required>{{ $variedad->descripcion }}</option>
+                <div class="form-group">
+                    <label>Variedad:</label>
+                    <select name="idVariedad[]" id="idVariedad" multiple class="form-control" required>
+                        @foreach ($variedades as $variedad)
+                            <option value="{{ $variedad->id }}" required>{{ $variedad->descripcion }}</option>
                         @endforeach
-                </select>
+                    </select>
                 </div>
                 <br>
                 <!-- Validacion errores-->
@@ -126,7 +136,8 @@
                 <br>
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="/fincas" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"> </i> Regresar</a>
+                        <a href="/fincas" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"> </i>
+                            Regresar</a>
                     </div>
                     <div class="col-md-6">
                         <button id="btnSave" class="btn btn-primary btn-block"><i class="far fa-save"> </i> Guardar</button>
@@ -200,7 +211,6 @@
                 return false;
             }
         }
-
     </script>
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -221,20 +231,18 @@
                 });
             }, false);
         })();
-
     </script>
     <script>
         /* $(document).ready(function() {
-            $("#btnSave").click(function() {
-                document.getElementsByName("#table_lenght").attr('disabled', 'disabled');
+                $("#btnSave").click(function() {
+                    document.getElementsByName("#table_lenght").attr('disabled', 'disabled');
+                });
             });
-        });
-        */
-
+            */
     </script>
 
     @php
-        $variedad_ids = [];
+    $variedad_ids = [];
     @endphp
     @foreach ($finca->variedades as $variedad)
         @php
@@ -242,7 +250,7 @@
         @endphp
     @endforeach
     @php
-        $variedadJson = json_encode($variedad_ids);
+    $variedadJson = json_encode($variedad_ids);
     @endphp
     <script>
         $(function() {
@@ -263,7 +271,7 @@
         $(document).ready(function() {
             $('#idVariedad').select2();
             theme: 'bootstrap4',
-            data = [];
+                data = [];
             data = <?php echo $variedadJson; ?>;
             $('#idVariedad').val(data).trigger('change');
         });

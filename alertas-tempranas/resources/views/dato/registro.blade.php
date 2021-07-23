@@ -81,17 +81,18 @@
                                             value="{{ $planta->id }}">
                                         <td><input readonly value="{{ $planta->codigo }}" class="form-control text"
                                                 name="" id=""></td>
-                                        <td><input readonly value="{{ $i }}" class="form-control text" name="fruto[]"
-                                                id=""></td>
+                                        <td><input readonly value="{{ $i }}" class="form-control text"
+                                                name="fruto[]" id=""></td>
                                         <td><input value="" min="0" max="99" minlength="1" maxlength="2"
                                                 onkeypress="return soloNum(event);"
-                                                onchange="sumar(this.value,{{ $contadorFilas }});" class="form-control text"
-                                                name="incidencia[]" id="" required>
+                                                onchange="sumar(this.value,{{ $contadorFilas }});"
+                                                class="form-control text" name="incidencia[]" id="" required>
                                         </td>
                                         <td><input type="text" class="form-control" name="severidad[]"
                                                 id="spTotal-{{ $contadorFilas }}" value="" readonly>
                                         </td>
-                                        <td><button type="button" class="btn btn-primary" id="remove"><i class="far fa-times-circle"></i></button></td>
+                                        <td><button type="button" class="btn btn-primary" id="remove"><i
+                                                    class="far fa-times-circle"></i></button></td>
                                     </tr>
                                     @php
                                         $contadorFilas = $contadorFilas + 1;
@@ -108,7 +109,7 @@
                     </table>
                 </div>
                 <div class="container col-md-2">
-                    <button class="btn btn-primary btn-block" @if ($contadorLineas==0) disabled @endif ><i class="far fa-save"> </i> Guardar</button>
+                    <button class="btn btn-primary btn-block" @if ($contadorLineas == 0) disabled @endif><i class="far fa-save"> </i> Guardar</button>
                 </div>
                 <br>
             </form>
@@ -152,12 +153,14 @@
             total = (total == null || total == undefined || total == "") ? 0 : total;
 
             /* Esta es el calculo severidad. */
-            total = (parseInt(valor) / 100);
+            total = (parseInt(valor));
+            if (total > 0) {
+                document.getElementById('spTotal-' + codigoId).value = 1;
+            } else {
+                // Colocar el resultado en el control "input".
 
-
-            // Colocar el resultado en el control "input".
-
-            document.getElementById('spTotal-' + codigoId).value = total;
+                document.getElementById('spTotal-' + codigoId).value = total;
+            }
         }
 
         function soloNum(ev) {
@@ -175,7 +178,7 @@
         }
     </script>
     <script type="text/javascript">
-        $(document).on('click','#remove',function(){
+        $(document).on('click', '#remove', function() {
             $(this).closest('tr').remove();
         });
     </script>

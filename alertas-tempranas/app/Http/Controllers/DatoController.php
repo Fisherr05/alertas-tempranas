@@ -23,6 +23,7 @@ class DatoController extends Controller
         $datos['datos'] = Dato::all();
         $datos['monitoreos'] = Monitoreo::all();
         $datos['plantas'] = Planta::all();
+        $datos['estudios'] = Estudio::all();
         return view('dato.index', $datos);
     }
 
@@ -32,6 +33,7 @@ class DatoController extends Controller
         $datos['datos'] = Dato::all();
         $datos['monitoreos'] = Monitoreo::all();
         $datos['plantas'] = Planta::all();
+
         return view('dato.registro', $datos);
     }
 
@@ -68,11 +70,11 @@ class DatoController extends Controller
     public function guardar(Request $request)
     {
         $idMonitoreo = $request->idMonitoreo;
-        $idPlanta= $request->idPlanta;
+        $idPlanta = $request->idPlanta;
         $fruto = $request->fruto;
         $incidencia = $request->incidencia;
         $severidad = $request->severidad;
-        for ($i=0;$i < count($idMonitoreo); $i++) {
+        for ($i = 0; $i < count($idMonitoreo); $i++) {
             $datasave = [
                 'idMonitoreo' => $idMonitoreo[$i],
                 'idPlanta' => $idPlanta[$i],
@@ -149,6 +151,7 @@ class DatoController extends Controller
             ->join('monitoreos', 'plantas.idEstudio', '=', "monitoreos.idEstudio")
             ->select('plantas.*')
             ->where('monitoreos.id', $idMonitoreo)
+            ->orderBy('codigo','ASC')
             ->get();
         return view('dato.registro', compact('plantas', 'monitoreo'));
     }

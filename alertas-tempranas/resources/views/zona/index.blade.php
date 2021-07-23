@@ -52,9 +52,12 @@
                 <table id="table"
                     class="table table-striped table-hover table-bordered table-sm bg-white shadow-lg display nowrap"
                     cellspacing="0" width="100%">
+                    @php
+                        $count=1;
+                    @endphp
                     <thead>
                         <tr>
-                            <th> ID</th>
+                            <td>#</td>
                             <th>NOMBRE ZONA</th>
                             <th>CANTON</th>
                             <th>PARROQUIA</th>
@@ -68,7 +71,7 @@
                     <tbody>
                         @foreach ($zonas as $zona)
                             <tr>
-                                <td>{{ $zona->id }}</td>
+                                <td>{{ $count++ }}</td>
                                 <td>{{ $zona->nombreZona }}</td>
                                 @foreach ($cantones as $canton)
                                     @foreach ($parroquias as $parroquia)
@@ -86,7 +89,7 @@
                                 @endforeach
 
                                 <td>{{ $zona->localidad }}</td>
-                                <td>{{ $zona->coZona }}</td>
+                                <td>X:{{ $zona->x }} Y:{{ $zona->y }}</td>
                                 <td>
                                     <form action="{{ route('zonas.destroy', $zona->id) }}" method="POST">
                                         <a href="/zonas/{{ $zona->id }}/edit" class="btn btn-secondary"><i

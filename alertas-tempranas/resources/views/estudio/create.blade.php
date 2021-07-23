@@ -87,4 +87,17 @@
             });
         });
     </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#fechaFin").change(function() {
+                    var startDate = document.getElementById("fechaInicio").value;
+                    var endDate = document.getElementById("fechaFin").value;
+
+                    if ((Date.parse(startDate) >= Date.parse(endDate))) {
+                        alert("La fecha de fin debe ser mayor que la fecha de inicio");
+                        document.getElementById("fechaFin").value = "";
+                    }
+                });
+            });
+        </script>
 @stop

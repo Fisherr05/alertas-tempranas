@@ -147,7 +147,8 @@
         <br>
         <div class="row">
             <div class="col-md-6">
-                <a href="/estudios" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"> </i> Regresar</a>
+                <a href="/estudios" class="btn btn-danger btn-block"><i class="far fa-arrow-alt-circle-left"> </i>
+                    Regresar</a>
             </div>
             <div class="col-md-6">
                 <button class="btn btn-primary btn-block"><i class="far fa-save"> </i> Guardar</button>
@@ -197,7 +198,6 @@
                 return false;
             }
         }
-
     </script>
 
     <script>
@@ -219,7 +219,6 @@
                 });
             }, false);
         })();
-
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -242,7 +241,6 @@
                 });
             });
         });
-
     </script>
     <script>
         $(function() {
@@ -258,7 +256,19 @@
                 });
             });
         });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#fechaFin").change(function() {
+                var startDate = document.getElementById("fechaInicio").value;
+                var endDate = document.getElementById("fechaFin").value;
 
+                if ((Date.parse(startDate) >= Date.parse(endDate))) {
+                    alert("La fecha de fin debe ser mayor que la fecha de inicio");
+                    document.getElementById("fechaFin").value = "";
+                }
+            });
+        });
     </script>
 
 @stop

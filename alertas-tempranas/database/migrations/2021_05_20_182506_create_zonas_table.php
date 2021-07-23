@@ -19,7 +19,8 @@ class CreateZonasTable extends Migration
             $table->unsignedBigInteger('idParroquia');
             $table->string('nombreZona');
             $table->string('localidad');
-            $table->string('coZona');
+            $table->string('x');
+            $table->string('y');
            /* $table->foreign('idCanton')
                 ->references('id')->on('cantons')
                 ->onDelete('cascade')

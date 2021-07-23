@@ -78,8 +78,8 @@
     </div>
 <br>
 <div class="form-group">
-    <label>Coordenadas:</label>
-    <input type="text" class="form-control" id="coZona" name="coZona" placeholder="Ingrese las coordenadas de la zona"
+    <label>Coordenada X:</label>
+    <input type="text" class="form-control" id="x" name="x" placeholder="Ingrese las coordenadas de la zona"
         value="" required>
     <div class="valid-feedback">
         ¡Bien!
@@ -89,6 +89,17 @@
     </div>
 </div>
 <br>
+<div class="form-group">
+    <label>Coordenada Y:</label>
+    <input type="text" class="form-control" id="y" name="y" placeholder="Ingrese las coordenadas de la zona"
+        value="" required>
+    <div class="valid-feedback">
+        ¡Bien!
+    </div>
+    <div class="invalid-feedback">
+        ¡Rellene este campo!
+    </div>
+</div>
 <!-- Validacion errores-->
 @if ($errors->any())
     <div class="alert alert-danger">
