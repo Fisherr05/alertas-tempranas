@@ -61,7 +61,6 @@
                             <th>NOMBRE ZONA</th>
                             <th>CANTON</th>
                             <th>PARROQUIA</th>
-                            <!--Hola-->
                             <th>LOCALIDAD</th>
                             <th>COORDENADAS</th>
                             <th>ACCIONES</th>

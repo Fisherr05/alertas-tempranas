@@ -27,9 +27,9 @@ use App\Htpp\Controllers\ParroquiaController;
 |
 */
 
-Route::get('/welcome', function () {
+/*functionRoute::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -40,7 +40,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/user', [App\Http\Controllers\HomeController::class, 'getUser'])->name('user');
 
-
+Route::resource('/','App\Http\Controllers\Principal');
 Route::resource('monitoreos','App\Http\Controllers\MonitoreoController')->middleware(['auth','admin']);
 Route::resource('fincas', 'App\Http\Controllers\FincaController')->middleware(['auth','admin']);
 Route::resource('zonas', 'App\Http\Controllers\ZonaController')->middleware(['auth','admin']);
