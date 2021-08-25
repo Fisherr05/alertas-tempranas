@@ -302,7 +302,7 @@ return [
             'active'       => ['estudios', 'estudios*', 'regex:@^estudios/[0-9]+$@']
         ],
         [
-            'text'        => 'Tecnicos',
+            'text'        => 'Usuarios',
             'url'         => 'tecnicos',
             'icon'        => 'fas fa-users-cog',
             'can'         => '1',
@@ -313,6 +313,13 @@ return [
             'url'         => 'monitoreos',
             'icon'        => 'fas fa-pager',
             'can'         => '1',
+            'active'       => ['monitoreos', 'monitoreos*', 'regex:@^monitoreos/[0-9]+$@']
+        ],
+        [
+            'text'        => 'Modificar Observaciones',
+            'url'         => 'monitoreos',
+            'icon'        => 'fas fa-pager',
+            'can'         => '2',
             'active'       => ['monitoreos', 'monitoreos*', 'regex:@^monitoreos/[0-9]+$@']
         ],
         [
@@ -333,7 +340,7 @@ return [
             'text'        => 'Registros Pendientes',
             'url'         => 'tecnico',
             'icon'        => 'fas fa-clipboard',
-            'can'         => ['1','2'],
+            'can'         => ['1','2','3'],
             'active'       => ['tecnico','regex:@^tecnico/[0-9]+$@', '/dato/*']
         ],
         /*['header' => 'CONFIGURACIÓN'],

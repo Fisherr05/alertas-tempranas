@@ -40,7 +40,7 @@ class TecnicoController extends Controller
             ->join('cantons', 'cantons.id', '=', 'parroquias.idCanton')
             ->join('monitoreos', 'estudios.id', '=', 'monitoreos.idEstudio')
             ->join('users', 'monitoreos.idTecnico', '=', 'users.id')
-            ->select('monitoreos.id', 'users.name', 'estudios.codigo', 'monitoreos.codigo as codigoMonitoreo', 'fincas.nombreFinca', 'cantons.nombre as cantonNombre', 'parroquias.nombre as parroquiaNombre', 'monitoreos.fechaPlanificada', 'monitoreos.observaciones', 'estudios.nombreEstudio', 'monitoreos.idTecnico')
+            ->select('monitoreos.id', 'users.name', 'estudios.codigo', 'monitoreos.codigo as codigoMonitoreo', 'fincas.nombreFinca', 'cantons.nombre as cantonNombre', 'parroquias.nombre as parroquiaNombre', 'monitoreos.fechaPlanificada', 'monitoreos.observaciones', 'estudios.nombreEstudio', 'monitoreos.idTecnico', 'monitoreos.estado')
             ->get();
         //return dd($pedientes);
         return view('tecnico.registro', compact('pendientes'));
@@ -72,8 +72,15 @@ class TecnicoController extends Controller
         //
         $datos = request()->except('_token');
         $datos["password"] = Hash::make($datos["password"]);
+        if ($datos["fullacces"] == 1) {
+            $datos["fullacces"] = "no";
+        } else if ($datos["fullacces"] == 2) {
+            $datos["fullacces"] = "revisor";
+        }
+
         //return dd($datos);
         User::insert($datos);
+
         return redirect('/tecnicos')->with('tecnicoGuardado', 'Técnico guardado con éxito');
     }
 
@@ -116,7 +123,7 @@ class TecnicoController extends Controller
     {
         //
         $datos = request()->except(['_token', '_method']);
-        if (array_key_exists("password",$datos)){
+        if (array_key_exists("password", $datos)) {
             $datos["password"] = Hash::make($datos["password"]);
         }
 
@@ -134,7 +141,7 @@ class TecnicoController extends Controller
     public function destroy($id)
     {
         //
-        User::where('id','=',$id)->delete($id);
+        User::where('id', '=', $id)->delete($id);
         return back()->with('tecnicoEliminado', 'Técnico  eliminado con éxito');
     }
 }

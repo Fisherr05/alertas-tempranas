@@ -74,6 +74,8 @@ class DatoController extends Controller
         $fruto = $request->fruto;
         $incidencia = $request->incidencia;
         $severidad = $request->severidad;
+        $observaciones=$request->observaciones;
+        $e=$request->estado;
         for ($i = 0; $i < count($idMonitoreo); $i++) {
             $datasave = [
                 'idMonitoreo' => $idMonitoreo[$i],
@@ -84,7 +86,8 @@ class DatoController extends Controller
             ];
             DB::table('datos')->insert($datasave);
         }
-
+        $ob=$observaciones;
+        Monitoreo::where('id',$idMonitoreo)->update(['observaciones'=>$ob,'estado'=>$e]);
         //return dd($i);
         return redirect('/tecnico')->with('datoGuardado', 'Dato guardado con éxito');
     }

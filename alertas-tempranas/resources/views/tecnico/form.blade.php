@@ -1,72 +1,78 @@
 <script>
-    function soloLetras(e){
+    function soloLetras(e) {
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
         letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú";
 
-        especiales=[8,32];
-        tecla_especial= false;
-        for(var i in especiales){
-            if(key == especiales[i]){
-            tecla_especial=true;
-            break;
+        especiales = [8, 32];
+        tecla_especial = false;
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
             }
         }
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
             alert("Ingresar solo letras");
             return false;
         }
     }
-     function soloLetrayNumero(e){
+
+    function soloLetrayNumero(e) {
         key = e.keyCode || e.which;
         tecla = String.fromCharCode(key).toString();
         letras = "ABECDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚabcdefghijklmnñopqrstuvwxyzáéíóú1234567890-_";
 
-        especiales=[8,32];
-        tecla_especial= false;
-        for(var i in especiales){
-            if(key == especiales[i]){
-            tecla_especial=true;
-            break;
+        especiales = [8, 32];
+        tecla_especial = false;
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
             }
         }
-        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
             alert("Ingresar datos correspondientes");
             return false;
         }
     }
 
-    function soloNum(ev){
-        if(window.event){
+    function soloNum(ev) {
+        if (window.event) {
             keynum = ev.keyCode;
-        }else{
+        } else {
             keynum = ev.which;
         }
-        if((keynum > 47 && keynum < 58 ) || keynum == 8 || keynum == 13){
+        if ((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13) {
             return true;
-        }else{
+        } else {
             alert("Ingresar solo números");
             return false;
         }
     }
 </script>
 <div class="form-group">
-<input class="form-control" type="hidden" name="fullacces"
-    value="no">
-        <label for="fenologia">Nombre de Técnico:</label>
-        <input type="text"  onkeypress="return soloLetras(event);" class="form-control" id="name" name="name" placeholder="Ingrese el nombre del técnico"
-            value="{{ isset($tecnico->name) ? $tecnico->name : '' }}" required>
-        <div class="valid-feedback">
-            ¡Bien!
-        </div>
-        <div class="invalid-feedback">
-            ¡Rellene este campo!
-        </div>
+    <label for="Opcion">Tipo de Usuario:</label>
+    <select id="" class="form-control" name="fullacces" required>
+        <option value="1">Técnico</option>
+        <option value="2">Revisor</option>
+    </select>
+    <label for="fenologia">Nombre de Técnico:</label>
+    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="name" name="name"
+        placeholder="Ingrese el nombre del técnico" value="{{ isset($tecnico->name) ? $tecnico->name : '' }}"
+        required>
+    <div class="valid-feedback">
+        ¡Bien!
     </div>
+    <div class="invalid-feedback">
+        ¡Rellene este campo!
+    </div>
+</div>
 <br>
 <div class="form-group">
     <label>Institución:</label>
-    <input type="text" onkeypress="return soloLetrayNumero(event);" class="form-control" id="institucion" name="institucion" placeholder="Ingrese la institución"
+    <input type="text" onkeypress="return soloLetrayNumero(event);" class="form-control" id="institucion"
+        name="institucion" placeholder="Ingrese la institución"
         value="{{ isset($tecnico->institucion) ? $tecnico->institucion : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
@@ -79,7 +85,8 @@
 
 <div class="form-group">
     <label>Teléfono:</label>
-    <input type="text" onkeypress="return soloNum(event);" minlength="7" maxlength="10" class="form-control" id="telefono" name="telefono" placeholder="Ingrese número de teléfono"
+    <input type="text" onkeypress="return soloNum(event);" minlength="7" maxlength="10" class="form-control"
+        id="telefono" name="telefono" placeholder="Ingrese número de teléfono"
         value="{{ isset($tecnico->telefeno) ? $tecnico->telefeno : '' }}" required="">
     <div class="valid-feedback">
         ¡Bien!
@@ -115,8 +122,8 @@
 <br>
 <div class="form-group">
     <label>Activo:</label>
-    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="activo" name="activo" placeholder="Ingrese activo"
-        value="{{ isset($tecnico->activo) ? $tecnico->activo : '' }}" required>
+    <input type="text" onkeypress="return soloLetras(event);" class="form-control" id="activo" name="activo"
+        placeholder="Ingrese activo" value="{{ isset($tecnico->activo) ? $tecnico->activo : '' }}" required>
     <div class="valid-feedback">
         ¡Bien!
     </div>
@@ -164,5 +171,4 @@
             });
         }, false);
     })();
-
 </script>

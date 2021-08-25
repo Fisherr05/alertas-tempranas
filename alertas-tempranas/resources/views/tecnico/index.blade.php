@@ -63,12 +63,13 @@
                             <th>TELÉFONO</th>
                             <th>EMAIL</th>
                             <th>ACTIVO</th>
+                            <th>ROL</th>
                             <th>ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($tecnicos as $tecnico)
-                            @if($tecnico->fullacces == 'no')
+                            @if($tecnico->fullacces == 'no' || $tecnico->fullacces == 'revisor')
                             <tr>
                                 <td>{{ $count++ }}</td>
                                 <td>{{ $tecnico->name }}</td>
@@ -76,6 +77,11 @@
                                 <td>{{ $tecnico->telefono }}</td>
                                 <td>{{ $tecnico->email }}</td>
                                 <td>{{ $tecnico->activo }}</td>
+                                <td>@if($tecnico->fullacces == 'no')
+                                    Técnico
+                                    @else
+                                    Revisor
+                                @endif</td>
                                 <td>
                                     <form action="{{ route('tecnicos.destroy', $tecnico->id) }}" method="POST">
                                         <a href="/tecnicos/{{ $tecnico->id }}/edit" class="btn btn-secondary"><i

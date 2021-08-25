@@ -40,5 +40,11 @@ class AppServiceProvider extends ServiceProvider
             }
             return false;
         });
+        \Gate::define('3', function ($user) {
+            if ($user->fullacces == 'revisor') {
+                return true;
+            }
+            return false;
+        });
     }
 }

@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('institucion');
             $table->string('telefono');
-            $table->enum('fullacces',['yes','no'])->nullable();
+            $table->enum('fullacces',['yes','no','revisor'])->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('activo');

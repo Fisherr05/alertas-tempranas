@@ -101,6 +101,8 @@
     </div>
 </div>
 <br>
+<input type="text" name="estado" value="no" hidden>
+
 <!-- Validacion errores-->
 @if ($errors->any())
     <div class="alert alert-danger">

@@ -17,13 +17,12 @@ class SoloAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        switch(auth::user()->fullacces){
-            case('yes'):
-                return $next($request);
-             //si es admin redirige a home
-            case('no'):
-                return redirect('tecnico');
-                return redirect('datos'); //si es user redirige a user
+        if(auth::user()->fullacces == 'yes'){
+            return $next($request);
+        }else if(auth::user()->fullacces == 'no'){
+            return redirect('tecnico');
+        } else if(auth::user()->fullacces == 'revisor'){
+            return redirect('tecnico');
         }
     }
     public function terminate($request, $response)
@@ -34,6 +33,7 @@ class SoloAdmin
              //si es admin redirige a home
             case('no'):
                 return redirect('/tecnico'); //si es user redirige a user
+            case('revisor'):return redirect('/tecnico');
         }
     }
 }
